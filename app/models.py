@@ -1,8 +1,10 @@
+import hashlib
 from enum import Enum as EnumRole
 from sqlalchemy import Column, Integer, String, ForeignKey, Enum, Float, DateTime, Boolean
 from datetime import datetime
 from app import db, app
 from sqlalchemy.orm import relationship
+from flask_login import UserMixin
 
 
 class Person(db.Model):
@@ -18,16 +20,17 @@ class Person(db.Model):
         return self.full_name
 
 class UserRole(EnumRole):
-    ADMIN = 1
-    User = 2
+    USER = 1
+    ADMIN = 2
     EMPLOYEE = 3
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String(50), nullable=False, unique=True)
     password = Column(String(100), nullable=False)
-    user_role = Column(Enum(UserRole), default=UserRole.User)
+    avatar = Column(String(255))
+    user_role = Column(Enum(UserRole), default=UserRole.USER)
     employees = relationship('Employee', backref='user', lazy=True)
     customers = relationship('Customer', backref='user', lazy=True)
 
@@ -98,6 +101,7 @@ class Room(db.Model):
     price = Column(Float, nullable=False)
     status = Column(Enum(StatusRoom), default=StatusRoom.EMPTY)
     type_room = Column(Enum(TypeRoom), default=TypeRoom.NORMAL)
+    image = Column(String(255))
     booking_details = relationship('BookingDetail', backref='room', lazy=True)
 
     def __index__(self):
@@ -158,8 +162,12 @@ class RentalCustomer(db.Model):
 
 if __name__ == '__main__':
     with app.app_context():
-        db.drop_all()
-        db.create_all()
+        # db.drop_all()
+        # db.create_all()
+        u = User(username='dat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
+                 user_role=UserRole.USER)
+        db.session.add(u)
+        db.session.commit()
 
 
 

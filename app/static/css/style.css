@@ -13,3 +13,9 @@
 .text-footer{
     font-size: 12px;
 }
+.username{
+    padding-left: 0 !important;
+    font-size: large;
+    font-style: initial;
+    font-weight: 600;
+}
