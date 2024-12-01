@@ -13,6 +13,45 @@
 .text-footer{
     font-size: 12px;
 }
+
+
+.title-color{
+    color: #248acc;
+}
+
+.ticket {
+    background-color: #fff7f7; /* Nền màu nhạt */
+    border: 2px solid #ffb3b3; /* Viền đỏ nhạt */
+    border-radius: 15px;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+}
+
+.ticket-divider {
+    width: 1px;
+    background: repeating-linear-gradient(
+        to bottom,
+        #ffb3b3 0,
+        #ffb3b3 5px,
+        transparent 5px,
+        transparent 10px
+    );
+    height: 100%;
+}
+.ticket-info {
+    flex-grow: 1;
+}
+
+.ticket-code p {
+    font-size: 1.5rem;
+}
+
+
+.ticket-code button {
+    font-size: 0.875rem;
+    border-radius: 25px;
+=======
 .username{
     padding-left: 0 !important;
     font-size: large;
