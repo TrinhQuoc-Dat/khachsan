@@ -63,11 +63,13 @@
 <!--w3school end Carousel -->
 
 <!-- thanh tìm kiếm -->
-<div class="container mt-5">
-    <div class="container border border-3 rounded mx-auto find ">
+<div class="container mt-5  bg-light">
+    <div class="container border border-3 rounded mx-auto">
         <form class="m-4">
             <div class="dropdown mb-2 ">
-                <label for="location-dropdown" class="form-label title-color"><i class="fa-solid fa-city" style="color: #63E6BE;"></i> Thành phố,
+                <label for="location-dropdown" class="form-label title-color"><i
+                        class="fa-solid fa-city" style="color: #63E6BE;"></i>
+                    Thành phố,
                     vị trí hoặc khách sạn
                     name:</label>
                 <input
@@ -89,7 +91,8 @@
             </div>
 
             <!-- ngày nhận - ngày trả phòng -->
-            <div class="row justify-content-center align-items-center text-center">
+            <div
+                class="row justify-content-center align-items-center text-center">
                 <div class="col-md-3 ">
                     <label for="checkin-date" class="form-label title-color"><i
                             class="fa-solid fa-calendar"
@@ -111,14 +114,17 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="check-out-date" class="mb-3 title-color"><i class="fa-solid fa-right-to-bracket" style="color: #B197FC;"></i> Check out</label>
-                    <div><label for="checkout-date"  id="current-date"></label>
+                    <label for="check-out-date" class="mb-3 title-color"><i
+                            class="fa-solid fa-right-to-bracket"
+                            style="color: #B197FC;"></i> Check out</label>
+                    <div><label for="checkout-date" id="current-date"></label>
                     </div>
                 </div>
 
                 <div class="row mt-3 justify-content-center p-0">
                     <div class="col-md-3 text-center">
-                        <p class="title-color" > <i class="fa-solid fa-person" style="color: #f5600f;"></i> Số lượng khách</p>
+                        <p class="title-color"> <i class="fa-solid fa-person"
+                                style="color: #f5600f;"></i> Số lượng khách</p>
                         <select class="form-select">
                             <option>2</option>
                             <option>1</option>
@@ -127,13 +133,14 @@
                     </div>
 
                     <div class="col-md-3 ">
-                        <p class="title-color"> <i class="fa-solid fa-bed" style="color: #e665d5;"></i> Loại phòng</p>
+                        <p class="title-color"> <i class="fa-solid fa-bed"
+                                style="color: #e665d5;"></i> Loại phòng</p>
                         <select class="form-select">
                             <option>Normal</option>
                             <option>VIP</option>
                         </select>
                     </div>
-                    
+
                     <div class="col-md-6 text-center">
                         <p class="mb-0"><br></p>
                         <button type="button" class="btn col-md-6"
@@ -145,6 +152,32 @@
                 </div>
             </div>
         </form>
+    </div>
+</div>
+<!-- end thanh tìm kiếm -->
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="ticket d-flex align-items-center">
+                <!-- Phần thông tin khuyến mãi -->
+                <div class="ticket-info flex-grow-1 p-3">
+                    <h5 class="fw-bold mb-2">Giảm 8% đặt phòng khách sạn...</h5>
+                    <p class="text-muted mb-1">Hạn sử dụng: 01/12 - 28/02</p>
+                    <p class="text-muted mb-1">Nhập mã khi thanh toán</p>
+                    <a href="#" class="text-danger fw-bold">Điều kiện & thể lệ chương trình</a>
+                </div>
+
+                <!-- Đường kẻ chấm giữa -->
+                <div class="ticket-divider"></div>
+
+                <!-- Phần mã giảm giá -->
+                <div class="ticket-code p-3 text-center">
+                    <p class="fw-bold text-danger mb-2">QTEBIZ</p>
+                    <button class="btn btn-danger btn-sm">Nhận mã</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <br><br>
