@@ -1,11 +1,6 @@
 {% extends 'layout/base.html' %}
 
-{% block js %}
-<script src="{{ url_for('static', filename='js/calculateNights.js') }}"></script>
-{% endblock %}
-
 {% block title %}Trang Chủ{% endblock %}
-
 
 {% block content %}
 
@@ -16,116 +11,141 @@
 
     <!-- Indicators/dots -->
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-      <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-      <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+        <button type="button" data-bs-target="#demo" data-bs-slide-to="0"
+            class="active"></button>
+        <button type="button" data-bs-target="#demo"
+            data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#demo"
+            data-bs-slide-to="2"></button>
     </div>
-  
+
     <!-- The slideshow/carousel -->
     <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="https://res.cloudinary.com/devtqlbho/image/upload/v1732290311/iuaopzbrpugrk6b3aujd.jpg" alt="Los Angeles" class="d-block w-100">
-        <div class="carousel-caption">
-            <h3>Los Angeles</h3>
-            <p>We had such a great time in 1!</p>
+        <div class="carousel-item active">
+            <img
+                src="https://res.cloudinary.com/devtqlbho/image/upload/v1732290311/iuaopzbrpugrk6b3aujd.jpg"
+                alt="Los Angeles" class="d-block w-100">
+            <div class="carousel-caption">
+                <h3>Los Angeles</h3>
+                <p>We had such a great time in 1!</p>
+            </div>
         </div>
-      </div>
-      <div class="carousel-item">
-        <img src="https://res.cloudinary.com/devtqlbho/image/upload/v1732283514/samples/landscapes/landscape-panorama.jpg" alt="Chicago" class="d-block w-100">
-        <div class="carousel-caption">
-            <h3>Los Angeles</h3>
-            <p>We had such a great time in 2!</p>
+        <div class="carousel-item">
+            <img
+                src="https://res.cloudinary.com/devtqlbho/image/upload/v1732283514/samples/landscapes/landscape-panorama.jpg"
+                alt="Chicago" class="d-block w-100">
+            <div class="carousel-caption">
+                <h3>Los Angeles</h3>
+                <p>We had such a great time in 2!</p>
+            </div>
         </div>
-      </div>
-      <div class="carousel-item">
-        <img src="https://res.cloudinary.com/devtqlbho/image/upload/v1732283520/samples/coffee.jpg" alt="New York" class="d-block w-100">
-        <div class="carousel-caption">
-            <h3>Los Angeles</h3>
-            <p>We had such a great time in 3!</p>
+        <div class="carousel-item">
+            <img
+                src="https://res.cloudinary.com/devtqlbho/image/upload/v1732283520/samples/coffee.jpg"
+                alt="New York" class="d-block w-100">
+            <div class="carousel-caption">
+                <h3>Los Angeles</h3>
+                <p>We had such a great time in 3!</p>
+            </div>
         </div>
-      </div>
     </div>
-  
+
     <!-- Left and right controls/icons -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
+    <button class="carousel-control-prev" type="button" data-bs-target="#demo"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
-      <span class="carousel-control-next-icon"></span>
+    <button class="carousel-control-next" type="button" data-bs-target="#demo"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
     </button>
 </div>
 <!--w3school end Carousel -->
 
 <!-- thanh tìm kiếm -->
 <div class="container mt-5">
-  <form>
-      <div class="dropdown mb-2">
-        <label for="location-dropdown" class="form-label">City, location or hotel name:</label>
-        
-        <input
-          id="location-dropdown"
-          type="text"
-          class="form-control dropdown-toggle"
-          placeholder="Thành phố, khách sạn, điểm đến"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        />
-        <ul class="dropdown-menu w-100">
-          <!-- phần này để đổ dữ liệu từ database vào -->
-          <li><a class="dropdown-item" href="#">Quận 1</a></li>
-          <li><a class="dropdown-item" href="#">Đà Nẵng</a></li>
-          <li><a class="dropdown-item" href="#">Link 3</a></li>
-          <li><a class="dropdown-item" href="#">Thành phố Vũng Tàu</a></li>
-          <li><a class="dropdown-item">Nha Trang</a></li>
-        </ul>
-      </div>
+    <div class="container border border-3 rounded mx-auto find ">
+        <form class="m-4">
+            <div class="dropdown mb-2 ">
+                <label for="location-dropdown" class="form-label title-color"><i class="fa-solid fa-city" style="color: #63E6BE;"></i> Thành phố,
+                    vị trí hoặc khách sạn
+                    name:</label>
+                <input
+                    id="location-dropdown"
+                    type="text"
+                    class="form-control dropdown-toggle"
+                    placeholder="Thành phố, khách sạn, điểm đến"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false" />
+                <ul class="dropdown-menu w-100">
+                    <!-- phần này để đổ dữ liệu từ database vào -->
+                    <li><a class="dropdown-item" href="#">Quận 1</a></li>
+                    <li><a class="dropdown-item" href="#">Đà Nẵng</a></li>
+                    <li><a class="dropdown-item" href="#">Link 3</a></li>
+                    <li><a class="dropdown-item" href="#">Thành phố Vũng
+                            Tàu</a></li>
+                    <li><a class="dropdown-item">Nha Trang</a></li>
+                </ul>
+            </div>
 
-      <!-- ngày nhận - ngày trả phòng -->
-      <div class="row">
-          <div class="col-md-2">
-            <label for="checkin-date" class="form-label"><i class="fa-solid fa-calendar" style="color: #23e7d9;"></i> Check-in date:</label>
-            <input type="date" id="checkin-date" class="form-control" />
-          </div>
+            <!-- ngày nhận - ngày trả phòng -->
+            <div class="row justify-content-center align-items-center text-center">
+                <div class="col-md-3 ">
+                    <label for="checkin-date" class="form-label title-color"><i
+                            class="fa-solid fa-calendar"
+                            style="color: #23e7d9;"></i> Check-in
+                        date:</label>
+                    <input type="date" id="checkin-date"
+                        class="form-control" />
+                </div>
 
-          <div class="col-md-2">
-          <label class="mb-2"><i class="fa-solid fa-moon" style="color: #FFD43B;"></i> number of nights</label>
-            <select class=" form-select ">
-              <option>1 đêm</option>  
-              <option>2 đêm</option>
-              <option>3 đêm</option>
-              <option>4 đêm</option>
-            </select>
-          </div>
+                <div class="col-md-3">
+                    <label class="mb-2 title-color"><i class="fa-solid fa-moon "
+                            style="color: #FFD43B;"></i> Số đêm</label>
+                    <select class=" form-select">
+                        <option>1 đêm</option>
+                        <option>2 đêm</option>
+                        <option>3 đêm</option>
+                        <option>4 đêm</option>
+                    </select>
+                </div>
 
-          <div class="col-md-8">
-            <label for="check-out" class="mb-2">Check out</label>
-            <div><label for="check-out-date">Thứ 3, 24 thg 12 2024</label>
-          </div>
-      </div>
+                <div class="col-md-6">
+                    <label for="check-out-date" class="mb-3 title-color"><i class="fa-solid fa-right-to-bracket" style="color: #B197FC;"></i> Check out</label>
+                    <div><label for="checkout-date"  id="current-date"></label>
+                    </div>
+                </div>
 
-      <div class="row mt-3">
-        <div class="col-md-3">
-          <p>Số lượng khách</p>
-          <select class="form-select">
-            <option>2</option>
-            <option>1</option>
-            <option>3</option>
-          </select>
-        </div>
+                <div class="row mt-3 justify-content-center p-0">
+                    <div class="col-md-3 text-center">
+                        <p class="title-color" > <i class="fa-solid fa-person" style="color: #f5600f;"></i> Số lượng khách</p>
+                        <select class="form-select">
+                            <option>2</option>
+                            <option>1</option>
+                            <option>3</option>
+                        </select>
+                    </div>
 
-        <div class="col-md-3">
-          <p>Loại phòng</p>
-          <select class="form-select">
-            <option>Normal</option>
-            <option>VIP</option>
-          </select>
-        </div>
-        <div class="col-md-6">
-          <p class="mb-0"></p>
-          <button type="button" class="btn col-md-6 " style="background-color:#ff5e1e; color:antiquewhite"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i> Tìm khách sạn</button>
-        </div>
-      </div>
-  </form>
+                    <div class="col-md-3 ">
+                        <p class="title-color"> <i class="fa-solid fa-bed" style="color: #e665d5;"></i> Loại phòng</p>
+                        <select class="form-select">
+                            <option>Normal</option>
+                            <option>VIP</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-6 text-center">
+                        <p class="mb-0"><br></p>
+                        <button type="button" class="btn col-md-6"
+                            style="background-color:#ff5e1e; color:antiquewhite"><i
+                                class="fa-solid fa-magnifying-glass"
+                                style="color: #ffffff;"></i>
+                            Tìm khách sạn</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 <br><br>
 {% endblock %}
