@@ -14,6 +14,7 @@
     font-size: 12px;
 }
 
+
 .title-color{
     color: #248acc;
 }
@@ -50,4 +51,10 @@
 .ticket-code button {
     font-size: 0.875rem;
     border-radius: 25px;
+=======
+.username{
+    padding-left: 0 !important;
+    font-size: large;
+    font-style: initial;
+    font-weight: 600;
 }
