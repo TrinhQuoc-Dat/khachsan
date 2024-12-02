@@ -47,7 +47,10 @@
 
 .ticket-code button {
     font-size: 0.875rem;
-    border-radius: 13px;
+    border-radius: 7px;
+    background-color: #ff3266;
+    color: #fff5f6;
+    padding: 5px;
 }
 
 .ticket-info {
