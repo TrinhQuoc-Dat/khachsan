@@ -68,3 +68,6 @@
     font-style: initial;
     font-weight: 600;
 }
+.error-mail{
+    display: none;
+}
