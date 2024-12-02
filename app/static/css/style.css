@@ -59,6 +59,11 @@
     background-color: var(--background-color-ticket);
 }
 
+.text-truncate {
+    white-space: nowrap;     
+    overflow: hidden;    
+    text-overflow: ellipsis;  /* Thêm dấu "..." khi văn bản bị cắt */
+}
 /* hết phần vé khuyển mãi */
 
 /* =============== */
