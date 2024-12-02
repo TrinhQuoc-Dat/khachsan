@@ -1,46 +1,43 @@
+:root {
+    --border-color-ticket: #e88ba3;
+    --background-color-ticket: #fff5f6;
+}
+
 .booking {
     color: #003b95;
 }
+
 .face {
-    color:#0866ff;
+    color: #0866ff;
 }
-.twitter{
+
+.twitter {
     color: black;
 }
-.instagram{
+
+.instagram {
     color: #ff0a85;
 }
-.text-footer{
+
+.text-footer {
     font-size: 12px;
 }
 
 
-.title-color{
+.title-color {
     color: #248acc;
 }
 
-.ticket {
-    background-color: #fff7f7; /* Nền màu nhạt */
-    border: 2px solid #ffb3b3; /* Viền đỏ nhạt */
-    border-radius: 15px;
-    position: relative;
-    display: flex;
-    overflow: hidden;
-}
+/* ===================== */
+/* vé khuyển mãi trang chủ index.html */
 
-.ticket-divider {
-    width: 1px;
-    background: repeating-linear-gradient(
-        to bottom,
-        #ffb3b3 0,
-        #ffb3b3 5px,
-        transparent 5px,
-        transparent 10px
-    );
-    height: 100%;
-}
-.ticket-info {
-    flex-grow: 1;
+
+.ticket-code {
+    border-top: 3px solid var(--border-color-ticket);
+    border-right: 3px solid var(--border-color-ticket);
+    border-bottom: 3px solid var(--border-color-ticket);
+    border-radius: 35px 8px 8px 35px;
+    background-color: var(--background-color-ticket);
 }
 
 .ticket-code p {
@@ -50,9 +47,22 @@
 
 .ticket-code button {
     font-size: 0.875rem;
-    border-radius: 25px;
-=======
-.username{
+    border-radius: 13px;
+}
+
+.ticket-info {
+    border-top: 3px solid var(--border-color-ticket);
+    border-right: 3px dashed var(--border-color-ticket);
+    border-bottom: 3px solid var(--border-color-ticket);
+    border-left: 3px solid var(--border-color-ticket);
+    border-radius: 8px 35px 35px 8px;
+    background-color: var(--background-color-ticket);
+}
+
+/* hết phần vé khuyển mãi */
+
+/* =============== */
+.username {
     padding-left: 0 !important;
     font-size: large;
     font-style: initial;
