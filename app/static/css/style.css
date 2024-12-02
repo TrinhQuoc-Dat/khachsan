@@ -87,6 +87,8 @@
 
 .timer p {
     font-weight: bold;
+    padding: 0;
+    margin: 2px;
 }
 
 .box-flasksale-right {
@@ -98,6 +100,10 @@
 /* hết phần countdown flasksale */
 
 /* phần image room trong flask sale */
+.img-responsive {
+    width: 40%; 
+    height: auto; 
+}
 /* =============== */
 .username {
     padding-left: 0 !important;

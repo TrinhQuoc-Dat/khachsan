@@ -1,10 +1,10 @@
 // thời gian kết thúc (YYYY-MM-DDTHH:MM:SS)
-const endTime = new Date("2024-12-31T23:59:59").getTime();
+const endTime = new Date("2024-12-30T23:59:59").getTime();
 
 function updateCountdown() {
       const now = new Date().getTime();
       const timeLeft = endTime - now;
-      if (timeLeft >= 0) {
+      if (timeLeft > 0) {
             const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
             const hours = Math.floor(timeLeft % (1000 * 60 * 60 * 24) / (1000 * 60 * 60))
             const minutes = Math.floor(timeLeft % (1000 * 60 * 60) / (1000 * 60));
