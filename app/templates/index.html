@@ -158,7 +158,8 @@
 
 <!-- Phần khuyến mãi -->
 <div class="container mt-5">
-    <h3 class="mt3 mb-3">Mã giảm giá <span id="count-ticket" style="color: rgb(255, 51, 102);">0</span></h3>
+    <h3 class="mt3 mb-3">Mã giảm giá <span id="count-ticket"
+            style="color: rgb(255, 51, 102);">0</span></h3>
     <div class="row justify-content-center">
 
         <div class="col-md-5 me-5">
@@ -295,56 +296,70 @@
 </div>
 
 <!-- end Phần khuyến mãi -->
+
+<!-- Phần flask sale -->
 <div class="container mt-5">
     <div class="row " style="justify-content: space-between">
-        <div class="col-md-5" style="background-color: #23e7d9;">
+        <div class="col-md-5">
             <img src="../resources/images/flashSale.png" alt="flashSale">
             <div class="row">
                 <p class="col-md-6">Chương trình sẽ kết thúc trong</p>
-                <pc class="col-md-6"></pc>
+                <p class="col-md-6 timer" id="countdown"></p>
             </div>
         </div>
-        <div class="col-md-3" style="background-color: #ff5e1e;">2</div>
+        <div class="col-md-3">
+            <div class="container box-flasksale-right">
+                <ul style="list-style-type: none; text-align: center;">
+                    <li>kết thúc ngày 30/12/2024</li>
+                    <li>lúc 00:00:00 </li>
+                    <li>Đang diễn ra <i class="fa-solid fa-fire fa-shake"
+                            style="color: #f79a18;"></i></li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <!-- Carousel -->
-    <div id="flaskSale" class="carousel slide" data-bs-ride="carousel">
+    <div class="mt-5 container">
+        <div id="flaskSale" class="carousel slide" data-bs-ride="carousel">
 
-        <!-- Indicators/dots -->
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#flaskSale" data-bs-slide-to="0"
-                class="active"></button>
-            <button type="button" data-bs-target="#flaskSale"
-                data-bs-slide-to="1"></button>
-            <button type="button" data-bs-target="#flaskSale"
-                data-bs-slide-to="2"></button>
+            <!-- Indicators/dots -->
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#flaskSale"
+                    data-bs-slide-to="0"
+                    class="active"></button>
+                <button type="button" data-bs-target="#flaskSale"
+                    data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#flaskSale"
+                    data-bs-slide-to="2"></button>
+            </div>
+
+            <!-- The slideshow/carousel -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="la.jpg" alt="Los Angeles" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="chicago.jpg" alt="Chicago" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="ny.jpg" alt="New York" class="d-block w-100">
+                </div>
+            </div>
+
+            <!-- Left and right controls/icons -->
+            <button class="carousel-control-prev" type="button"
+                data-bs-target="#flaskSale" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button"
+                data-bs-target="#flaskSale" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
         </div>
-
-        <!-- The slideshow/carousel -->
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="la.jpg" alt="Los Angeles" class="d-block w-100">
-            </div>
-            <div class="carousel-item">
-                <img src="chicago.jpg" alt="Chicago" class="d-block w-100">
-            </div>
-            <div class="carousel-item">
-                <img src="ny.jpg" alt="New York" class="d-block w-100">
-            </div>
-        </div>
-
-        <!-- Left and right controls/icons -->
-        <button class="carousel-control-prev" type="button"
-            data-bs-target="#flaskSale" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button"
-            data-bs-target="#flaskSale" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </button>
     </div>
 </div>
-<!-- Phần flask sale -->
+
 
 <br><br>
 {% endblock %}

@@ -69,6 +69,35 @@
 }
 /* hết phần vé khuyển mãi */
 
+/* phần countdown flasksale */
+.timer {
+    display: flex;
+    justify-content: start;
+    gap: 5px;
+}
+
+.timer span {
+    background-color: #ff4081; 
+    color: white;             
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0px 10px;
+    border-radius: 8px;    
+}
+
+.timer p {
+    font-weight: bold;
+}
+
+.box-flasksale-right {
+    background-color: #ff4081;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+/* hết phần countdown flasksale */
+
+/* phần image room trong flask sale */
 /* =============== */
 .username {
     padding-left: 0 !important;
