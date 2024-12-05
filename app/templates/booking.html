@@ -1,0 +1,72 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Booking{% endblock %}
+
+{% block content %}
+
+
+<div class="container mt-3">
+    <div class="align-items-center">
+        <div class="mb-0">
+            <h1>Oasia House Dalat</h1>
+        </div>
+        <div class="p-2">
+            <i class="fa-regular fa-map"></i>
+            <span>27 Hẻm Lê Hồng Phong, Đà Lạt, Việt Nam - </span>
+            <a href="https://www.google.com/maps/place/SwanBay/@10.7396431,106.8313967,17z/data=!3m1!4b1!4m6!3m5!1s0x317523d8d516b03b:0x6a81257a389d5015!8m2!3d10.7396378!4d106.8339716!16s%2Fg%2F11rdsx9yw7?entry=ttu&g_ep=EgoyMDI0MTIwMS4xIKXMDSoASAFQAw%3D%3D">Vị trí xuất sắc - hiển thị bản đồ</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9 col-xs-12">
+            <div class="d-flex justify-content-between mb-2">
+                <div class="flex-image flex-column col-md-4 justify-content-between">
+                    <div class="rounded-pill">
+                        <img class="border-lg-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="95%"/>
+                    </div>
+                    <div class="rounded-pill pt-0 ">
+                        <img class="border-lg-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="95%"/>
+                    </div>
+                </div>
+                <div class="rounded-pill">
+                    <img class="border-lg-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="100%"/>
+                </div>
+            </div>
+            <div class="flex-image">
+                <div class="image-small">
+                    <button class=" p-0 border-none">
+                        <img class="border-sm-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="100%"/>
+                    </button>
+                </div>
+                <div class="image-small">
+                    <button class=" p-0 border-none">
+                        <img class="border-sm-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="100%"/>
+                    </button>
+                </div>
+                <div class="image-small">
+                    <button class=" p-0 border-none">
+                        <img class="border-sm-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="100%"/>
+                    </button>
+                </div>
+                <div class="image-small">
+                    <button class=" p-0 border-none">
+                        <img class="border-sm-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="100%"/>
+                    </button>
+                </div>
+                <div class="image-small">
+                    <button class=" p-0 border-none">
+                        <img class="border-sm-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="100%"/>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3 col-xs-12"></div>
+    </div>
+
+    
+
+</div>
+
+
+{% endblock %}

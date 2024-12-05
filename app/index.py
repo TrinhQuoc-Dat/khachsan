@@ -76,6 +76,17 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+@app.route('/booking', methods=['get', 'post'])
+def booking():
+    return render_template('booking.html')
+
+
+
+@app.route('/booking-detail', methods=['get', 'post'])
+def booking_detail():
+    return render_template('bookingDetail.html')
+
+
 
 
 
