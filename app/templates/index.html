@@ -305,7 +305,7 @@
 <!-- Phần flask sale -->
 
 <div class=" mt-5 mb-5 bg p-4" style="background-color: #fff5f6;">
-    <div class="row " style="justify-content: space-between">
+    <div class="row flashsale-frame space-between">
         <div class="col-md-5">
             <img
                 src="https://res.cloudinary.com/devtqlbho/image/upload/v1733149336/flashSale_s6l52q.png"
@@ -318,9 +318,8 @@
         </div>
         <div class="col-md-3">
             <div class="container">
-                <div class="box-flasksale-right"><ul
-                        style="list-style-type: none; text-align: center;"
-                        class="p-0 mb-0">
+                <div class="box-flasksale-right">
+                    <ul class="p-0 mb-0 flask-end">
                         <li>kết thúc ngày 30/12/2024</li>
                         <li>lúc 00:00:00 </li>
                         <li>Đang diễn ra <i class="fa-solid fa-fire fa-shake"
@@ -331,9 +330,7 @@
         </div>
     </div>
 
-    <div class="row mt-3 container"
-        style="height: 400px; justify-content: space-around; margin: 0 auto;">
-
+    <div class="row mt-3 container flask-room">
         <div class="card col-md-3 col-6 p-0" style="width:300px">
             <img class="card-img-top"
                 src="https://res.cloudinary.com/devtqlbho/image/upload/v1733131040/4_av2wxh.jpg"
@@ -347,16 +344,14 @@
                 </p>
                 <p class="card-text mb-0">Loại phòng: VIP</p>
                 <div>
-                    <span
-                        style="background-color: #feebef; color: #f43a6b; border-radius: 5    px;"><i
+                    <span class="flask-rate"><i
                             class="fa-solid fa-umbrella"
                             style="color: #09d396;"></i> 9.2</span>
                     <span>Tuyệt vời</span>
                     <span>(255 đánh giá)</span>
                 </div>
-                <div
-                    style="display: flex; flex-direction: column; align-items: flex-end;">
-                    <span style=" text-decoration: line-through;">1,000,000
+                <div class="flask-price">
+                    <span class="flask-price-old" class="flask-price-old">1,000,000
                         đ</span>
                     <span
                         style="color: rgb(229, 62, 62); font-size: 24px;">700,000
@@ -378,16 +373,14 @@
                 </p>
                 <p class="card-text mb-0">Loại phòng: VIP</p>
                 <div>
-                    <span
-                        style="background-color: #feebef; color: #f43a6b; border-radius: 5    px;"><i
+                    <span  class="flask-rate"><i
                             class="fa-solid fa-umbrella"
                             style="color: #09d396;"></i> 9.2</span>
                     <span>Tuyệt vời</span>
                     <span>(255 đánh giá)</span>
                 </div>
-                <div
-                    style="display: flex; flex-direction: column; align-items: flex-end;">
-                    <span style=" text-decoration: line-through;">1,000,000
+                <div class="flask-price">
+                    <span class="flask-price-old">1,000,000
                         đ</span>
                     <span
                         style="color: rgb(229, 62, 62); font-size: 24px;">700,000
@@ -409,16 +402,14 @@
                 </p>
                 <p class="card-text mb-0">Loại phòng: VIP</p>
                 <div>
-                    <span
-                        style="background-color: #feebef; color: #f43a6b; border-radius: 5    px;"><i
+                    <span class="flask-rate"><i
                             class="fa-solid fa-umbrella"
                             style="color: #09d396;"></i> 9.2</span>
                     <span>Tuyệt vời</span>
                     <span>(255 đánh giá)</span>
                 </div>
-                <div
-                    style="display: flex; flex-direction: column; align-items: flex-end;">
-                    <span style=" text-decoration: line-through;">1,000,000
+                <div class="flask-price">
+                    <span class="flask-price-old">1,000,000
                         đ</span>
                     <span
                         style="color: rgb(229, 62, 62); font-size: 24px;">700,000
@@ -440,16 +431,14 @@
                 </p>
                 <p class="card-text mb-0">Loại phòng: VIP</p>
                 <div>
-                    <span
-                        style="background-color: #feebef; color: #f43a6b; border-radius: 5    px;"><i
+                    <span class="flask-rate"><i
                             class="fa-solid fa-umbrella"
                             style="color: #09d396;"></i> 9.2</span>
                     <span>Tuyệt vời</span>
                     <span>(255 đánh giá)</span>
                 </div>
-                <div
-                    style="display: flex; flex-direction: column; align-items: flex-end;">
-                    <span style=" text-decoration: line-through;">1,000,000
+                <div class="flask-price">
+                    <span class="flask-price-old">1,000,000
                         đ</span>
                     <span
                         style="color: rgb(229, 62, 62); font-size: 24px;">700,000
@@ -462,50 +451,66 @@
 <!-- end Phần flask sale -->
 
 <!-- giới thiệu người sáng lập -->
-<div class="container row mx-auto" >
-    <div  class="col-md-3">
+<div class="container row mx-auto">
+    <div class="col-md-3">
         <div class="container">
-            <div class="card person_card" >
-                <img class="card-img-top person_image mx-auto rounded-circle mt-5" src="https://res.cloudinary.com/devtqlbho/image/upload/v1733410262/Ton-Nu-Tuong-Van-scaled-e1647176931557_j66ova.jpg" alt="tôn nữ tường vân">
+            <div class="card person_card">
+                <img
+                    class="card-img-top person_image mx-auto rounded-circle mt-5"
+                    src="https://res.cloudinary.com/devtqlbho/image/upload/v1733410262/Ton-Nu-Tuong-Van-scaled-e1647176931557_j66ova.jpg"
+                    alt="tôn nữ tường vân">
                 <div class="card-body">
                     <h4 class="card-title text-center">Tôn Nữ Tường Vân</h4>
-                    <p class="card-text text-center">"Fall where you stand up there."</p>
+                    <p
+                        class="card-text text-center">"Fall where you stand up there."</p>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div  class="col-md-3">
+
+    <div class="col-md-3">
         <div class="container">
-            <div class="card person_card" >
-                <img class="card-img-top person_image mx-auto rounded-circle mt-5" src="https://res.cloudinary.com/devtqlbho/image/upload/v1733410262/Phan-Tu%CC%81-Quye%CC%82n_Microsoft1-scaled-e1647176811363_ighsg1.jpg" alt="Phan Tú Quyên">
+            <div class="card person_card">
+                <img
+                    class="card-img-top person_image mx-auto rounded-circle mt-5"
+                    src="https://res.cloudinary.com/devtqlbho/image/upload/v1733410262/Phan-Tu%CC%81-Quye%CC%82n_Microsoft1-scaled-e1647176811363_ighsg1.jpg"
+                    alt="Phan Tú Quyên">
                 <div class="card-body">
                     <h4 class="card-title text-center">Phan Tú Quyên</h4>
-                    <p class="card-text text-center">“I am talented, so are you.”</p>
+                    <p class="card-text text-center">“I am talented, so are
+                        you.”</p>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div  class="col-md-3">
+
+    <div class="col-md-3">
         <div class="container">
-            <div class="card person_card" >
-                <img class="card-img-top person_image mx-auto rounded-circle mt-5" src="https://res.cloudinary.com/devtqlbho/image/upload/v1733410262/Nguyen-Ngo-Vi-Tam_VHC-1024x1536_st3tv2.jpg" alt="Nguyễn Ngô Vi Tâm">
+            <div class="card person_card">
+                <img
+                    class="card-img-top person_image mx-auto rounded-circle mt-5"
+                    src="https://res.cloudinary.com/devtqlbho/image/upload/v1733410262/Nguyen-Ngo-Vi-Tam_VHC-1024x1536_st3tv2.jpg"
+                    alt="Nguyễn Ngô Vi Tâm">
                 <div class="card-body">
                     <h4 class="card-title text-center">Nguyễn Ngô Vi Tâm</h4>
-                    <p class="card-text text-center">“Get up from where you fell”</p>
+                    <p class="card-text text-center">“Get up from where you
+                        fell”</p>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div  class="col-md-3">
+
+    <div class="col-md-3">
         <div class="container">
-            <div class="card person_card" >
-                <img class="card-img-top person_image mx-auto rounded-circle mt-5" src="https://res.cloudinary.com/devtqlbho/image/upload/v1733412792/HUY%CC%80NH-THI%CC%A3-XUA%CC%82N-LIE%CC%82N-1025x1536_jrkkol.jpg" alt="Huỳnh Thị Xuân Liên">
+            <div class="card person_card">
+                <img
+                    class="card-img-top person_image mx-auto rounded-circle mt-5"
+                    src="https://res.cloudinary.com/devtqlbho/image/upload/v1733412792/HUY%CC%80NH-THI%CC%A3-XUA%CC%82N-LIE%CC%82N-1025x1536_jrkkol.jpg"
+                    alt="Huỳnh Thị Xuân Liên">
                 <div class="card-body">
                     <h4 class="card-title text-center">Huỳnh Thị Xuân Liên</h4>
-                    <p class="card-text text-center">“Take action instead of making empty promises”</p>
+                    <p class="card-text text-center">“Take action instead of
+                        making empty promises”</p>
                 </div>
             </div>
         </div>

@@ -40,12 +40,15 @@
     font-weight: bold;
     bottom: -30px;
 }
-
+/* kết thúc banner giới thiệu */
+/* dùng chung */
 .full-width-height {
     width: 100%;
     height: 100%;
 }
-/* kết thúc banner giới thiệu */
+.space-between {
+    justify-content: space-between;
+}
 
 /* ===================== */
 /* vé khuyển mãi trang chủ index.html */
@@ -86,6 +89,7 @@
     overflow: hidden;    
     text-overflow: ellipsis;  /* Thêm dấu "..." khi văn bản bị cắt */
 }
+
 /* hết phần vé khuyển mãi */
 
 /* phần countdown flasksale */
@@ -116,12 +120,42 @@
     padding: 0;
     border-radius: 10px;
 }
+
+.flask-end {
+    list-style-type: none;
+    text-align: center;
+}
+
 /* hết phần countdown flasksale */
+
+
 
 /* phần image room trong flask sale */
 .img-responsive {
     width: 40%; 
     height: auto; 
+}
+
+.flask-room {
+    height: 400px; 
+    justify-content: space-around; 
+    margin: 0 auto;
+}
+
+.flask-price-old {
+    text-decoration: line-through;
+}
+
+.flask-price {
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-end;
+}
+
+.flask-rate {
+    background-color: #feebef; 
+    color: #f43a6b; 
+    border-radius: 5px;
 }
 
 /* thanh nhập số điện thoại nhận chương trình khuyến mãi */
