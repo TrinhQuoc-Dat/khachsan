@@ -1,0 +1,56 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Booking detail{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="../static/css/bookingDetail.css">
+{% endblock %}
+
+{% block js %}Booking Detail{% endblock %}
+
+{% block content %}
+<div>
+      <div class="main">
+            <div class="container" style="background-color: bisque;">
+                  <div class="row">
+                        <div class="col-md-2 text-center">
+                              <p class="menu-item-p">Tổng quan</p>
+                        </div>
+
+                        <div class="col-md-2">
+                              <p class="menu-item-p">Thông tin & giá</p>
+                        </div>
+
+                        <div class="col-md-2">
+                              <p class="menu-item-p">Tiện nghi</p>
+                        </div>
+
+                        <div class="col-md-2">
+                              <p class="menu-item-p">Quy tắc chung</p>
+                        </div>
+
+                        <div class="col-md-1">
+                              <p class="menu-item-p">Ghi chú</p>
+                        </div>
+
+                        <div class="col-md-3">
+                              <p class="menu-item-p">Đánh giá của khách (1.177)</p>
+                        </div>
+                  </div>
+
+                  <div class="row mt-5" style="background-color: aqua;">
+                        <div class="col-md-8" style="background-color: thistle;">
+                              <div>phòng P112 <i class="fa-solid fa-star" style="color: #FFD43B;"></i></div>
+                        </div>
+
+                        <div class="col-md-4" style="background-color: tomato;">
+                              <i class="fa-regular fa-heart" style="color: #74C0FC;"></i>
+                              <i class="fa-solid fa-share" style="color: #74C0FC;"></i>
+                              <button class="btn btn-info">Đặt ngay</button>
+                        </div>
+                  </div>
+            </div>
+            
+      </div>
+</div>
+{% endblock %}

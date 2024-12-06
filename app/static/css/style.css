@@ -146,6 +146,11 @@
     text-decoration: line-through;
 }
 
+.flask-price-sale {
+    color: rgb(229, 62, 62); 
+    font-size: 24px;
+}
+
 .flask-price {
     display: flex; 
     flex-direction: column; 
