@@ -1,0 +1,46 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container mt-3 mb-3">
+  {% if err_mgs %}
+    <div class="alert alert-danger mt-3 text-center">
+      <h6>{{ err_mgs }}</h6>
+    </div>  
+  {% endif %}
+  <div class="alert alert-danger mt-3 text-center error-mail" id="error-mail">
+    <h6 id="error-message"></h6>
+  </div>
+
+  <form action="/register" method="post" enctype="multipart/form-data">
+    <select class="form-select" name="user-role">
+      <option value="user">USER</option>
+    </select>
+    <div class="mb-3 mt-2">
+      <label for="email" class="form-label">Email:</label>
+      <input required type="email" onblur="EventCheckMail(this)" class="form-control" id="email" placeholder="Enter Email" name="email">
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="username" class="form-label">Username:</label>
+      <input required type="text" onblur="EvenCheckUsername(this)" class="form-control" id="username" placeholder="Username" name="username">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password:</label>
+      <input required type="password" onblur="EventCheckPassword(this)" class="form-control" id="password" placeholder="Enter password" name="password">
+    </div>
+    <div class="mb-3">
+      <label for="confirm" class="form-label">Confirm password:</label>
+      <input required type="password" onblur="EventCheckConfirm(this)" class="form-control" id="confirm" placeholder="Enter confirm" name="confirm">
+    </div>
+    <div class="mb-3">
+      <label for="file" class="form-label">Avatar:</label>
+      <input required type="file" class="form-control" id="file" name="avatar">
+    </div>
+    <button type="submit" class="btn btn-success">Đăng kí</button>
+  </form>
+</div>
+{% block js %}
+<script src="{{ url_for('static', filename='js/register.js') }}"></script>
+{% endblock %}
+{% endblock %}

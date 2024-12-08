@@ -1,9 +1,12 @@
 import hashlib
 
+import cloudinary.uploader
 from app import app, db, dao, utils
 from flask import render_template, request, redirect, jsonify, url_for
 from app.models import UserRole
 from flask_login import login_user, logout_user, current_user
+import cloudinary
+
 
 
 @app.route('/')
@@ -35,11 +38,54 @@ def login():
             roles=UserRole,
             err_mgs=err_mgs)
 
+@app.route('/register', methods=['get', 'post'])
+def sign_in():
+    err_mgs = ''
+    if request.method.__eq__('POST'):
+        password = request.form.get('password')
+        username = request.form.get('username')
+        email = request.form.get('email')
+        avatar = request.files.get('avatar')
+        avatar_path = None
+        try:
+            if avatar:
+                upload_result = cloudinary.uploader.upload(avatar)
+                avatar_path = upload_result['secure_url']
+                print("sdfsadkfdksf" + avatar_path)
+            dao.add_user(password=password, email=email, avatar=avatar_path,
+                          username=username, role=UserRole.USER)
+            return redirect(url_for('login'))
+        except Exception as ex:
+            err_mgs = "Server error !!!"
+            print(str(ex))
+            
+    return render_template('register.html', err_mgs=err_mgs)
+
+@app.route('/api/check-username', methods=['post'])
+def check_username():
+    username = request.json.get('username')  
+    u = dao.get_user_by_username(username=username)
+    if u:
+        return jsonify({'code': 201})
+    else:
+        return jsonify({'code': 200})
+
 
 @app.route('/sign-out')
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+@app.route('/booking', methods=['get', 'post'])
+def booking():
+    return render_template('booking.html')
+
+
+
+@app.route('/booking-detail', methods=['get', 'post'])
+def booking_detail():
+    return render_template('bookingDetail.html')
+
 
 
 @app.route('/booking-detail')

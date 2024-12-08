@@ -30,9 +30,9 @@ class User(db.Model, UserMixin):
     username = Column(String(50), nullable=False, unique=True)
     password = Column(String(100), nullable=False)
     avatar = Column(String(255))
+    email = Column(String(50), nullable=False, unique=True)
     user_role = Column(Enum(UserRole), default=UserRole.USER)
     employees = relationship('Employee', backref='user', lazy=True)
-    customers = relationship('Customer', backref='user', lazy=True)
 
 
 class CustomerType(EnumRole):
@@ -46,7 +46,6 @@ class Customer(db.Model):
     person_id = Column(Integer, ForeignKey(Person.id), primary_key=True)
     type_customer = Column(Enum(CustomerType), default=CustomerType.DOMESTIC)
     special_info = Column(String(255))
-    user_id = Column(Integer, ForeignKey(User.id))
     bookings = relationship('Booking', backref='customer', lazy=True)
     booking_details = relationship('BookingDetail', backref='customer', lazy=True)
     rental_receipts = relationship('RentalReceipt', backref='customer', lazy=True)
@@ -162,12 +161,13 @@ class RentalCustomer(db.Model):
 
 if __name__ == '__main__':
     with app.app_context():
+        pass
         # db.drop_all()
         # db.create_all()
-        u = User(username='dat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
-                 user_role=UserRole.USER)
-        db.session.add(u)
-        db.session.commit()
+        # u = User(username='Truongdat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
+        #          user_role=UserRole.USER, email='2251050017dat@ou.edu.vn')
+        # db.session.add(u)
+        # db.session.commit()
 
 
 
