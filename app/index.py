@@ -24,7 +24,7 @@ def login():
         user_role = request.form.get('user-role')
         try:
             u = dao.check_user(username=username, password=password,
-                               role=utils.get_user_role(user_role))
+                role=utils.get_user_role(user_role))
             print(u)
             if u:
                 login_user(user=u)
@@ -35,8 +35,8 @@ def login():
             err_mgs = 'Error server' + str(ex)
 
     return render_template('login.html',
-                           roles=UserRole,
-                           err_mgs=err_mgs)
+            roles=UserRole,
+            err_mgs=err_mgs)
 
 @app.route('/register', methods=['get', 'post'])
 def sign_in():
@@ -88,6 +88,9 @@ def booking_detail():
 
 
 
+@app.route('/booking-detail')
+def gobookingDetail():
+    return render_template('bookingDetail.html')
 
 
 if __name__ == '__main__':
