@@ -8,3 +8,44 @@
 .menu-item-p:hover {
       background-color: rgb(202, 215, 215);
 }
+
+.room-review {
+      color: aliceblue; 
+      background-color: #003b98;
+      border-radius: 5px;
+      padding: 1px 4px;
+}
+
+.room-rate {
+      color: aliceblue; 
+      background-color: #003b98;
+      border-radius: 5px;
+      padding: 10px 0 10px 10px;
+      margin: 0 auto;
+      text-align: center;
+}
+
+.image-nation > img{
+      width: 30px; 
+      height: 20px;
+      margin: 2px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+      filter: invert(1);
+}
+
+.carousel-control-prev-icon {
+      margin-right: 35px ;
+      margin-bottom: 30px;
+}
+
+.carousel-control-next-icon{
+      margin-left: 35px;
+      margin-bottom: 30px;
+}
+
+.carousel-item > span, div {
+      
+}

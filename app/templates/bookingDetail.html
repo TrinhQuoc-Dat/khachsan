@@ -10,67 +10,69 @@
 
 {% block content %}
 <div>
-      <div class="main">
-            <div class="container" style="background-color: bisque;">
-                  <div class="row">
-                        <div class="col-md-2 text-center">
-                              <p class="menu-item-p">Tổng quan</p>
-                        </div>
+    <div class="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 text-center">
+                    <p class="menu-item-p">Tổng quan</p>
+                </div>
 
-                        <div class="col-md-2">
-                              <p class="menu-item-p">Thông tin & giá</p>
-                        </div>
+                <div class="col-md-2">
+                    <p class="menu-item-p">Thông tin & giá</p>
+                </div>
 
-                        <div class="col-md-2">
-                              <p class="menu-item-p">Tiện nghi</p>
-                        </div>
+                <div class="col-md-2">
+                    <p class="menu-item-p">Tiện nghi</p>
+                </div>
 
-                        <div class="col-md-2">
-                              <p class="menu-item-p">Quy tắc chung</p>
-                        </div>
+                <div class="col-md-2">
+                    <p class="menu-item-p">Quy tắc chung</p>
+                </div>
 
-                        <div class="col-md-1">
-                              <p class="menu-item-p">Ghi chú</p>
-                        </div>
+                <div class="col-md-1">
+                    <p class="menu-item-p">Ghi chú</p>
+                </div>
 
-                        <div class="col-md-3">
-                              <p class="menu-item-p">Đánh giá của khách
-                                    (1.177)</p>
-                        </div>
-                  </div>
-
-                  <div class="row mt-5" style="background-color: aqua;">
-                        <div class="col-md-8"
-                              style="background-color: thistle;">
-                              <div>phòng P112
-                                    {% for i in range(1, 3) %}
-                                    <i class="fa-solid fa-star"
-                                          style="color: #FFD43B;"></i>
-                                    {% endfor %}
-                                    <i class="fa-solid fa-thumbs-up"
-                                          style="color: #74C0FC;"></i>
-                              </div>
-                        </div>
-
-                        <div class="col-md-4" style="background-color: tomato;">
-                              <i class="fa-regular fa-heart"
-                                    style="color: #74C0FC;"></i>
-                              <i class="fa-solid fa-share"
-                                    style="color: #74C0FC;"></i>
-                              <button class="btn btn-info me-3 m-3">Đặt
-                                    ngay</button>
-
-                              <span style="color: #1763b7;"> <i
-                                          class="fa-solid fa-tag"
-                                          style="color: #74C0FC;"></i> Chúng tôi
-                                    luôn khớp giá</span>
-                        </div>
-                  </div>
+                <div class="col-md-3">
+                    <p class="menu-item-p">Đánh giá của khách
+                        (1.177)</p>
+                </div>
             </div>
 
-      </div>
-</div>
+            <div class="row mt-5">
+                <div class="col-md-8">
+                    <div>phòng P112
+                        {% for i in range(1, 4) %}
+                        <i class="fa-solid fa-star"
+                            style="color: #FFD43B;"></i>
+                        {% endfor %}
+                        <i class="fa-solid fa-thumbs-up"
+                            style="color: #74C0FC;"></i>
+                    </div>
+                    <div>
+                        <p>Tốt <span class="room-review">7.8</span> 912 đánh
+                            giá</p>
+                    </div>
+                </div>
 
+                <div class="col-md-4 text-end">
+                    <i class="fa-regular fa-heart"
+                        style="color: #74C0FC;"></i>
+                    <i class="fa-solid fa-share"
+                        style="color: #74C0FC;"></i>
+                    <button class="btn btn-info me-3 m-3">Đặt
+                        ngay</button>
+
+                    <span style="color: #1763b7;"> <i
+                            class="fa-solid fa-tag"
+                            style="color: #74C0FC;"></i> Chúng tôi
+                        luôn khớp giá</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <div class="container mt-3">
     <div class="align-items-center">
@@ -80,60 +82,161 @@
         <div class="p-2">
             <i class="fa-regular fa-map"></i>
             <span>27 Hẻm Lê Hồng Phong, Đà Lạt, Việt Nam - </span>
-            <a href="https://www.google.com/maps/place/SwanBay/@10.7396431,106.8313967,17z/data=!3m1!4b1!4m6!3m5!1s0x317523d8d516b03b:0x6a81257a389d5015!8m2!3d10.7396378!4d106.8339716!16s%2Fg%2F11rdsx9yw7?entry=ttu&g_ep=EgoyMDI0MTIwMS4xIKXMDSoASAFQAw%3D%3D">Vị trí xuất sắc - hiển thị bản đồ</a>
+            <a
+                href="https://www.google.com/maps/place/SwanBay/@10.7396431,106.8313967,17z/data=!3m1!4b1!4m6!3m5!1s0x317523d8d516b03b:0x6a81257a389d5015!8m2!3d10.7396378!4d106.8339716!16s%2Fg%2F11rdsx9yw7?entry=ttu&g_ep=EgoyMDI0MTIwMS4xIKXMDSoASAFQAw%3D%3D">Vị
+                trí xuất sắc - hiển thị bản đồ</a>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-9 col-xs-12">
             <div class="d-flex justify-content-between mb-2">
-                <div class="flex-image flex-column col-md-4 justify-content-between">
+                <div
+                    class="flex-image flex-column col-md-4 justify-content-between">
                     <div class="rounded-pill">
-                        <img class="border-lg-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="95%"/>
+                        <img class="border-lg-image"
+                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            width="95%" />
                     </div>
                     <div class="rounded-pill pt-0 ">
-                        <img class="border-lg-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="95%"/>
+                        <img class="border-lg-image"
+                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            width="95%" />
                     </div>
                 </div>
                 <div class="rounded-pill">
-                    <img class="border-lg-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="100%"/>
+                    <img class="border-lg-image"
+                        src="{{ url_for('static', filename='image/ks.jpg') }}"
+                        width="100%" />
                 </div>
             </div>
             <div class="flex-image">
                 <div class="image-small">
                     <button class=" p-0 border-none">
-                        <img class="border-sm-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="100%"/>
+                        <img class="border-sm-image"
+                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
-                        <img class="border-sm-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="100%"/>
+                        <img class="border-sm-image"
+                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
-                        <img class="border-sm-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="100%"/>
+                        <img class="border-sm-image"
+                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
-                        <img class="border-sm-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="100%"/>
+                        <img class="border-sm-image"
+                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
-                        <img class="border-sm-image" src="{{ url_for('static', filename='image/ks.jpg') }}" width="100%"/>
+                        <img class="border-sm-image"
+                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            width="100%" />
                     </button>
                 </div>
             </div>
 
         </div>
-        <div class="col-md-3 col-xs-12"></div>
-    </div>
+        <div class="col-md-3 col-xs-12 p-1" style="border: 1px solid #1763b7; border-radius: 5px;">
+            <div>
+                <div class="row">
+                    <div class="col-md-9 col-xs-12 text-end p-0">
+                        <h5 class='mb-0'>Tốt</h5>
+                        <p class="mb-0">912 đánh giá</p>
+                    </div>
+                    <div class="col-md-3 col-xs-12 ">
+                        <p class="room-rate ">7.8</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="mt-3">
+                <h6>Khách lưu trú ở đây thích điều gì? </h6>
+                <!-- Carousel -->
+                <div id="cmt" class="carousel slide" data-bs-ride="carousel">
 
-    
+                    <!-- The slideshow/carousel -->
+                    <div class="carousel-inner container">
+                        <div class="carousel-item active container">
+                            <span>“nhiều quán nhậu xung quanh, chất lượng phòng
+                                ổn, lễ tân trực 24/24, giá phòng rẻ mà ở ngay
+                                trung tâm.”</span>
+                            <div
+                                class="image-nation d-flex justify-content-around mt-3">
+                                <span><i class="fa-solid fa-user"
+                                        style="color: #cfd8e8;"></i> </span>
+                                <p>Quốc Vũ</p>
+                                <img
+                                    src="https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+                                    alt="Vietnamese">
+                                <span>Vietnamese</span>
+                            </div>
+                        </div>
+                        <div class="carousel-item container">
+                            <span>“Phòng đep, rộng rãi, thoáng mát, nhân viên
+                                nhiệt tình, dịch vụ tốt, rất đáng để quay trở
+                                lại.”</span>
+                            <div
+                                class="image-nation d-flex justify-content-around mt-3 ">
+                                <span><i class="fa-solid fa-user"
+                                        style="color: #cfd8e8;"></i> </span>
+                                <p>Hạ Linh</p>
+                                <img
+                                    src="https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+                                    alt="Vietnamese">
+                                <span>Vietnamese</span>
+                            </div>
+                        </div>
+                        <div class="carousel-item container">
+                            <span>“không gian rộng rãi, thoáng mát, đầy đủ tiện
+                                nghi, ăn uống đa dạng nhân viên lịch
+                                sự,...”</span>
+                            <div
+                                class="image-nation d-flex justify-content-around mt-3 ">
+                                <span><i class="fa-solid fa-user"
+                                        style="color: #cfd8e8;"></i> </span>
+                                <p>Dương Phạm</p>
+                                <img
+                                    src="https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+                                    alt="Vietnamese">
+                                <span>Vietnamese</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Left and right controls/icons -->
+                    <button class="carousel-control-prev" type="button"
+                        data-bs-target="#cmt" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button"
+                        data-bs-target="#cmt" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-around">
+                    <p>Vị trí tuyệt vời</p>
+                    <span>9,0</span>
+                </div>
+                <hr>
+            </div>
+
+        </div>
+    </div>
 
 </div>
 
 {% endblock %}
-
