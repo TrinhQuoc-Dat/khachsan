@@ -87,12 +87,6 @@ def booking_detail():
     return render_template('bookingDetail.html')
 
 
-
-@app.route('/booking-detail')
-def gobookingDetail():
-    return render_template('bookingDetail.html')
-
-
 if __name__ == '__main__':
     app.run(debug=True)
 

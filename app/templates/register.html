@@ -3,7 +3,7 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="container mt-3 mb-3">
+<div class="container-login mt-3 mb-3">
   {% if err_mgs %}
     <div class="alert alert-danger mt-3 text-center">
       <h6>{{ err_mgs }}</h6>
@@ -37,7 +37,7 @@
       <label for="file" class="form-label">Avatar:</label>
       <input required type="file" class="form-control" id="file" name="avatar">
     </div>
-    <button type="submit" class="btn btn-success">Đăng kí</button>
+    <button type="submit" class="btn btn-danger">Đăng kí</button>
   </form>
 </div>
 {% block js %}

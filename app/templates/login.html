@@ -3,7 +3,7 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="container mt-3 mb-3">
+<div class="container-login mt-5 mb-3">
   {% if err_mgs %}
     <div class="alert alert-danger mt-3 text-center">
       <h6>{{ err_mgs }}</h6>
@@ -17,14 +17,14 @@
       {% endfor %}
     </select>
     <div class="mb-3 mt-3">
-      <label for="username" class="form-label">Username:</label>
-      <input required type="text" class="form-control" id="username" placeholder="Username" name="username">
+      <label for="username" class="form-label">Tên đăng nhập:</label>
+      <input required type="text" class="form-control" id="username" placeholder="Tên đăng nhập..." name="username">
     </div>
     <div class="mb-3">
-      <label for="password" class="form-label">Password:</label>
-      <input required type="password" class="form-control" id="password" placeholder="Enter password" name="password">
+      <label for="password" class="form-label">Mật Khẩu:</label>
+      <input required type="password" class="form-control" id="password" placeholder="Nhập Mật Khẩu" name="password">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-danger">Đăng nhập</button>
   </form>
 </div>
 {% endblock %}
