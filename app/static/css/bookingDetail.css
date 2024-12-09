@@ -1,3 +1,7 @@
+body {
+      box-sizing: border-box;
+}
+
 .menu-item-p {
       margin: 0;
       align-items: center;
@@ -10,23 +14,24 @@
 }
 
 .room-review {
-      color: aliceblue; 
+      color: aliceblue;
       background-color: #003b98;
       border-radius: 5px;
       padding: 1px 4px;
 }
 
 .room-rate {
-      color: aliceblue; 
+      color: aliceblue;
       background-color: #003b98;
       border-radius: 5px;
-      padding: 10px 0 10px 10px;
+      padding: 5px;
       margin: 0 auto;
       text-align: center;
+      margin-top: 10px;
 }
 
-.image-nation > img{
-      width: 30px; 
+.image-nation>img {
+      width: 30px;
       height: 20px;
       margin: 2px;
 }
@@ -37,15 +42,55 @@
 }
 
 .carousel-control-prev-icon {
-      margin-right: 35px ;
+      margin-right: 35px;
       margin-bottom: 30px;
 }
 
-.carousel-control-next-icon{
+.carousel-control-next-icon {
       margin-left: 35px;
       margin-bottom: 30px;
 }
 
-.carousel-item > span, div {
-      
+.comment {
+      color: #3e8269;
+
+}
+
+.comment>p {
+      background-color: #e2fdf1;
+      border-radius: 10px;
+      padding: 0;
+      font-size: small;
+      text-align: center;
+      margin: 8px 5px;
+      align-items: center;
+      font-weight: bold;
+}
+
+
+.booking-now {
+      color: white;
+      padding: 6px 40px;
+      background: linear-gradient(45deg, #ff6ec4, #7873f5); 
+      animation: gradientShift 3s infinite;
+      transition: transform 0.2s; 
+      background-size: 200% 200%;
+}
+
+button:hover {
+      transform: scale(1.1);
+}
+
+@keyframes gradientShift {
+      0% {
+            background-position: 0% 50%;
+      }
+
+      50% {
+            background-position: 100% 50%;
+      }
+
+      100% {
+            background-position: 0% 50%;
+      }
 }
