@@ -71,9 +71,9 @@ body {
 .booking-now {
       color: white;
       padding: 6px 40px;
-      background: linear-gradient(45deg, #ff6ec4, #7873f5); 
+      background: linear-gradient(45deg, #ff6ec4, #7873f5);
       animation: gradientShift 3s infinite;
-      transition: transform 0.2s; 
+      transition: transform 0.2s;
       background-size: 200% 200%;
 }
 
@@ -93,4 +93,47 @@ button:hover {
       100% {
             background-position: 0% 50%;
       }
+}
+
+.see-more {
+      color: #0e8cd3;
+      cursor: pointer;
+}
+
+.comfort {
+      list-style-type: none;
+      justify-content: space-around;
+}
+
+.outer-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background-color: #1A73E8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
+
+.inner-circle {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background-color: #0099FF;
+      border: 5px solid #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+}
+
+.Evaluate1 {
+      margin: 0 auto;
+}
+
+.Evaluate2 {
+      list-style-type: none;
+      justify-content: space-around;
 }

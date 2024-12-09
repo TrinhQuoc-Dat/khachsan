@@ -248,7 +248,163 @@
                 <hr>
 
                 <div class="container text-center ">
-                    <button type="button" class="btn booking-now">Đặt Ngay</button>
+                    <button type="button" class="btn booking-now">Đặt
+                        Ngay</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        <div class="container mt-3">
+            <h4>Thông tin chi tiết</h4>
+            <p>Thành phố Hồ Chí Minh sôi động. Khách sạn cung cấp các phòng nghỉ
+                tiện nghi sạch sẽ với máy lạnh cùng phòng tắm riêng và truy cập
+                Wi-Fi miễn phí tại tất cả các khu vực.
+
+                Khách sạn giá cả phải chăng này nằm chỉ cách Chợ Bến Thành nổi
+                tiếng 600 m. Cách khách sạn 1 km là Dinh Thống Nhất lịch sử
+                trong khi Bảo tàng Quân đội cách đó 3,6 km. Sân bay Quốc tế Tân
+                Sơn Nhất nằm trong bán kính 7 km từ khách sạn.</p>
+            <p class="see-more"
+                data-bs-toggle="collapse"
+                data-bs-target="#infomation-room">Xem Thêm <i
+                    class="fa-solid fa-angles-right"
+                    style="color: #74C0FC;"></i></p>
+            <div id="infomation-room" class="collapse">
+                Các phòng nghỉ tại đây có TV màn hình phẳng, khu vực tiếp khách
+                và minibar. Các phòng tắm riêng đi kèm vòi sen nước nóng, khăn
+                tắm cùng đồ vệ sinh cá nhân miễn phí.
+
+                Tại YaYa Sai Gon Hotel Bui Vien Walking Street, du khách sẽ tìm
+                thấy lễ tân 24 giờ với chỗ để hành lý. Khách sạn còn có các tiện
+                nghi như dịch vụ cho thuê xe máy, bàn đặt tour và dịch vụ giặt
+                là/ủi.
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h5>các tiện nghi được ưa chuộng nhất</h5>
+        <ul class="comfort d-flex">
+            <li><i class="fa-solid fa-wifi" style="color: #63E6BE;"></i> Wi-Fi
+                miễn phí</li>
+            <li><i class="fa-solid fa-bus" style="color: #63E6BE;"></i> Xưa đưa
+                đón từ sân bay</li>
+            <li><i class="fa-solid fa-people-group" style="color: #63E6BE;"></i>
+                Phòng gia đình</li>
+            <li><i class="fa-solid fa-ban-smoking" style="color: #63E6BE;"></i>
+                không hút thuốc</li>
+            <li><i class="fa-solid fa-temperature-low"
+                    style="color: #63E6BE;"></i> Điều hòa nhiệt độ</li>
+            <li><i class="fa-solid fa-elevator" style="color: #63E6BE;"></i>
+                thang máy</li>
+            <li><i class="fa-solid fa-broom" style="color: #63E6BE;"></i> Dọn
+                dẹp hằng ngày</li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <h4>Xếp hạng & Điểm đánh giá chung </h4>
+        <p>Từ <span style="font-weight: bold;">921</span>đánh giá của khách đã
+            ở</p>
+        <div class="container row">
+            <div class="col-md-2 Evaluate1" style="background-color: #63E6BE;">
+                <div class="container p-0">
+                    <div class="outer-circle">
+                        <div class="inner-circle">
+                            8.5
+                        </div>
+                    </div>
+                </div>
+                <h4 class="mt-2">Ấn tượng</h4>
+            </div>
+            
+            <div class="col-md-6" style="background-color:#FFD43B">
+                <div class="row m-2">
+                    <div class="col-md-3">Tuyệt vời</div>
+                    <div class="col-md-8 mt-1">
+                        <div class="progress">
+                            <div class="progress-bar" style="width:70%">70%</div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">1.119</div>
+                </div>
+
+                <div class="row m-2">
+                    <div class="col-md-3">Hài lòng</div>
+                    <div class="col-md-8 mt-1">
+                        <div class="progress">
+                            <div class="progress-bar" style="width:70%">70%</div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">1.119</div>
+                </div>
+
+                <div class="row m-2">
+                    <div class="col-md-3">Trung bình</div>
+                    <div class="col-md-8 mt-1">
+                        <div class="progress">
+                            <div class="progress-bar" style="width:70%">70%</div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">1.119</div>
+                </div>
+
+                <div class="row m-2">
+                    <div class="col-md-3">Kém</div>
+                    <div class="col-md-8 mt-1">
+                        <div class="progress">
+                            <div class="progress-bar" style="width:70%">70%</div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">1.119</div>
+                </div>
+
+                
+            </div>
+            <div class="col-md-3" style="background-color:cadetblue">
+                <div class="container">
+                    <div>
+                        <ul  class="Evaluate2 d-flex mb-0">
+                            <li><p>Sạch sẽ </p></li>
+                            {% for i in range(1, 5) %}
+                            <li><i class="fa-solid fa-star" style="color: #74C0FC;"></i></li>
+                            {% endfor %}
+                            {% for i in range(1, 2) %}
+                            <li><i class="fa-regular fa-star" style="color: #74C0FC;"></i></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div>
+                        <ul  class="Evaluate2 d-flex mb-0">
+                            <li><p> Đồ ăn </p></li>
+                            {% for i in range(1, 5) %}
+                            <li><i class="fa-solid fa-star" style="color: #74C0FC;"></i></li>
+                            {% endfor %}
+                            {% for i in range(1, 2) %}
+                            <li><i class="fa-regular fa-star" style="color: #74C0FC;"></i></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div>
+                        <ul  class="Evaluate2 d-flex mb-0 ">
+                            <li><p>Thoải mái </p></li>
+                            {% for i in range(1, 5) %}
+                            <li><i class="fa-solid fa-star" style="color: #74C0FC;"></i></li>
+                            {% endfor %}
+                            {% for i in range(1, 2) %}
+                            <li><i class="fa-regular fa-star" style="color: #74C0FC;"></i></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
 
