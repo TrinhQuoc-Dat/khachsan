@@ -1,6 +1,9 @@
 {% extends 'layout/base.html' %}
 
 {% block title %}Booking{% endblock %}
+{% block js %}
+<script src="{{ url_for('static', filename='js/checkOutDate.js') }}"></script>
+{% endblock %}
 
 {% block content %}
 <div class="my-container">
@@ -173,7 +176,7 @@
                                     <h3>320.000 VND</h3>
                                     <span class="text-small">Đã bao gồm thuế và phí</span>
                                     <hr>
-                                    <input type="button" value="Đặt phòng" name="booking" class="btn btn-success" />
+                                    <input type="button" value="Chọn phòng" name="booking" class="btn btn-success" />
                                 </div>
                             </div>
                         </div>
@@ -246,7 +249,7 @@
                                     <h3>320.000 VND</h3>
                                     <span class="text-small">Đã bao gồm thuế và phí</span>
                                     <hr>
-                                    <input type="button" value="Đặt phòng" name="booking" class="btn btn-success" />
+                                    <input type="button" value="Chọn phòng" name="booking" class="btn btn-success" />
                                 </div>
                             </div>
                         </div>
@@ -319,7 +322,7 @@
                                     <h3>320.000 VND</h3>
                                     <span class="text-small">Đã bao gồm thuế và phí</span>
                                     <hr>
-                                    <input type="button" value="Đặt phòng" name="booking" class="btn btn-success" />
+                                    <input type="button" value="Chọn phòng" name="booking" class="btn btn-success" />
                                 </div>
                             </div>
                         </div>
@@ -336,7 +339,7 @@
 
 <div class="container mt-5">
     <h3>Một số thông tin thú vị về những khách sạn ở Oasia</h3>
-    <div>
+    <div class="mt-3">
         <table class="table table-no-border">
             <tr class="highlight">
                 <td>Số lượng khách sạn</td>
@@ -356,6 +359,108 @@
             </tr>
         </table>
     </div>
+</div>
+
+
+<div class="container mb-3">
+    <h3>Quy tăc Chung</h3>
+    <span>RAON Bazan Hotel - STAY 24H nhận yêu cầu đặc biệt - gửi yêu cầu trong bước kế tiếp!</span>
+
+    <div class="border-booking mt-2">
+        <div class="p-2">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <i class="fa-solid fa-arrow-right" style="color: #9dafcd;"></i>
+                            Nhận Phòng
+                        </td>
+                        <td>
+                            Từ 14:00
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa-solid fa-arrow-left"  style="color: #9dafcd; "></i>
+                            Trả Phòng
+                        </td>
+                        <td>
+                            Từ 12:00
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa-solid fa-at" style="color: #9dafcd; "></i>
+                            Hủy đặt phòng / Trả trước
+                        </td>
+                        <td>
+                            Các chính sách hủy và thanh toán trước sẽ khác nhau tùy vào từng loại chỗ nghỉ.<br>
+                            Vui lòng kiểm tra các điều kiện có thể được áp dụng cho mỗi lựa chọn của bạn.
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa-solid fa-child " style="color: #9dafcd; "></i>
+                            Trẻ em
+                        </td>
+                        <td>
+                            <h6>Chính sách trẻ em</h6>
+                            <p>Phù hợp cho tất cả trẻ em.</p>
+                            <p>Trẻ em từ 18 tuổi trở lên sẽ được tính giá như người lớn tại chỗ nghỉ này.</p>
+                            <p>Để xem thông tin giá và tình trạng phòng trống chính xác, vui lòng thêm số lượng và độ tuổi của trẻ em trong nhóm của bạn khi tìm kiếm.</p>
+                            <p>Giá cho giường phụ chưa được bao gồm trong giá tổng và sẽ cần được thanh toán riêng trong kỳ nghỉ.</p>
+                            <p>Số lượng giường phụ được phép tùy thuộc vào tùy chọn của bạn. Vui lòng kiểm tra tùy chọn mà bạn đã chọn để biết thêm thông tin.</p>
+                            <p>Chỗ nghỉ này không có nôi/cũi.</p>
+                            <p>Tất cả giường phụ tùy thuộc vào tình trạng có sẵn.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa-solid fa-child " style="color: #9dafcd; "></i>
+                            Không giới hạn độ tuổi
+                        </td>
+                        <td>
+                            Không có yêu cầu về độ tuổi khi nhận phòng
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa-solid fa-dog" style="color: #9dafcd; "></i>
+                            Vật nuôi
+                        </td>
+                        <td>
+                            Vật nuôi không được phép
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa-solid fa-child " style="color: #9dafcd; "></i>
+                            Nhóm
+                        </td>
+                        <td>
+                            Khi đặt phòng nhiều hơn 4 phòng, các chính sách khác và các điều lệ bổ sung có thể được áp dụng.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fa-brands fa-amazon-pay" style="color: #9dafcd; "></i>
+                            Thanh Toán
+                        </td>
+                        <td>
+                            <img width="50px" src=" {{ url_for('static', filename='image/credict.png') }} "/>
+                            <img width="50px" src="https://tse4.mm.bing.net/th?id=OIP.1GNvjAZu4hlbE0bWflshGwHaHa&pid=Api&P=0&h=220">
+                            <span class="payment-money">Tền mặt</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="border-booking border-footer mt-3 p-3 pb-1">
+        <p class="mb-1">Những điên hấp dẫn của Oasia</p>
+        <p class="mb-1">Nhấp vào đây để xem thêm khách sạn và chỗ nghỉ nổi tiếng ở Oasia</p>
+    </div>
+    
 </div>
 
 {% endblock %}

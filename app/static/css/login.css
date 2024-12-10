@@ -1,0 +1,19 @@
+.container-login{
+    width: 50%;
+    margin: auto;
+    border: 1px solid #141412;
+    border-radius: 10px;
+    padding: 2rem;
+    background-color: #edf2f6;
+}
+body{
+    background-image: url('https://cdn1.ivivu.com/images/2023/05/31/11/DAVID-MEDIA---Wyndham-Garden_22___r5bt9u____horizontal-800x450.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+    height: 100vh;
+}
+.opacity{
+    opacity: 0.95;
+}

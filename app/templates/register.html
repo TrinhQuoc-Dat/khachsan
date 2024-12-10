@@ -1,9 +1,13 @@
 {% extends 'layout/base.html' %}
 
 {% block title %}Login{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}"/>
+{% endblock %}
+
 
 {% block content %}
-<div class="container-login mt-3 mb-3">
+<div class="container-login mt-3 mb-3 opacity">
   {% if err_mgs %}
     <div class="alert alert-danger mt-3 text-center">
       <h6>{{ err_mgs }}</h6>

@@ -1,0 +1,47 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Trang thông tin phiếu đặt{% endblock %}
+
+{% block js %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/reservation.css') }}" />
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center text-danger mt-2">Trang thông tin về phiếu Booking</h1>
+
+<div class="container mb-3">
+    <div>
+        <h3>Khách sạn Oasia</h3>
+    </div>
+    <div class="border-booking ">
+        <div class="p-3">
+            <div class="d-flex justify-content-between space">
+                <div class="item-1 ">
+                    <img class="border-image-me" src="{{ url_for('static', filename='image/ks.jpg') }}" width="128px" alt="Khách sạn"/>
+                </div>
+                <div class="item-7">
+                    <div>
+                        <h4>Phòng ban công rộng rãi thoáng mát</h4>
+                    </div>
+                    <div>
+                        <span>3 tháng 12</span>
+                        <span> - </span>
+                        <span>4 tháng 12</span>
+                    </div>
+                    <div>
+                        <span>Đã đặt thành công</span>
+                    </div>
+                </div>
+                <div class="item-2">
+                    <h3>300,000 VND</h3>
+                    <p>Mã đặt phòng: <span>4424565325</span></p>
+                    <p>Mã pin: <span>2434</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

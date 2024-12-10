@@ -62,6 +62,7 @@ class Employee(db.Model):
     start_date = Column(DateTime, default=datetime.now())
     user_id = Column(Integer, ForeignKey(User.id))
     rental_receipts = relationship('RentalReceipt', backref='employee', lazy=True)
+    bookings = relationship('Booking', backref='employee', lazy=True)
 
 
     def __index__(self):
@@ -80,7 +81,10 @@ class Booking(db.Model):
     total_amount = Column(Float)
     customer_id = Column(Integer, ForeignKey(Customer.person_id), nullable=False)
     order_type_id = Column(Enum(OrderType), default=OrderType.ONLINE)
+    employee_id = Column(Integer, ForeignKey(Employee.person_id))
+    customer_id = Column(Integer, ForeignKey(Customer.person_id))
     booking_details = relationship('BookingDetail', backref='booking', lazy=True)
+
 
 
 class TypeRoom(EnumRole):
@@ -121,8 +125,10 @@ class RentalReceipt(db.Model):
     created_date = Column(DateTime, default=datetime.now())
     total_customer = Column(Integer)
     note = Column(String(255))
+    total_amount = Column(Float)
     customer_id = Column(Integer, ForeignKey(Customer.person_id), nullable=False)
     employee_id = Column(Integer, ForeignKey(Employee.person_id), nullable=False)
+    payments = relationship('Payment', backref='rental_receipt', lazy=True)
 
 
 class TypePayment(EnumRole):

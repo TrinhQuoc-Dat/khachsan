@@ -3,6 +3,7 @@
     --background-color-ticket: #fff5f6;
     --space-small: 1rem;
     --bg-green: #008234;
+    --bg-red: #e17d7d;
 }
 
 .booking {
@@ -30,28 +31,6 @@
     color: #248acc;
 }
 
-/* banner giới thiệu */
-.carousel-inner img {
-    width: 100%; 
-    height: 400px; 
-    object-fit: cover;
-}
-
-.carousel-caption{
-    position: absolute;
-    font-weight: bold;
-    bottom: -30px;
-}
-/* kết thúc banner giới thiệu */
-/* dùng chung */
-.full-width-height {
-    width: 100%;
-    height: 100%;
-}
-.space-between {
-    justify-content: space-between;
-}
-
 /* ===================== */
 /* vé khuyển mãi trang chủ index.html */
 
@@ -71,10 +50,7 @@
 
 .ticket-code button {
     font-size: 0.875rem;
-    border-radius: 7px;
-    background-color: #ff3266;
-    color: #fff5f6;
-    padding: 5px;
+    border-radius: 13px;
 }
 
 .ticket-info {
@@ -86,113 +62,8 @@
     background-color: var(--background-color-ticket);
 }
 
-.text-truncate {
-    white-space: nowrap;     
-    overflow: hidden;    
-    text-overflow: ellipsis;  /* Thêm dấu "..." khi văn bản bị cắt */
-}
-
 /* hết phần vé khuyển mãi */
 
-/* phần countdown flasksale */
-.timer {
-    display: flex;
-    justify-content: start;
-    gap: 5px;
-}
-
-.timer span {
-    background-color: #ff4081; 
-    color: white;             
-    font-weight: bold;
-    font-size: 1rem;
-    padding: 0px 10px;
-    border-radius: 8px;    
-}
-
-.timer p {
-    font-weight: bold;
-    padding: 0;
-    margin: 2px;
-}
-
-.box-flasksale-right {
-    background-color: #5ae7de;
-    color: white;
-    padding: 0;
-    border-radius: 10px;
-}
-
-.flask-end {
-    list-style-type: none;
-    text-align: center;
-}
-
-/* hết phần countdown flasksale */
-
-
-
-/* phần image room trong flask sale */
-.img-responsive {
-    width: 40%; 
-    height: auto; 
-}
-
-.flask-room {
-    height: 400px; 
-    justify-content: space-around; 
-    margin: 0 auto;
-}
-
-.flask-price-old {
-    text-decoration: line-through;
-}
-
-.flask-price-sale {
-    color: rgb(229, 62, 62); 
-    font-size: 24px;
-}
-
-.flask-price {
-    display: flex; 
-    flex-direction: column; 
-    align-items: flex-end;
-}
-
-.flask-rate {
-    background-color: #feebef; 
-    color: #f43a6b; 
-    border-radius: 5px;
-}
-
-/* thanh nhập số điện thoại nhận chương trình khuyến mãi */
-div .promotion{
-    border: 2px solid #09d396;
-    border-radius: 5px;
-}
-
-.promotion .promotion1 {
-    border-radius:  5px 0 0 5px;
-    border: none;
-    width: 100%;
-    height: 100%;
-    background-color: #edf2f6;
-}
-/* end thanh nhập số điện thoại nhận chương trình khuyến mãi */
-
-/* phần giới thiệu người sáng lập */
-.person_card {
-    width: 300px;
-    height: 300px;
-}
-
-.person_image {
-    max-width: 40%;
-    height: 50%;
-    display: block;
-
-}
-/*end phần giới thiệu người sáng lập */
 /* =============== */
 .username {
     padding-left: 0 !important;
@@ -251,106 +122,9 @@ div .promotion{
     text-decoration: line-through;
 }
 .border-booking{
-    border: 2px solid black;
+    border: 2px solid rgb(219 214 214);
     border-radius: 15px;
-}
-.no-bullet{
-    list-style-type: none;
-}
-.align-items-space{
-    gap: var(--space-small);
-}
-.text-color-stap{
-    font-style: italic;
-    font-weight: 500;
-}
-.text-color-red{
-    color: red;
-}
-.text-color-blue{
-    color: #003b95;
-}
-.text-color-write{
-    color: #fff5f6;
-}
-.bg-color-green{
-    background-color: var(--bg-green);
-}
-.color-green{
-    color: green;
-}
-.border-three-corners {
-    border: 1px solid black;   
-    border-radius: 5px 5px 5px 0; 
-    padding: 0.1rem;
-    background-color: #003b95;
-    font-size: large;
-    font-weight: 600;
-}
-.text-aline-right{
-    text-align: right;
-}
-
-.username {
-    padding-left: 0 !important;
-    font-size: large;
-    font-style: initial;
-    font-weight: 600;
-}
-.error-mail{
-    display: none;
-}
-.border-lg-image{
-    border-radius: 10px !important;
-}
-.border-sm-image{
-    border-radius: 5px !important;
-}
-.border-none{
-    border: none;
-}
-.image-width{
-    height: 100%;
-    position: relative;
-    flex-basis: 100%;
-    flex-grow: 1;
-    flex-shrink: 1;
-}
-
-.flex-image {
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 10px;
-}
-.flex-image > .image-small {
-    flex: 1 1 calc(20% - 10px);
-    max-width: calc(20% - 10px);
-    box-sizing: border-box;
-}
-.my-container{
-    width: 80%;
-    margin: auto;
-}
-.item-2{
-    flex: 3;
-}
-.item-7{
-    flex: 6.5;
-}
-.header-title{
-    justify-content: space-between;
-}
-.text-small{
-    font-size: small;
-}
-.text-color-discount{
-    color: red;
-    text-decoration: line-through;
-}
-.border-booking{
-    border: 1px solid black;
-    border-radius: 15px;
-}
+}   
 .no-bullet{
     list-style-type: none;
 }
@@ -425,7 +199,7 @@ div .promotion{
     font-size: large;
 }
 .table-no-border th,
-.table-no-border td {
+  .table-no-border td {
     border: none;
 }
 .table-no-border tr:nth-child(1) > td,
@@ -433,12 +207,21 @@ div .promotion{
     background-color:#f7fcde;
     border-radius: 4px;
 }
-.container-login{
-    width: 50%;
-    margin: auto;
-    border: 1px solid #141412;
-    border-radius: 10px;
-    padding: 2rem;
-    background-color: #edf2f6;
+.payment-money{
+    font-size: small;
+    padding: 0.3rem;
+    background-color: var(--bg-green);
+    color: #fff5f6;
+    border-radius: 4px;
+}
+.border-table{
+    border-spacing: 0;
+}
+.border-footer{
+    border: none;
+    background-color: #ebf3ff;
+}
+.sum-product-cart{
+    color: var(--bg-red);
 }
 
