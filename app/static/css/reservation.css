@@ -1,0 +1,15 @@
+.item-1{
+    flex: 1;
+}
+.item-7{
+    flex: 7;
+}
+.item-2{
+    flex: 2;
+}
+.border-image-me{
+    border-radius: 8px;
+}
+.space{
+    gap: 18px;
+}

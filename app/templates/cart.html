@@ -1,0 +1,233 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Trang Chủ{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}" />
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center text-danger mt-2">Thông tin chi tiết đặt phòng</h1>
+
+<div class="container mt-3 mb-4 p-0">
+    <div class="d-flex align-items-space">
+        <div class="item-3 right-seach">
+            <div class="border-booking mb-2">
+                <div class="d-flex flex-column p-2">
+                    <div>Oasia  
+                        <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                        <i class="fa-regular fa-thumbs-up" style="color: #FFD43B;"></i>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <div>
+                            <p class="title-header mb-0">35 Tôn Đức Thắng TPHCM</p>
+                            <p><span class="color-green text-small">vị trí tuyệt vời</span></p>
+                        </div>
+                        <div class="mb-1">
+                            <div >
+                                <span class="border-three-corners text-color-write">9.5</span>
+                                <span class="title-header">Tốt:   <span>480 đánh giá</span></span>
+                            </div>
+                        </div>
+                        <div>
+                            <ul class="list-style-ul">
+                                <li><i class="fa-solid fa-wifi color-icon p-1"></i> wifi miễn phí</li>
+                                <li><i class="fa-solid fa-square-parking p-1 color-icon"></i> Chỗ đỗ xe miễn phí</li>
+                                <li><i class="fa-solid fa-utensils p-1 color-icon"></i> Nhà hàng</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-booking mb-2">
+                <div class="p-2">
+                    <div class="d-flex flex-column">
+                        <div>
+                            <h4>Chi tiết phòng đặt của bạn</h4>
+                        </div>
+                        <div class="d-flex flex-column justify-content-between">
+                            <div class="d-flex">
+                                <div class="border-right-in">
+                                    <p>Nhận Phòng</p>
+                                    <h5>T3, 11 tháng 2 2025</h5>
+                                    <span class="text-small">Từ 14:00</span>
+                                </div>
+                                <div class="ms-3">
+                                    <p>Trả Phòng</p>
+                                    <h5>T4, 12 tháng 2 2025</h5>
+                                    <span class="text-small">Cho đến 12:00</span>
+                                </div>
+                            </div>
+                            <div class="mt-1">
+                                <p>Tổng thời gian lưu trú</p>
+                            </div>
+                            <div class="mt-1">
+                                <h6>1 đêm</h6>
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                            <p>Bạn đã chọn</p>
+                            <h6 class="mt-1">2 phòng lớn</h6>
+                            <span>2 x Phòng Deluxe Gia đình</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-booking">
+                <div class="d-flex flex-column p-2">
+                    <div>
+                        <h5>Tóm tắt giá</h5>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <div class="d-flex justify-content-between">
+                            <div>Giá sốc</div>
+                            <div>4.268.000 VND</div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>Ưu Đãi</div>
+                            <div>-467.000 VND</div>
+                        </div>
+                    </div>
+                    <div class="bg-sum d-felx flex-column p-2 border-booking">
+                        <div class="d-flex flex-row-reverse">
+                            <div class="text-color-discount font-weicht">467.000 VND</div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between ">
+                            <div class="sum">
+                                Tổng Cộng
+                            </div>
+                            <div>
+                                <div class="sum">4.268.000 VND</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item-7">
+            <div class="border-booking mb-2">
+                <div class="p-3">
+                    <h2>Nhập thông tin chi tiết của bạn</h2>
+                    <form>
+                        <div class="d-flex justify-content-around">
+                            <div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Họ và tên</label>
+                                    <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Nhập họ và tên...">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Số điện thoại</label>
+                                    <input type="number" class="form-control" id="phone" name="phone" placeholder="Nhập số điện thoại...">
+                                    <small id="phone" class="form-text text-muted">Cần thiết để chỗ nghỉ xác nhận đặt phòng của bạn</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-around">
+                            <div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">CCCD</label>
+                                    <input type="number" class="form-control" id="cccd" name="cccd" placeholder="Nhập căn cước công dân...">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Địa chỉ email</label>
+                                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                    <small id="emailHelp" class="form-text text-muted">Email xác nhận đặt phòng sẽ được gửi đến địa chỉ này</small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+            <div class="border-booking p-3">
+                <div class="d-flex flex-column">
+                    <div>
+                        <h3>Phòng Deluxe Giường Đôi</h3>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <div>
+                            <i class="fa-regular fa-circle-dot color-icon p-1"></i>
+                            <span>Không mất phí</span>
+                            <i class="fa-regular fa-circle-question color-icon-blue ms-2"></i>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-child color-icon p-1"></i>
+                            <span>Khách: 2 người lớn</span>
+                            <i class="fa-regular fa-circle-question color-icon-blue ms-2"></i>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <div>
+                            <i class="fa-brands fa-goodreads-g color-icon p-1"></i>
+                            <span>Phòng sạch bong - 9,3</span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-ban-smoking color-icon p-1"></i>
+                            <span>Không hút thuốc</span>
+                        </div>
+                    </div>
+                </div>
+                <form>
+                    <div class="d-flex justify-content-around">
+                        <div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Họ và tên</label>
+                                <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Nhập họ và tên...">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Số điện thoại</label>
+                                <input type="number" class="form-control" id="phone" name="phone" placeholder="Nhập số điện thoại...">
+                                <small id="phone" class="form-text text-muted">Cần thiết để chỗ nghỉ xác nhận đặt phòng của bạn</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex mt-2 justify-content-around">
+                        <div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">CCCD</label>
+                                <input type="number" class="form-control" id="cccd" name="cccd" placeholder="Nhập căn cước công dân...">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Địa chỉ email</label>
+                                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                <small id="emailHelp" class="form-text text-muted">Email xác nhận đặt phòng sẽ được gửi đến địa chỉ này</small>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="border-booking mt-2">
+                <div class="d-flex flex-column p-2">
+                    <div>
+                        <h3>Thời gian đến của bạn đến với khách sạn</h3>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div><i class="fa-regular fa-circle-check p-2 color-green"></i></div>
+                        <div><p class="color-icon">Các phòng của bạn sẽ sẵn sàng để nhận trong khoảng từ 14:00 đến 00:00</p></div>
+                    </div>
+                    <div class="d-flex">
+                        <div><i class="fa-solid fa-bell-concierge p-2 color-green"></i></div>
+                        <div><p class="color-icon">Lễ tân 24 giờ - Luôn có trợ giúp mỗi khi bạn cần!</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row-reverse mt-2">
+                <input class="btn btn-success" value="Đặt các phòng đã chọn > " type="button" />
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
