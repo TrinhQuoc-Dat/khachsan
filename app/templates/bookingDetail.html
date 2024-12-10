@@ -6,10 +6,13 @@
 <link rel="stylesheet" href="../static/css/bookingDetail.css">
 {% endblock %}
 
-{% block js %}Booking Detail{% endblock %}
+{% block js %}
+<script src="../static/js/likeComment.js"></script>
+{% endblock %}
 
 {% block content %}
 <div>
+    <!-- thanh nav-bar  -->
     <div class="main">
         <div class="container">
             <div class="row">
@@ -72,9 +75,10 @@
         </div>
 
     </div>
+    <!-- end thanh nav-bar  -->
 </div>
 
-<div class="container mt-3">
+<div class="container mt-0">
     <div class="align-items-center">
         <div class="mb-0">
             <h1>Oasia House Dalat</h1>
@@ -88,6 +92,7 @@
         </div>
     </div>
 
+    <!-- hình ảnh và tổng quan phòng -->
     <div class="row">
         <div class="col-md-9 col-xs-12">
             <div class="d-flex justify-content-between mb-2">
@@ -149,6 +154,7 @@
             </div>
 
         </div>
+        <!-- thông tin tổng quan phòng -->
         <div class="col-md-3 col-xs-12 p-1"
             style="border: 1px solid #1763b7; border-radius: 5px;">
             <div>
@@ -233,7 +239,7 @@
                     <p>Vị trí tuyệt vời</p>
                     <span>9,0</span>
                 </div>
-                <hr>
+                <hr class="m-2">
 
                 <div class="container">
                     <span class="text-success">Khách nói gì về kỳ nghỉ của họ
@@ -248,14 +254,17 @@
                 <hr>
 
                 <div class="container text-center ">
-                    <button type="button" class="btn booking-now">Đặt
+                    <button type="button" class="btn booking-now mt-2">Đặt
                         Ngay</button>
                 </div>
             </div>
 
         </div>
+        <!-- end thông tin tổng quan phòng -->
     </div>
+    <!-- end hình ảnh và tổng quan phòng -->
 
+    <!-- thông tin phòng và xem thêm -->
     <div>
         <div class="container mt-3">
             <h4>Thông tin chi tiết</h4>
@@ -281,10 +290,70 @@
                 thấy lễ tân 24 giờ với chỗ để hành lý. Khách sạn còn có các tiện
                 nghi như dịch vụ cho thuê xe máy, bàn đặt tour và dịch vụ giặt
                 là/ủi.
+
+                <h6>Chính sách hủy</h6>
+                Không hỗ trợ hoàn huỷ
+                <h6>Bữa ăn</h6>
+                Giá đã bao gồm bữa sáng
+                <h6>Xác nhận</h6>
+                Phòng này có mức giá rất rẻ nên đang bán rất chạy. Để đảm bảo
+                bạn có được ưu đãi này, chúng tôi cần khách sạn xác nhận còn
+                phòng hay không. Khách sạn thường xác nhận yêu cầu đặt phòng
+                trong vòng 15 phút. Nếu yêu cầu đặt phòng của bạn không thể xác
+                nhận, chúng tôi sẽ hoàn tiền đầy đủ
+                <h6>Hóa đơn</h6>
+                An tâm đặt phòng, Mytour hỗ trợ xuất hoá đơn nhanh chóng, tiết
+                kiệm thời gian cho bạn.
+                <h6>Ưu đãi</h6>
+                <ul>
+                    <li>Thưởng thức Chocolate miễn phí tại nhà hàng thời gian :
+                        Chủ nhật - thứ 5: 15:00 - 16:00 Thứ 6 & thứ 7: 14:00 -
+                        16:00
+                    </li>
+                    <li>Quyền Lợi Sử Dụng Club Benefit cho Executive Family
+                        Suite With Sea View và Admiral Suite: • Đặc cách thủ tục
+                        nhận phòng & trả phòng riêng biệt • Miễn phí hai món đồ
+                        giặt mỗi phòng mỗi đêm (ngoại trừ dịch vụ giặt khô, giặt
+                        nhanh và không cộng dồn) • Miễn phí giải khát hằng ngày
+                        tại quầy từ 11h đến 21h • Bữa sáng ẩm thực quốc tế từ
+                        6h30 đến 10h30 (cuối tuần và các ngày lễ sẽ phục vụ đến
+                        11:00) • Miễn phí trà chiều từ 15h đến 16h, cocktail từ
+                        18h đến 19h
+                    </li>
+                    <li>Tặng phiếu mua hàng trị giá VND 300,000/ phòng/ lần lưu
+                        trú sử dụng dịch vụ ẩm thực và Spa trị liệu. Không áp
+                        dụng cùng lúc với các chương trình khuyến mại khác,
+                        không áp dụng cho tiệc. - Giảm giá 10% cho tất cả dịch
+                        vụ ẩm thực tại nhà hàng và trên phòng khách (bao gồm đồ
+                        uống có cồn và minibar trong phòng) - Giảm giá 5% tất cả
+                        sản phẩm tại cửa hàng Oasis - Giảm giá 20% các dịch vụ
+                        Spa theo menu Lưu ý: Các chương trình giảm giá sẽ không
+                        kết hợp cùng với chương trình khuyến mại khác
+                    </li>
+                    <li>Tặng phiếu mua hàng trị giá VND 300,000/ phòng/ lần lưu
+                        trú sử dụng dịch vụ ẩm thực và Spa trị liệu. Không áp
+                        dụng cùng lúc với các chương trình khuyến mại khác,
+                        không áp dụng cho tiệc.
+                    </li>
+                    <li>Giảm giá 10% cho tất cả dịch vụ ẩm thực tại nhà hàng và
+                        trên phòng khách (bao gồm đồ uống có cồn và minibar
+                        trong phòng)
+                    </li>
+                    <li>
+                        Giảm giá 5% tất cả sản phẩm tại cửa hàng Oasis - Giảm
+                        giá 20% các dịch vụ Spa theo menu Lưu ý: Các chương
+                        trình giảm giá sẽ không kết hợp cùng với phiếu mua hàng
+                        và chương trình khuyến mại khác
+
+                    </li>
+                    <li>Ăn sáng</li>
+                </ul>
+
             </div>
         </div>
     </div>
 
+    <!-- các tiện nghi ưa chuộng nhất -->
     <div>
         <h5>các tiện nghi được ưa chuộng nhất</h5>
         <ul class="comfort d-flex">
@@ -304,13 +373,15 @@
                 dẹp hằng ngày</li>
         </ul>
     </div>
+    <!--end các tiện nghi ưa chuộng nhất -->
 
+    <!-- tổng quan đánh giá -->
     <div class="container">
         <h4>Xếp hạng & Điểm đánh giá chung </h4>
         <p>Từ <span style="font-weight: bold;">921</span>đánh giá của khách đã
             ở</p>
         <div class="container row">
-            <div class="col-md-2 Evaluate1" style="background-color: #63E6BE;">
+            <div class="col-md-2 Evaluate1">
                 <div class="container p-0">
                     <div class="outer-circle">
                         <div class="inner-circle">
@@ -320,13 +391,14 @@
                 </div>
                 <h4 class="mt-2">Ấn tượng</h4>
             </div>
-            
-            <div class="col-md-6" style="background-color:#FFD43B">
+
+            <div class="col-md-6">
                 <div class="row m-2">
                     <div class="col-md-3">Tuyệt vời</div>
                     <div class="col-md-8 mt-1">
                         <div class="progress">
-                            <div class="progress-bar" style="width:70%">70%</div>
+                            <div class="progress-bar"
+                                style="width:70%">70%</div>
                         </div>
                     </div>
                     <div class="col-md-1">1.119</div>
@@ -336,72 +408,108 @@
                     <div class="col-md-3">Hài lòng</div>
                     <div class="col-md-8 mt-1">
                         <div class="progress">
-                            <div class="progress-bar" style="width:70%">70%</div>
+                            <div class="progress-bar"
+                                style="width:60%">60%</div>
                         </div>
                     </div>
-                    <div class="col-md-1">1.119</div>
+                    <div class="col-md-1">683</div>
                 </div>
 
                 <div class="row m-2">
                     <div class="col-md-3">Trung bình</div>
                     <div class="col-md-8 mt-1">
                         <div class="progress">
-                            <div class="progress-bar" style="width:70%">70%</div>
+                            <div class="progress-bar"
+                                style="width:5%">5%</div>
                         </div>
                     </div>
-                    <div class="col-md-1">1.119</div>
+                    <div class="col-md-1">92</div>
                 </div>
 
                 <div class="row m-2">
                     <div class="col-md-3">Kém</div>
                     <div class="col-md-8 mt-1">
                         <div class="progress">
-                            <div class="progress-bar" style="width:70%">70%</div>
+                            <div class="progress-bar"
+                                style="width:0%">0%</div>
                         </div>
                     </div>
-                    <div class="col-md-1">1.119</div>
+                    <div class="col-md-1">0</div>
                 </div>
 
-                
             </div>
-            <div class="col-md-3" style="background-color:cadetblue">
+            <div class="col-md-3">
                 <div class="container">
-                    <div>
-                        <ul  class="Evaluate2 d-flex mb-0">
-                            <li><p>Sạch sẽ </p></li>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Sạch sẽ </p>
+                        </div>
+                        <ul class="col-md-8 Evaluate2 d-flex mb-0">
+
                             {% for i in range(1, 5) %}
-                            <li><i class="fa-solid fa-star" style="color: #74C0FC;"></i></li>
+                            <li><i class="fa-solid fa-star"
+                                    style="color: #74C0FC;"></i></li>
                             {% endfor %}
                             {% for i in range(1, 2) %}
-                            <li><i class="fa-regular fa-star" style="color: #74C0FC;"></i></li>
+                            <li><i class="fa-regular fa-star"
+                                    style="color: #74C0FC;"></i></li>
                             {% endfor %}
                         </ul>
                     </div>
                 </div>
 
                 <div class="container">
-                    <div>
-                        <ul  class="Evaluate2 d-flex mb-0">
-                            <li><p> Đồ ăn </p></li>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> Đồ ăn </p>
+                        </div>
+                        <ul class="col-md-8 Evaluate2 d-flex mb-0">
+
                             {% for i in range(1, 5) %}
-                            <li><i class="fa-solid fa-star" style="color: #74C0FC;"></i></li>
+                            <li><i class="fa-solid fa-star"
+                                    style="color: #74C0FC;"></i></li>
                             {% endfor %}
                             {% for i in range(1, 2) %}
-                            <li><i class="fa-regular fa-star" style="color: #74C0FC;"></i></li>
+                            <li><i class="fa-regular fa-star"
+                                    style="color: #74C0FC;"></i></li>
                             {% endfor %}
                         </ul>
                     </div>
                 </div>
 
                 <div class="container">
-                    <div>
-                        <ul  class="Evaluate2 d-flex mb-0 ">
-                            <li><p>Thoải mái </p></li>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>Thoải mái </p>
+                        </div>
+                        <ul class="col-md-8 Evaluate2 d-flex mb-0">
+
                             {% for i in range(1, 5) %}
-                            <li><i class="fa-solid fa-star" style="color: #74C0FC;"></i></li>
+                            <li><i class="fa-solid fa-star"
+                                    style="color: #74C0FC;"></i></li>
                             {% endfor %}
                             {% for i in range(1, 2) %}
-                            <li><i class="fa-regular fa-star" style="color: #74C0FC;"></i></li>
+                            <li><i class="fa-regular fa-star"
+                                    style="color: #74C0FC;"></i></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> Dịch vụ </p>
+                        </div>
+                        <ul class="col-md-8 Evaluate2 d-flex mb-0">
+
+                            {% for i in range(1, 5) %}
+                            <li><i class="fa-solid fa-star"
+                                    style="color: #74C0FC;"></i></li>
+                            {% endfor %}
+                            {% for i in range(1, 2) %}
+                            <li><i class="fa-regular fa-star"
+                                    style="color: #74C0FC;"></i></li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -410,7 +518,55 @@
 
         </div>
     </div>
+    <!-- end tổng quan đánh giá -->
 
+    <!-- bình luận của khách hàng  -->
+    <div class="container">
+        <div class="row d-flex align-items-center">
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-4 image-container">
+                        <img
+                            src="https://res.cloudinary.com/devtqlbho/image/upload/v1733842675/4_qrekt5.webp"
+                            alt="image user">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="name">Hoài Thương</div>
+                        <div class="date">07/10/2024</div>
+                        <div class="details">
+                            <span>🛏 phòng hướng ra biển...</span>
+                            <span>📅 1 đêm · tháng 10, 2024</span>
+                            <span><i class="fa-solid fa-person"
+                                    style="color: #FFD43B;"></i> <i
+                                    class="fa-solid fa-person"
+                                    style="color: #74C0FC;"></i> cặp đôi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <h4>Trải Nghiệm Đáng Nhớ Tại Oasia Hotel</h4>
+                <div class="rating">
+                    <span class="rating-score">8.0</span>
+                    <span class="rating-text">Rất tốt</span>
+                </div>
+                <p>
+                    Tại Oasia Hotel mang lại kỳ nghỉ 2 ngày 1 đêm với những
+                    trải nghiệm đáng nhớ.
+                    dịch vụ tốt, phòng rộng rãi với view đẹp, thức ăn
+                    khá ổn và nhân viên thân thiện là điểm sáng.
+                    Oasia Hotel là sự lựa chọn đáng trải nghiệm cho tôi nghỉ
+                    dưỡng.
+                </p>
+                <div class="feedback useful-information">
+                    <i class="fa-solid fa-thumbs-up like-comment"></i> Thích
+                    Đánh giá này có hữu
+                    ích với bạn không?
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end bình luận của khách hàng -->
 </div>
 
 {% endblock %}

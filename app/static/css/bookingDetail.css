@@ -137,3 +137,53 @@ button:hover {
       list-style-type: none;
       justify-content: space-around;
 }
+
+.image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+}
+
+.image-container img {
+      width: 100px;
+      height: 85px;
+      border-radius: 50%;
+      object-fit: cover;
+}
+
+.like-comment {
+      color: #c9cbc8;
+      cursor: pointer;
+      font-size: 18px;
+      transition: color 0.3s ease;
+}
+
+.like-comment.liked {
+      color: #046dff;
+}
+
+.useful-information {
+      text-align: end;
+}
+
+.rating-score {
+      display: inline-block;
+      background-color: #f04e63;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 10px;
+}
+
+.rating-text {
+      font-size: 16px;
+      color: gray;
+}
+
+.rating {
+      align-items: center;
+      margin-bottom: 10px;
+}
