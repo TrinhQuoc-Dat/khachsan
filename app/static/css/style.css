@@ -31,6 +31,28 @@
     color: #248acc;
 }
 
+/* banner giới thiệu */
+.carousel-inner img {
+    width: 100%; 
+    height: 400px; 
+    object-fit: cover;
+}
+
+.carousel-caption{
+    position: absolute;
+    font-weight: bold;
+    bottom: -30px;
+}
+/* kết thúc banner giới thiệu */
+/* dùng chung */
+.full-width-height {
+    width: 100%;
+    height: 100%;
+}
+.space-between {
+    justify-content: space-between;
+}
+
 /* ===================== */
 /* vé khuyển mãi trang chủ index.html */
 
@@ -50,7 +72,10 @@
 
 .ticket-code button {
     font-size: 0.875rem;
-    border-radius: 13px;
+    border-radius: 7px;
+    background-color: #ff3266;
+    color: #fff5f6;
+    padding: 5px;
 }
 
 .ticket-info {
@@ -61,8 +86,111 @@
     border-radius: 8px 35px 35px 8px;
     background-color: var(--background-color-ticket);
 }
+.text-truncate {
+    white-space: nowrap;     
+    overflow: hidden;    
+    text-overflow: ellipsis;  /* Thêm dấu "..." khi văn bản bị cắt */
+}
 
 /* hết phần vé khuyển mãi */
+/* phần countdown flasksale */
+.timer {
+    display: flex;
+    justify-content: start;
+    gap: 5px;
+}
+
+.timer span {
+    background-color: #ff4081; 
+    color: white;             
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0px 10px;
+    border-radius: 8px;    
+}
+
+.timer p {
+    font-weight: bold;
+    padding: 0;
+    margin: 2px;
+}
+
+.box-flasksale-right {
+    background-color: #5ae7de;
+    color: white;
+    padding: 0;
+    border-radius: 10px;
+}
+
+.flask-end {
+    list-style-type: none;
+    text-align: center;
+}
+
+/* hết phần countdown flasksale */
+
+
+
+/* phần image room trong flask sale */
+.img-responsive {
+    width: 40%; 
+    height: auto; 
+}
+
+.flask-room {
+    height: 400px; 
+    justify-content: space-around; 
+    margin: 0 auto;
+}
+
+.flask-price-old {
+    text-decoration: line-through;
+}
+
+.flask-price-sale {
+    color: rgb(229, 62, 62); 
+    font-size: 24px;
+}
+
+.flask-price {
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-end;
+}
+
+.flask-rate {
+    background-color: #feebef; 
+    color: #f43a6b; 
+    border-radius: 5px;
+}
+
+/* thanh nhập số điện thoại nhận chương trình khuyến mãi */
+div .promotion{
+    border: 2px solid #09d396;
+    border-radius: 5px;
+}
+
+.promotion .promotion1 {
+    border-radius:  5px 0 0 5px;
+    border: none;
+    width: 100%;
+    height: 100%;
+    background-color: #edf2f6;
+}
+/* end thanh nhập số điện thoại nhận chương trình khuyến mãi */
+
+/* phần giới thiệu người sáng lập */
+.person_card {
+    width: 300px;
+    height: 300px;
+}
+
+.person_image {
+    max-width: 40%;
+    height: 50%;
+    display: block;
+}
+/*end phần giới thiệu người sáng lập */
 
 /* =============== */
 .username {
@@ -122,7 +250,7 @@
     text-decoration: line-through;
 }
 .border-booking{
-    border: 2px solid rgb(219 214 214);
+    border: 2px solid black;
     border-radius: 15px;
 }   
 .no-bullet{
