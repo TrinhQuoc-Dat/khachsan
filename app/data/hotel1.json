@@ -45,6 +45,41 @@
       "room-Details": {
             "information1": "Các phòng nghỉ tại đây có TV màn hình phẳng, khu vực tiếp khách và minibar. Các phòng tắm riêng đi kèm vòi sen nước nóng, khăn tắm cùng đồ vệ sinh cá nhân miễn phí.\n\nTại YaYa Sai Gon Hotel Bui Vien Walking Street, du khách sẽ tìm thấy lễ tân 24 giờ với chỗ để hành lý. Khách sạn còn có các tiện nghi như dịch vụ cho thuê xe máy, bàn đặt tour và dịch vụ giặt là/ủi.",
             "information2": "Các phòng nghỉ tại đây có TV màn hình phẳng, khu vực tiếp khách và minibar. Các phòng tắm riêng đi kèm vòi sen nước nóng, khăn tắm cùng đồ vệ sinh cá nhân miễn phí.\n\nTại YaYa Sai Gon Hotel Bui Vien Walking Street, du khách sẽ tìm thấy lễ tân 24 giờ với chỗ để hành lý. Khách sạn còn có các tiện nghi như dịch vụ cho thuê xe máy, bàn đặt tour và dịch vụ giặt là/ủi.",
-            "information3": "Phòng này có mức giá rất rẻ nên đang bán rất chạy. Để đảm bảo bạn có được ưu đãi này, chúng tôi cần khách sạn xác nhận còn phòng hay không. Khách sạn thường xác nhận yêu cầu đặt phòng trong vòng 15 phút. Nếu yêu cầu đặt phòng của bạn không thể xác nhận, chúng tôi sẽ hoàn tiền đầy đủ."
+            "information3": "Phòng này có mức giá rất rẻ nên đang bán rất chạy. Để đảm bảo bạn có được ưu đãi này, chúng tôi cần khách sạn xác nhận còn phòng hay không. Khách sạn thường xác nhận yêu cầu đặt phòng trong vòng 15 phút. Nếu yêu cầu đặt phòng của bạn không thể xác nhận, chúng tôi sẽ hoàn tiền đầy đủ.",
+            "information4": "An tâm đặt phòng, Mytour hỗ trợ xuất hoá đơn nhanh chóng, tiết kiệm thời gian cho bạn.",
+            "endows": {
+                  "endow1": "Thưởng thức Chocolate miễn phí tại nhà hàng thời gian :\nchủ nhật - thứ 5: 15:00 - 16:00 Thứ 6 & thứ 7: 14:00 - 16:00",
+                  "endow2": "Quyền Lợi Sử Dụng Club Benefit cho Executive Family Suite With Sea View và Admiral Suite: • Đặc cách thủ tục nhận phòng & trả phòng riêng biệt • Miễn phí hai món đồ giặt mỗi phòng mỗi đêm (ngoại trừ dịch vụ giặt khô, giặt nhanh và không cộng dồn) • Miễn phí giải khát hằng ngày tại quầy từ 11h đến 21h • Bữa sáng ẩm thực quốc tế từ 6h30 đến 10h30 (cuối tuần và các ngày lễ sẽ phục vụ đến 11:00) • Miễn phí trà chiều từ 15h đến 16h, cocktail từ 18h đến 19h",
+                  "endow3": "Tặng phiếu mua hàng trị giá VND 300,000/ phòng/ lần lưu trú sử dụng dịch vụ ẩm thực và Spa trị liệu. Không áp dụng cùng lúc với các chương trình khuyến mại khác, không áp dụng cho tiệc. - Giảm giá 10% cho tất cả dịch vụ ẩm thực tại nhà hàng và trên phòng khách (bao gồm đồ uống có cồn và minibar trong phòng) - Giảm giá 5% tất cả sản phẩm tại cửa hàng Oasis - Giảm giá 20% các dịch vụ Spa theo menu Lưu ý: Các chương trình giảm giá sẽ không kết hợp cùng với chương trình khuyến mại khác",
+                  "endow4": "Tặng phiếu mua hàng trị giá VND 300,000/ phòng/ lần lưu trú sử dụng dịch vụ ẩm thực và Spa trị liệu. Không áp dụng cùng lúc với các chương trình khuyến mại khác, không áp dụng cho tiệc.",
+                  "endow5": "Giảm giá 10% cho tất cả dịch vụ ẩm thực tại nhà hàng và trên phòng khách (bao gồm đồ uống có cồn và minibar trong phòng).",
+                  "endow6": "Giảm giá 5% tất cả sản phẩm tại cửa hàng Oasis.",
+                  "endow7": "Giảm giá 20% các dịch vụ Spa theo menu.",
+                  "endow8": "Lưu ý: Các chương trình giảm giá sẽ không kết hợp cùng với chương trình khuyến mại khác."
+            }
+      },
+      "Rating": {
+            "Great":70,
+            "countGreat": 1.118,
+            "Satisfied":60,
+            "countSatisfied": 689,
+            "medium": 5,
+            "countmedium": 123,
+            "least": 0,
+            "countleast": 0
+      },
+      "comments": {
+            "comment1": {
+                  "name": "Hoài Thương",
+                  "birthday": "07/10/2024",
+                  "info1": "Phòng hướng ra biển...",
+                  "info2": " 1 đêm · tháng 10, 2024",
+                  "Room-type": " cặp đôi",
+                  "Evaluate1": 8.0,
+                  "Evaluate2":" Rất tốt",
+                  "comment": "Tại Oasia Hotel mang lại kỳ nghỉ 2 ngày 1 đêm với những trải nghiệm đáng nhớ. dịch vụ tốt, phòng rộng rãi với view đẹp, thức ăn khá ổn và nhân viên thân thiện là điểm sáng. Oasia Hotel là sự lựa chọn đáng trải nghiệm cho tôi nghỉ dưỡng."
+
+            }
       }
+
 }
