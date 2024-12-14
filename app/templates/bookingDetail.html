@@ -38,14 +38,14 @@
 
                 <div class="col-md-3">
                     <p class="menu-item-p">Đánh giá của khách
-                        (1.177)</p>
+                        {{hotel['Overview']['Number-of-reviews']}}</p>
                 </div>
             </div>
 
             <div class="row mt-5">
                 <div class="col-md-8">
-                    <div>phòng P112
-                        {% for i in range(1, 4) %}
+                    <div>{{hotel['id-room']}}
+                        {% for i in range(1, hotel['Overview']['star'] + 1) %}
                         <i class="fa-solid fa-star"
                             style="color: #FFD43B;"></i>
                         {% endfor %}
@@ -53,8 +53,7 @@
                             style="color: #74C0FC;"></i>
                     </div>
                     <div>
-                        <p>Tốt <span class="room-review">7.8</span> 912 đánh
-                            giá</p>
+                        <p>Tốt <span class="room-review">{{hotel['Overview']['rate']}}</span> {{hotel['Overview']['Number-of-reviews']}}</p>
                     </div>
                 </div>
 
@@ -100,18 +99,18 @@
                     class="flex-image flex-column col-md-4 justify-content-between">
                     <div class="rounded-pill">
                         <img class="border-lg-image"
-                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            src="{{ url_for('static', filename=hotel['img']['img1']) }}"
                             width="95%" />
                     </div>
                     <div class="rounded-pill pt-0 ">
                         <img class="border-lg-image"
-                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            src="{{ url_for('static', filename=hotel['img']['img2']) }}"
                             width="95%" />
                     </div>
                 </div>
                 <div class="rounded-pill">
                     <img class="border-lg-image"
-                        src="{{ url_for('static', filename='image/ks.jpg') }}"
+                        src="{{ url_for('static', filename=hotel['img']['img3']) }}"
                         width="100%" />
                 </div>
             </div>
@@ -119,35 +118,35 @@
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            src="{{ url_for('static', filename=hotel['img']['img4']) }}"
                             width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            src="{{ url_for('static', filename=hotel['img']['img5']) }}"
                             width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            src="{{ url_for('static', filename=hotel['img']['img6']) }}"
                             width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            src="{{ url_for('static', filename=hotel['img']['img7']) }}"
                             width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            src="{{ url_for('static', filename=hotel['img']['img8']) }}"
                             width="100%" />
                     </button>
                 </div>
@@ -160,11 +159,11 @@
             <div>
                 <div class="row">
                     <div class="col-md-9 col-xs-12 text-end p-0">
-                        <h5 class='mb-0'>Tốt</h5>
-                        <p class="mb-0">912 đánh giá</p>
+                        <h5 class='mb-0'>{{hotel['Overview']['Classification']}}</h5>
+                        <p class="mb-0">{{hotel['Overview']['Number-of-reviews']}} đánh giá</p>
                     </div>
                     <div class="col-md-3 col-xs-12 ">
-                        <p class="room-rate ">7.8</p>
+                        <p class="room-rate ">{{hotel['Overview']['rate']}}</p>
                     </div>
                 </div>
             </div>
@@ -178,48 +177,43 @@
                     <!-- The slideshow/carousel -->
                     <div class="carousel-inner container">
                         <div class="carousel-item active container">
-                            <span>“nhiều quán nhậu xung quanh, chất lượng phòng
-                                ổn, lễ tân trực 24/24, giá phòng rẻ mà ở ngay
-                                trung tâm.”</span>
+                            <span>{{hotel['users']['user1']['comment']}}</span>
                             <div
                                 class="image-nation d-flex justify-content-around mt-3">
                                 <span><i class="fa-solid fa-user"
                                         style="color: #cfd8e8;"></i> </span>
-                                <p>Quốc Vũ</p>
+                                <p>{{hotel['users']['user1']['name']}}</p>
                                 <img
-                                    src="https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+                                    src="{{hotel['users']['user1']['img']}}"
                                     alt="Vietnamese">
-                                <span>Vietnamese</span>
+                                <span>{{hotel['users']['user1']['nation']}}</span>
                             </div>
                         </div>
+
                         <div class="carousel-item container">
-                            <span>“Phòng đep, rộng rãi, thoáng mát, nhân viên
-                                nhiệt tình, dịch vụ tốt, rất đáng để quay trở
-                                lại.”</span>
+                            <span>{{hotel['users']['user2']['comment']}}</span>
                             <div
                                 class="image-nation d-flex justify-content-around mt-3 ">
                                 <span><i class="fa-solid fa-user"
                                         style="color: #cfd8e8;"></i> </span>
-                                <p>Hạ Linh</p>
+                                <p>{{hotel['users']['user2']['name']}}</p>
                                 <img
-                                    src="https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+                                    src="{{hotel['users']['user2']['img']}}"
                                     alt="Vietnamese">
-                                <span>Vietnamese</span>
+                                <span>{{hotel['users']['user2']['nation']}}</span>
                             </div>
                         </div>
                         <div class="carousel-item container">
-                            <span>“không gian rộng rãi, thoáng mát, đầy đủ tiện
-                                nghi, ăn uống đa dạng nhân viên lịch
-                                sự,...”</span>
+                            <span>{{hotel['users']['user3']['comment']}}</span>
                             <div
                                 class="image-nation d-flex justify-content-around mt-3 ">
                                 <span><i class="fa-solid fa-user"
                                         style="color: #cfd8e8;"></i> </span>
-                                <p>Dương Phạm</p>
+                                <p>{{hotel['users']['user3']['name']}}</p>
                                 <img
-                                    src="https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+                                    src="{{hotel['users']['user3']['img']}}"
                                     alt="Vietnamese">
-                                <span>Vietnamese</span>
+                                <span>{{hotel['users']['user3']['nation']}}</span>
                             </div>
                         </div>
                     </div>
@@ -245,10 +239,10 @@
                     <span class="text-success">Khách nói gì về kỳ nghỉ của họ
                     </span>
                     <div class="comment row">
-                        <p class="col-md-5">Bữa Sáng Ngon (2)</p>
-                        <p class="col-md-5">Phòng Sạch (12)</p>
-                        <p class="col-md-6">Nhân Viên Thân Thiện (20)</p>
-                        <p class="col-md-5">Dịch Vụ Xuất Sắc (2)</p>
+                        <p class="col-md-5">Bữa Sáng Ngon ({{hotel['Guest-Reviews']['meal']}})</p>
+                        <p class="col-md-5">Phòng Sạch ({{hotel['Guest-Reviews']['room']}})</p>
+                        <p class="col-md-6">Nhân Viên Thân Thiện ({{hotel['Guest-Reviews']['staff']}})</p>
+                        <p class="col-md-5">Dịch Vụ Xuất Sắc ({{hotel['Guest-Reviews']['service']}})</p>
                     </div>
                 </div>
                 <hr>
@@ -268,14 +262,7 @@
     <div>
         <div class="container mt-3">
             <h4>Thông tin chi tiết</h4>
-            <p>Thành phố Hồ Chí Minh sôi động. Khách sạn cung cấp các phòng nghỉ
-                tiện nghi sạch sẽ với máy lạnh cùng phòng tắm riêng và truy cập
-                Wi-Fi miễn phí tại tất cả các khu vực.
-
-                Khách sạn giá cả phải chăng này nằm chỉ cách Chợ Bến Thành nổi
-                tiếng 600 m. Cách khách sạn 1 km là Dinh Thống Nhất lịch sử
-                trong khi Bảo tàng Quân đội cách đó 3,6 km. Sân bay Quốc tế Tân
-                Sơn Nhất nằm trong bán kính 7 km từ khách sạn.</p>
+            <p> {{hotel['room-Details']['information1']}}</p>
             <p class="see-more"
                 data-bs-toggle="collapse"
                 data-bs-target="#infomation-room">Xem Thêm <i

@@ -1,0 +1,48 @@
+{
+      "id-room": "phòng P112",
+      "img": {
+            "img1": "image/ks.jpg",
+            "img2": "image/ks.jpg",
+            "img3": "image/ks.jpg",
+            "img4": "image/ks.jpg",
+            "img5": "image/ks.jpg",
+            "img6": "image/ks.jpg",
+            "img7": "image/ks.jpg",
+            "img8": "image/ks.jpg"
+      },
+      "Overview": {
+            "Classification": "Tốt",
+            "Number-of-reviews": "(11.239)",
+            "star": 4,
+            "rate": 8.1
+      },
+      "users": {
+            "user1": {
+                  "name": "Quốc Vũ",
+                  "nation": "Vietnamese",
+                  "comment": "\"nhiều quán nhậu xung quanh, chất lượng phòng ổn, lễ tân trực 24/24, giá phòng rẻ mà ở ngay trung tâm.\"",
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+            },
+            "user2": {
+                  "name": "Hải Yến",
+                  "nation": "Vietnamese",
+                  "comment": "\"Phòng đẹp, rộng rãi, thoáng mát, nhân viên nhiệt tình, dịch vụ tốt, rất đáng để quay trở lại.\"",
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+            },
+            "user3": {
+                  "name": "hạ Linh",
+                  "nation": "Vietnamese",
+                  "comment": "\"không gian rộng rãi, thoáng mát, đầy đủ tiện nghi, ăn uống đa dạng, nhân viên lịch sự,...\"",
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+            }
+      },
+      "Guest-Reviews": {
+            "meal": 785,
+            "room": 678,
+            "staff": 933,
+            "service": 789
+      },
+      "room-Details": {
+            "information1": "Các phòng nghỉ tại đây có TV màn hình phẳng, khu vực tiếp khách và minibar. Các phòng tắm riêng đi kèm vòi sen nước nóng, khăn tắm cùng đồ vệ sinh cá nhân miễn phí.\n\nTại YaYa Sai Gon Hotel Bui Vien Walking Street, du khách sẽ tìm thấy lễ tân 24 giờ với chỗ để hành lý. Khách sạn còn có các tiện nghi như dịch vụ cho thuê xe máy, bàn đặt tour và dịch vụ giặt là/ủi."
+      }
+}

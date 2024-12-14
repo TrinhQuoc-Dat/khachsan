@@ -6,6 +6,8 @@ from flask import render_template, request, redirect, jsonify, url_for
 from app.models import UserRole
 from flask_login import login_user, logout_user, current_user
 import cloudinary
+import json
+
 
 
 
@@ -88,10 +90,20 @@ def booking():
     return render_template('booking.html')
 
 
-
+# // http://127.0.0.1:5000/booking-detail/1
 @app.route('/booking-detail', methods=['get', 'post'])
-def booking_detail():
-    return render_template('bookingDetail.html')
+@app.route('/booking-detail/<int:hotel_id>', methods=['get', 'post'])
+def booking_detail(hotel_id=None):
+    if hotel_id:
+        try:
+            # Đọc file JSON dựa vào hotel_id
+            with open(f'app/data/hotel{hotel_id}.json', 'r', encoding='utf-8') as file:
+                hotel_data = json.load(file)
+        except FileNotFoundError:
+            return f"Không tìm thấy dữ liệu cho khách sạn có ID {hotel_id}", 404
+    else:
+        hotel_data = {}  # Dữ liệu mặc định khi không có hotel_id
+    return render_template('bookingDetail.html', hotel=hotel_data)
 
 
 if __name__ == '__main__':
