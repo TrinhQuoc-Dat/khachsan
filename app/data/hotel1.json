@@ -59,9 +59,9 @@
             }
       },
       "Rating": {
-            "Great":70,
+            "Great": 70,
             "countGreat": 1.118,
-            "Satisfied":60,
+            "Satisfied": 60,
             "countSatisfied": 689,
             "medium": 5,
             "countmedium": 123,
@@ -69,18 +69,71 @@
             "countleast": 0
       },
       "comments": {
-            "comment1": {
-                  "img":"https://res.cloudinary.com/devtqlbho/image/upload/v1733842675/4_qrekt5.webp",
+            "comment0": {
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733842675/4_qrekt5.webp",
                   "name": "Hoài Thương",
                   "birthday": "07/10/2024",
                   "info1": "Phòng hướng ra biển...",
                   "info2": " 1 đêm · tháng 10, 2024",
                   "Room-type": " cặp đôi",
                   "Evaluate1": 8.0,
-                  "Evaluate2":" Rất tốt",
-                  "comment": "Tại Oasia Hotel mang lại kỳ nghỉ 2 ngày 1 đêm với những trải nghiệm đáng nhớ. dịch vụ tốt, phòng rộng rãi với view đẹp, thức ăn khá ổn và nhân viên thân thiện là điểm sáng. Oasia Hotel là sự lựa chọn đáng trải nghiệm cho tôi nghỉ dưỡng."
-
+                  "Evaluate2": " Rất tốt",
+                  "comment": "Oasia Hotel mang lại cho tôi kỳ nghỉ 2 ngày 1 đêm với những trải nghiệm đáng nhớ. dịch vụ tốt, phòng rộng rãi với view đẹp, thức ăn khá ổn và nhân viên thân thiện là điểm sáng. Oasia Hotel là sự lựa chọn đáng trải nghiệm cho tôi nghỉ dưỡng."
+            },
+            "comment1": {
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733842673/3_jjgbhb.jpg",
+                  "name": "Thanh Mai",
+                  "birthday": "15/08/2024",
+                  "info1": "Phòng có ban công hướng núi...",
+                  "info2": "2 đêm · tháng 8, 2024",
+                  "Room-type": "gia đình",
+                  "Evaluate1": 9.2,
+                  "Evaluate2": "Xuất sắc",
+                  "comment": "Kỳ nghỉ tại Oasia Hotel thật tuyệt vời! Phòng được dọn sạch sẽ mỗi ngày, không gian yên tĩnh, phù hợp cho gia đình nghỉ ngơi. Nhà hàng trong khách sạn có thực đơn đa dạng, đồ ăn ngon và hợp khẩu vị. Chắc chắn sẽ quay lại lần sau."
+            },
+            "comment2": {
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733842673/1_jngghc.jpg",
+                  "name": "Minh Tú",
+                  "birthday": "20/09/2024",
+                  "info1": "Phòng gần hồ bơi...",
+                  "info2": "3 đêm · tháng 9, 2024",
+                  "Room-type": "đơn lẻ",
+                  "Evaluate1": 7.8,
+                  "Evaluate2": "Tốt",
+                  "comment": "Oasia Hotel là nơi lý tưởng cho một chuyến đi ngắn ngày. Hồ bơi sạch sẽ, nhân viên phục vụ nhanh nhẹn và thân thiện. Tuy nhiên, phần ăn sáng cần đa dạng hơn. Dù sao đây vẫn là một nơi đáng để cân nhắc cho những kỳ nghỉ sau này."
+            },
+            "comment3": {
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1734334558/KKK_6734.jpg_xo4yy4.webp",
+                  "name": "Hồng Ngọc",
+                  "birthday": "25/12/2024",
+                  "info1": "Phòng sang trọng với nội thất hiện đại...",
+                  "info2": "1 đêm · tháng 12, 2024",
+                  "Room-type": "cặp đôi",
+                  "Evaluate1": 8.5,
+                  "Evaluate2": "Rất tốt",
+                  "comment": "Đây là lần thứ hai tôi đến Oasia Hotel và vẫn rất hài lòng. Phòng đẹp, thiết kế tinh tế và hiện đại. Dịch vụ chuyên nghiệp và nhanh chóng, giúp chúng tôi tận hưởng một kỳ nghỉ hoàn hảo. Giá cả hợp lý, chắc chắn sẽ giới thiệu cho bạn bè."
+            },
+            "comment4": {
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733842674/man3_r77txv.jpg",
+                  "name": "Trọng Hiếu",
+                  "birthday": "10/11/2024",
+                  "info1": "Phòng cạnh khu vườn nhiệt đới...",
+                  "info2": "2 đêm · tháng 11, 2024",
+                  "Room-type": "nhóm bạn",
+                  "Evaluate1": 8.8,
+                  "Evaluate2": "Rất tốt",
+                  "comment": "Một kỳ nghỉ đáng nhớ tại Oasia Hotel với bạn bè! Phòng rộng rãi, khuôn viên xanh mát và gần gũi với thiên nhiên. Nhân viên cực kỳ nhiệt tình và luôn hỗ trợ kịp thời. Điểm trừ nhỏ là wifi hơi chậm. Nhưng tổng thể, tôi rất hài lòng với dịch vụ ở đây."
+            },
+            "comment5": {
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1734334649/cach-chup-anh-dep-cho-nguoi-mat-tron-ban-khong-the-lam-ngo-901_pddz5v.jpg",
+                  "name": "Diệu Anh",
+                  "birthday": "30/06/2024",
+                  "info1": "Phòng với không gian yên tĩnh gần trung tâm...",
+                  "info2": "1 đêm · tháng 6, 2024",
+                  "Room-type": "đơn lẻ",
+                  "Evaluate1": 7.5,
+                  "Evaluate2": "Tốt",
+                  "comment": "Oasia Hotel đáp ứng đủ nhu cầu cho một chuyến công tác ngắn ngày. Phòng tiện nghi, cách âm tốt. Tuy nhiên, đồ ăn tối chưa thực sự ấn tượng. Điểm cộng lớn nhất là vị trí thuận tiện, dễ dàng di chuyển đến các địa điểm trong thành phố."
             }
       }
-
 }

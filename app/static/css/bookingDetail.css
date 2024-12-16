@@ -152,7 +152,7 @@ button:hover {
       object-fit: cover;
 }
 
-.like-comment {
+.like-comment {   
       color: #c9cbc8;
       cursor: pointer;
       font-size: 18px;

@@ -62,7 +62,7 @@ def sign_in():
                 avatar_path = upload_result['secure_url']
                 print("sdfsadkfdksf" + avatar_path)
             dao.add_user(password=password, email=email, avatar=avatar_path,
-                          username=username, role=UserRole.USER)
+                username=username, role=UserRole.USER)
             return redirect(url_for('login'))
         except Exception as ex:
             err_mgs = "Server error !!!"
@@ -91,12 +91,11 @@ def booking():
 
 
 # // http://127.0.0.1:5000/booking-detail/1
-@app.route('/booking-detail', methods=['get', 'post'])
-@app.route('/booking-detail/<int:hotel_id>', methods=['get', 'post'])
+@app.route('/booking-detail=<int:hotel_id>', methods=['get', 'post'])
 def booking_detail(hotel_id=None):
     if hotel_id:
         try:
-            # Đọc file JSON dựa vào hotel_id
+            # Đọc file JSON dựa vào hotel_id    
             with open(f'app/data/hotel{hotel_id}.json', 'r', encoding='utf-8') as file:
                 hotel_data = json.load(file)
         except FileNotFoundError:
