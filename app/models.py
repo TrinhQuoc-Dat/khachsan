@@ -170,8 +170,8 @@ if __name__ == '__main__':
         pass
         # db.drop_all()
         # db.create_all()
-        # u = User(username='Truongdat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
-        #          user_role=UserRole.USER, email='2251050017dat@ou.edu.vn')
+        # u = User(username='admin', password=str(hashlib.md5('1'.strip().encode('utf-8')).hexdigest()),
+        #         user_role=UserRole.ADMIN, email='nhatduy242@gmail.com')
         # db.session.add(u)
         # db.session.commit()
 
