@@ -1,0 +1,145 @@
+{
+      "id-room": "phòng P112",
+      "img": {
+            "img1": "https://res.cloudinary.com/devtqlbho/video/upload/v1733131043/1_nranxo.mp4",
+            "img2": "https://res.cloudinary.com/devtqlbho/image/upload/v1733131040/3_gojkbs.jpg",
+            "img3": "https://res.cloudinary.com/devtqlbho/image/upload/v1733131043/8_eousrc.jpg",
+            "img4": "https://res.cloudinary.com/devtqlbho/image/upload/v1733131043/7_ruhsvd.jpg",
+            "img5": "https://res.cloudinary.com/devtqlbho/image/upload/v1733131040/2_lzwjco.jpg",
+            "img6": "https://res.cloudinary.com/devtqlbho/image/upload/v1733131042/6_bxzoif.jpg",
+            "img7": "https://res.cloudinary.com/devtqlbho/image/upload/v1733131044/9_hglfjn.jpg",
+            "img8": "https://res.cloudinary.com/devtqlbho/image/upload/v1733131040/4_av2wxh.jpg"
+      },
+      "Overview": {
+            "Classification": "Tốt",
+            "Number-of-reviews": "(11.239)",
+            "star": 4,
+            "rate": 8.1
+      },
+      "users": {
+            "user1": {
+                  "name": "Quốc Vũ",
+                  "nation": "Vietnamese",
+                  "comment": "\"nhiều quán nhậu xung quanh, chất lượng phòng ổn, lễ tân trực 24/24, giá phòng rẻ mà ở ngay trung tâm.\"",
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+            },
+            "user2": {
+                  "name": "Hải Yến",
+                  "nation": "Vietnamese",
+                  "comment": "\"Phòng đẹp, rộng rãi, thoáng mát, nhân viên nhiệt tình, dịch vụ tốt, rất đáng để quay trở lại.\"",
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+            },
+            "user3": {
+                  "name": "hạ Linh",
+                  "nation": "Vietnamese",
+                  "comment": "\"không gian rộng rãi, thoáng mát, đầy đủ tiện nghi, ăn uống đa dạng, nhân viên lịch sự,...\"",
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+            }
+      },
+      "Guest-Reviews": {
+            "meal": 785,
+            "room": 678,
+            "staff": 933,
+            "service": 789
+      },
+      "room-Details": {
+            "information1": "Các phòng nghỉ tại đây có TV màn hình phẳng, khu vực tiếp khách và minibar. Các phòng tắm riêng đi kèm vòi sen nước nóng, khăn tắm cùng đồ vệ sinh cá nhân miễn phí.\n\nTại YaYa Sai Gon Hotel Bui Vien Walking Street, du khách sẽ tìm thấy lễ tân 24 giờ với chỗ để hành lý. Khách sạn còn có các tiện nghi như dịch vụ cho thuê xe máy, bàn đặt tour và dịch vụ giặt là/ủi.",
+            "information2": "Các phòng nghỉ tại đây có TV màn hình phẳng, khu vực tiếp khách và minibar. Các phòng tắm riêng đi kèm vòi sen nước nóng, khăn tắm cùng đồ vệ sinh cá nhân miễn phí.\n\nTại YaYa Sai Gon Hotel Bui Vien Walking Street, du khách sẽ tìm thấy lễ tân 24 giờ với chỗ để hành lý. Khách sạn còn có các tiện nghi như dịch vụ cho thuê xe máy, bàn đặt tour và dịch vụ giặt là/ủi.",
+            "information3": "Phòng này có mức giá rất rẻ nên đang bán rất chạy. Để đảm bảo bạn có được ưu đãi này, chúng tôi cần khách sạn xác nhận còn phòng hay không. Khách sạn thường xác nhận yêu cầu đặt phòng trong vòng 15 phút. Nếu yêu cầu đặt phòng của bạn không thể xác nhận, chúng tôi sẽ hoàn tiền đầy đủ.",
+            "information4": "An tâm đặt phòng, Mytour hỗ trợ xuất hoá đơn nhanh chóng, tiết kiệm thời gian cho bạn.",
+            "endows": {
+                  "endow1": "Thưởng thức Chocolate miễn phí tại nhà hàng thời gian :\nchủ nhật - thứ 5: 15:00 - 16:00 Thứ 6 & thứ 7: 14:00 - 16:00",
+                  "endow2": "Quyền Lợi Sử Dụng Club Benefit cho Executive Family Suite With Sea View và Admiral Suite: • Đặc cách thủ tục nhận phòng & trả phòng riêng biệt • Miễn phí hai món đồ giặt mỗi phòng mỗi đêm (ngoại trừ dịch vụ giặt khô, giặt nhanh và không cộng dồn) • Miễn phí giải khát hằng ngày tại quầy từ 11h đến 21h • Bữa sáng ẩm thực quốc tế từ 6h30 đến 10h30 (cuối tuần và các ngày lễ sẽ phục vụ đến 11:00) • Miễn phí trà chiều từ 15h đến 16h, cocktail từ 18h đến 19h",
+                  "endow3": "Tặng phiếu mua hàng trị giá VND 300,000/ phòng/ lần lưu trú sử dụng dịch vụ ẩm thực và Spa trị liệu. Không áp dụng cùng lúc với các chương trình khuyến mại khác, không áp dụng cho tiệc. - Giảm giá 10% cho tất cả dịch vụ ẩm thực tại nhà hàng và trên phòng khách (bao gồm đồ uống có cồn và minibar trong phòng) - Giảm giá 5% tất cả sản phẩm tại cửa hàng Oasis - Giảm giá 20% các dịch vụ Spa theo menu Lưu ý: Các chương trình giảm giá sẽ không kết hợp cùng với chương trình khuyến mại khác",
+                  "endow4": "Tặng phiếu mua hàng trị giá VND 300,000/ phòng/ lần lưu trú sử dụng dịch vụ ẩm thực và Spa trị liệu. Không áp dụng cùng lúc với các chương trình khuyến mại khác, không áp dụng cho tiệc.",
+                  "endow5": "Giảm giá 10% cho tất cả dịch vụ ẩm thực tại nhà hàng và trên phòng khách (bao gồm đồ uống có cồn và minibar trong phòng).",
+                  "endow6": "Giảm giá 5% tất cả sản phẩm tại cửa hàng Oasis.",
+                  "endow7": "Giảm giá 20% các dịch vụ Spa theo menu.",
+                  "endow8": "Lưu ý: Các chương trình giảm giá sẽ không kết hợp cùng với chương trình khuyến mại khác."
+            }
+      },
+      "Rating": {
+            "Great": 70,
+            "countGreat": 1.118,
+            "Satisfied": 60,
+            "countSatisfied": 689,
+            "medium": 5,
+            "countmedium": 123,
+            "least": 0,
+            "countleast": 0
+      },
+      "comments": {
+            "comment0": {
+                  "title": "Trải Nghiệm Đáng Nhớ Tại Oasia Hotel",
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733842675/4_qrekt5.webp",
+                  "name": "Hoài Thương",
+                  "birthday": "07/10/2024",
+                  "info1": "Phòng hướng ra biển...",
+                  "info2": " 1 đêm · tháng 10, 2024",
+                  "Room-type": " cặp đôi",
+                  "Evaluate1": 8.0,
+                  "Evaluate2": " Rất tốt",
+                  "comment": "Oasia Hotel mang lại cho tôi kỳ nghỉ 2 ngày 1 đêm với những trải nghiệm đáng nhớ. dịch vụ tốt, phòng rộng rãi với view đẹp, thức ăn khá ổn và nhân viên thân thiện là điểm sáng. Oasia Hotel là sự lựa chọn đáng trải nghiệm cho tôi nghỉ dưỡng."
+            },
+            "comment1": {
+                  "title":"Không gian sang trọng và thoải mái.",
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733842673/3_jjgbhb.jpg",
+                  "name": "Thanh Mai",
+                  "birthday": "15/08/2024",
+                  "info1": "Phòng có ban công hướng núi...",
+                  "info2": "2 đêm · tháng 8, 2024",
+                  "Room-type": "gia đình",
+                  "Evaluate1": 9.2,
+                  "Evaluate2": "Xuất sắc",
+                  "comment": "Kỳ nghỉ tại Oasia Hotel thật tuyệt vời! Phòng được dọn sạch sẽ mỗi ngày, không gian yên tĩnh, phù hợp cho gia đình nghỉ ngơi. Nhà hàng trong khách sạn có thực đơn đa dạng, đồ ăn ngon và hợp khẩu vị. Chắc chắn sẽ quay lại lần sau."
+            },
+            "comment2": {
+                  "title":"Dịch vụ tuyệt vời, rất chu đáo.",
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733842673/1_jngghc.jpg",
+                  "name": "Minh Tú",
+                  "birthday": "20/09/2024",
+                  "info1": "Phòng gần hồ bơi...",
+                  "info2": "3 đêm · tháng 9, 2024",
+                  "Room-type": "đơn lẻ",
+                  "Evaluate1": 7.8,
+                  "Evaluate2": "Tốt",
+                  "comment": "Oasia Hotel là nơi lý tưởng cho một chuyến đi ngắn ngày. Hồ bơi sạch sẽ, nhân viên phục vụ nhanh nhẹn và thân thiện. Tuy nhiên, phần ăn sáng cần đa dạng hơn. Dù sao đây vẫn là một nơi đáng để cân nhắc cho những kỳ nghỉ sau này."
+            },
+            "comment3": {
+                  "title": "Hồ bơi ngoài trời thật đẹp.",
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1734334558/KKK_6734.jpg_xo4yy4.webp",
+                  "name": "Hồng Ngọc",
+                  "birthday": "25/12/2024",
+                  "info1": "Phòng sang trọng với nội thất hiện đại...",
+                  "info2": "1 đêm · tháng 12, 2024",
+                  "Room-type": "cặp đôi",
+                  "Evaluate1": 8.5,
+                  "Evaluate2": "Rất tốt",
+                  "comment": "Đây là lần thứ hai tôi đến Oasia Hotel và vẫn rất hài lòng. Phòng đẹp, thiết kế tinh tế và hiện đại. Dịch vụ chuyên nghiệp và nhanh chóng, giúp chúng tôi tận hưởng một kỳ nghỉ hoàn hảo. Giá cả hợp lý, chắc chắn sẽ giới thiệu cho bạn bè."
+            },
+            "comment4": {
+                  "title": "Lựa chọn lý tưởng cho kỳ nghỉ.",
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733842674/man3_r77txv.jpg",
+                  "name": "Trọng Hiếu",
+                  "birthday": "10/11/2024",
+                  "info1": "Phòng cạnh khu vườn nhiệt đới...",
+                  "info2": "2 đêm · tháng 11, 2024",
+                  "Room-type": "nhóm bạn",
+                  "Evaluate1": 8.8,
+                  "Evaluate2": "Rất tốt",
+                  "comment": "Một kỳ nghỉ đáng nhớ tại Oasia Hotel với bạn bè! Phòng rộng rãi, khuôn viên xanh mát và gần gũi với thiên nhiên. Nhân viên cực kỳ nhiệt tình và luôn hỗ trợ kịp thời. Điểm trừ nhỏ là wifi hơi chậm. Nhưng tổng thể, tôi rất hài lòng với dịch vụ ở đây."
+            },
+            "comment5": {
+                  "title": "Trải nghiệm đẳng cấp, rất hài lòng.",
+                  "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1734334649/cach-chup-anh-dep-cho-nguoi-mat-tron-ban-khong-the-lam-ngo-901_pddz5v.jpg",
+                  "name": "Diệu Anh",
+                  "birthday": "30/06/2024",
+                  "info1": "Phòng với không gian yên tĩnh gần trung tâm...",
+                  "info2": "1 đêm · tháng 6, 2024",
+                  "Room-type": "đơn lẻ",
+                  "Evaluate1": 9.2,
+                  "Evaluate2": "Tốt",
+                  "comment": "Oasia Hotel đáp ứng đủ nhu cầu cho một chuyến công tác ngắn ngày. Phòng tiện nghi, cách âm tốt. Tuy nhiên, đồ ăn tối chưa thực sự ấn tượng. Điểm cộng lớn nhất là vị trí thuận tiện, dễ dàng di chuyển đến các địa điểm trong thành phố."
+            }
+      }
+}

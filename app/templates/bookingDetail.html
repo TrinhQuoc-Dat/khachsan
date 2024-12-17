@@ -38,14 +38,14 @@
 
                 <div class="col-md-3">
                     <p class="menu-item-p">Đánh giá của khách
-                        (1.177)</p>
+                        {{hotel['Overview']['Number-of-reviews']}}</p>
                 </div>
             </div>
 
             <div class="row mt-5">
                 <div class="col-md-8">
-                    <div>phòng P112
-                        {% for i in range(1, 4) %}
+                    <div>{{hotel['id-room']}}
+                        {% for i in range(1, hotel['Overview']['star'] + 1) %}
                         <i class="fa-solid fa-star"
                             style="color: #FFD43B;"></i>
                         {% endfor %}
@@ -53,8 +53,9 @@
                             style="color: #74C0FC;"></i>
                     </div>
                     <div>
-                        <p>Tốt <span class="room-review">7.8</span> 912 đánh
-                            giá</p>
+                        <p>Tốt <span
+                                class="room-review">{{hotel['Overview']['rate']}}</span>
+                            {{hotel['Overview']['Number-of-reviews']}}</p>
                     </div>
                 </div>
 
@@ -100,54 +101,54 @@
                     class="flex-image flex-column col-md-4 justify-content-between">
                     <div class="rounded-pill">
                         <img class="border-lg-image"
-                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            src="{{ hotel['img']['img2'] }}"
                             width="95%" />
                     </div>
                     <div class="rounded-pill pt-0 ">
                         <img class="border-lg-image"
-                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            src="{{ hotel['img']['img3'] }}"
                             width="95%" />
                     </div>
                 </div>
-                <div class="rounded-pill">
-                    <img class="border-lg-image"
-                        src="{{ url_for('static', filename='image/ks.jpg') }}"
-                        width="100%" />
+                <div class="rounded-pill fullscreen-video">
+                    <video width="100%" controls autoplay muted>
+                        <source src="{{ hotel['img']['img1'] }}" type="video/mp4">
+                    </video>
                 </div>
             </div>
             <div class="flex-image">
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            src="{{ hotel['img']['img4'] }}"
                             width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            src="{{ hotel['img']['img5'] }}"
                             width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            src="{{ hotel['img']['img6'] }}"
                             width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            src="{{ hotel['img']['img7'] }}"
                             width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename='image/ks.jpg') }}"
+                            src="{{ hotel['img']['img8'] }}"
                             width="100%" />
                     </button>
                 </div>
@@ -160,11 +161,14 @@
             <div>
                 <div class="row">
                     <div class="col-md-9 col-xs-12 text-end p-0">
-                        <h5 class='mb-0'>Tốt</h5>
-                        <p class="mb-0">912 đánh giá</p>
+                        <h5
+                            class='mb-0'>{{hotel['Overview']['Classification']}}</h5>
+                        <p
+                            class="mb-0">{{hotel['Overview']['Number-of-reviews']}}
+                            đánh giá</p>
                     </div>
                     <div class="col-md-3 col-xs-12 ">
-                        <p class="room-rate ">7.8</p>
+                        <p class="room-rate ">{{hotel['Overview']['rate']}}</p>
                     </div>
                 </div>
             </div>
@@ -178,48 +182,43 @@
                     <!-- The slideshow/carousel -->
                     <div class="carousel-inner container">
                         <div class="carousel-item active container">
-                            <span>“nhiều quán nhậu xung quanh, chất lượng phòng
-                                ổn, lễ tân trực 24/24, giá phòng rẻ mà ở ngay
-                                trung tâm.”</span>
+                            <span>{{hotel['users']['user1']['comment']}}</span>
                             <div
                                 class="image-nation d-flex justify-content-around mt-3">
                                 <span><i class="fa-solid fa-user"
                                         style="color: #cfd8e8;"></i> </span>
-                                <p>Quốc Vũ</p>
+                                <p>{{hotel['users']['user1']['name']}}</p>
                                 <img
-                                    src="https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+                                    src="{{hotel['users']['user1']['img']}}"
                                     alt="Vietnamese">
-                                <span>Vietnamese</span>
+                                <span>{{hotel['users']['user1']['nation']}}</span>
                             </div>
                         </div>
+
                         <div class="carousel-item container">
-                            <span>“Phòng đep, rộng rãi, thoáng mát, nhân viên
-                                nhiệt tình, dịch vụ tốt, rất đáng để quay trở
-                                lại.”</span>
+                            <span>{{hotel['users']['user2']['comment']}}</span>
                             <div
                                 class="image-nation d-flex justify-content-around mt-3 ">
                                 <span><i class="fa-solid fa-user"
                                         style="color: #cfd8e8;"></i> </span>
-                                <p>Hạ Linh</p>
+                                <p>{{hotel['users']['user2']['name']}}</p>
                                 <img
-                                    src="https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+                                    src="{{hotel['users']['user2']['img']}}"
                                     alt="Vietnamese">
-                                <span>Vietnamese</span>
+                                <span>{{hotel['users']['user2']['nation']}}</span>
                             </div>
                         </div>
                         <div class="carousel-item container">
-                            <span>“không gian rộng rãi, thoáng mát, đầy đủ tiện
-                                nghi, ăn uống đa dạng nhân viên lịch
-                                sự,...”</span>
+                            <span>{{hotel['users']['user3']['comment']}}</span>
                             <div
                                 class="image-nation d-flex justify-content-around mt-3 ">
                                 <span><i class="fa-solid fa-user"
                                         style="color: #cfd8e8;"></i> </span>
-                                <p>Dương Phạm</p>
+                                <p>{{hotel['users']['user3']['name']}}</p>
                                 <img
-                                    src="https://res.cloudinary.com/devtqlbho/image/upload/v1733671423/vietnam_icon_127899_ys0vnv.png"
+                                    src="{{hotel['users']['user3']['img']}}"
                                     alt="Vietnamese">
-                                <span>Vietnamese</span>
+                                <span>{{hotel['users']['user3']['nation']}}</span>
                             </div>
                         </div>
                     </div>
@@ -245,10 +244,14 @@
                     <span class="text-success">Khách nói gì về kỳ nghỉ của họ
                     </span>
                     <div class="comment row">
-                        <p class="col-md-5">Bữa Sáng Ngon (2)</p>
-                        <p class="col-md-5">Phòng Sạch (12)</p>
-                        <p class="col-md-6">Nhân Viên Thân Thiện (20)</p>
-                        <p class="col-md-5">Dịch Vụ Xuất Sắc (2)</p>
+                        <p class="col-md-5">Bữa Sáng Ngon
+                            ({{hotel['Guest-Reviews']['meal']}})</p>
+                        <p class="col-md-5">Phòng Sạch
+                            ({{hotel['Guest-Reviews']['room']}})</p>
+                        <p class="col-md-6">Nhân Viên Thân Thiện
+                            ({{hotel['Guest-Reviews']['staff']}})</p>
+                        <p class="col-md-5">Dịch Vụ Xuất Sắc
+                            ({{hotel['Guest-Reviews']['service']}})</p>
                     </div>
                 </div>
                 <hr>
@@ -268,84 +271,25 @@
     <div>
         <div class="container mt-3">
             <h4>Thông tin chi tiết</h4>
-            <p>Thành phố Hồ Chí Minh sôi động. Khách sạn cung cấp các phòng nghỉ
-                tiện nghi sạch sẽ với máy lạnh cùng phòng tắm riêng và truy cập
-                Wi-Fi miễn phí tại tất cả các khu vực.
-
-                Khách sạn giá cả phải chăng này nằm chỉ cách Chợ Bến Thành nổi
-                tiếng 600 m. Cách khách sạn 1 km là Dinh Thống Nhất lịch sử
-                trong khi Bảo tàng Quân đội cách đó 3,6 km. Sân bay Quốc tế Tân
-                Sơn Nhất nằm trong bán kính 7 km từ khách sạn.</p>
+            <p> {{hotel['room-Details']['information1']}}</p>
             <p class="see-more"
                 data-bs-toggle="collapse"
                 data-bs-target="#infomation-room">Xem Thêm <i
                     class="fa-solid fa-angles-right"
                     style="color: #74C0FC;"></i></p>
             <div id="infomation-room" class="collapse">
-                Các phòng nghỉ tại đây có TV màn hình phẳng, khu vực tiếp khách
-                và minibar. Các phòng tắm riêng đi kèm vòi sen nước nóng, khăn
-                tắm cùng đồ vệ sinh cá nhân miễn phí.
-
-                Tại YaYa Sai Gon Hotel Bui Vien Walking Street, du khách sẽ tìm
-                thấy lễ tân 24 giờ với chỗ để hành lý. Khách sạn còn có các tiện
-                nghi như dịch vụ cho thuê xe máy, bàn đặt tour và dịch vụ giặt
-                là/ủi.
-
+                {{hotel['room-Details']['information2']}}
                 <h6>Chính sách hủy</h6>
                 Không hỗ trợ hoàn huỷ
                 <h6>Bữa ăn</h6>
                 Giá đã bao gồm bữa sáng
                 <h6>Xác nhận</h6>
-                Phòng này có mức giá rất rẻ nên đang bán rất chạy. Để đảm bảo
-                bạn có được ưu đãi này, chúng tôi cần khách sạn xác nhận còn
-                phòng hay không. Khách sạn thường xác nhận yêu cầu đặt phòng
-                trong vòng 15 phút. Nếu yêu cầu đặt phòng của bạn không thể xác
-                nhận, chúng tôi sẽ hoàn tiền đầy đủ
+                {{hotel['room-Details']['information3']}}
                 <h6>Hóa đơn</h6>
-                An tâm đặt phòng, Mytour hỗ trợ xuất hoá đơn nhanh chóng, tiết
-                kiệm thời gian cho bạn.
+                {{hotel['room-Details']['information4']}}
                 <h6>Ưu đãi</h6>
                 <ul>
-                    <li>Thưởng thức Chocolate miễn phí tại nhà hàng thời gian :
-                        Chủ nhật - thứ 5: 15:00 - 16:00 Thứ 6 & thứ 7: 14:00 -
-                        16:00
-                    </li>
-                    <li>Quyền Lợi Sử Dụng Club Benefit cho Executive Family
-                        Suite With Sea View và Admiral Suite: • Đặc cách thủ tục
-                        nhận phòng & trả phòng riêng biệt • Miễn phí hai món đồ
-                        giặt mỗi phòng mỗi đêm (ngoại trừ dịch vụ giặt khô, giặt
-                        nhanh và không cộng dồn) • Miễn phí giải khát hằng ngày
-                        tại quầy từ 11h đến 21h • Bữa sáng ẩm thực quốc tế từ
-                        6h30 đến 10h30 (cuối tuần và các ngày lễ sẽ phục vụ đến
-                        11:00) • Miễn phí trà chiều từ 15h đến 16h, cocktail từ
-                        18h đến 19h
-                    </li>
-                    <li>Tặng phiếu mua hàng trị giá VND 300,000/ phòng/ lần lưu
-                        trú sử dụng dịch vụ ẩm thực và Spa trị liệu. Không áp
-                        dụng cùng lúc với các chương trình khuyến mại khác,
-                        không áp dụng cho tiệc. - Giảm giá 10% cho tất cả dịch
-                        vụ ẩm thực tại nhà hàng và trên phòng khách (bao gồm đồ
-                        uống có cồn và minibar trong phòng) - Giảm giá 5% tất cả
-                        sản phẩm tại cửa hàng Oasis - Giảm giá 20% các dịch vụ
-                        Spa theo menu Lưu ý: Các chương trình giảm giá sẽ không
-                        kết hợp cùng với chương trình khuyến mại khác
-                    </li>
-                    <li>Tặng phiếu mua hàng trị giá VND 300,000/ phòng/ lần lưu
-                        trú sử dụng dịch vụ ẩm thực và Spa trị liệu. Không áp
-                        dụng cùng lúc với các chương trình khuyến mại khác,
-                        không áp dụng cho tiệc.
-                    </li>
-                    <li>Giảm giá 10% cho tất cả dịch vụ ẩm thực tại nhà hàng và
-                        trên phòng khách (bao gồm đồ uống có cồn và minibar
-                        trong phòng)
-                    </li>
-                    <li>
-                        Giảm giá 5% tất cả sản phẩm tại cửa hàng Oasis - Giảm
-                        giá 20% các dịch vụ Spa theo menu Lưu ý: Các chương
-                        trình giảm giá sẽ không kết hợp cùng với phiếu mua hàng
-                        và chương trình khuyến mại khác
-
-                    </li>
+                    <li> {{hotel['room-Details']['endows']['endow1']}}</li>
                     <li>Ăn sáng</li>
                 </ul>
 
@@ -398,10 +342,11 @@
                     <div class="col-md-8 mt-1">
                         <div class="progress">
                             <div class="progress-bar"
-                                style="width:70%">70%</div>
+                                style="width:70%">{{hotel['Rating']['Great']}}%</div>
                         </div>
                     </div>
-                    <div class="col-md-1">1.119</div>
+                    <div
+                        class="col-md-1">{{hotel['Rating']['countGreat']}}</div>
                 </div>
 
                 <div class="row m-2">
@@ -409,10 +354,11 @@
                     <div class="col-md-8 mt-1">
                         <div class="progress">
                             <div class="progress-bar"
-                                style="width:60%">60%</div>
+                                style="width:60%">{{hotel['Rating']['Satisfied']}}%</div>
                         </div>
                     </div>
-                    <div class="col-md-1">683</div>
+                    <div
+                        class="col-md-1">{{hotel['Rating']['countSatisfied']}}</div>
                 </div>
 
                 <div class="row m-2">
@@ -420,10 +366,11 @@
                     <div class="col-md-8 mt-1">
                         <div class="progress">
                             <div class="progress-bar"
-                                style="width:5%">5%</div>
+                                style="width:5%">{{hotel['Rating']['medium']}}%</div>
                         </div>
                     </div>
-                    <div class="col-md-1">92</div>
+                    <div
+                        class="col-md-1">{{hotel['Rating']['countmedium']}}</div>
                 </div>
 
                 <div class="row m-2">
@@ -431,10 +378,11 @@
                     <div class="col-md-8 mt-1">
                         <div class="progress">
                             <div class="progress-bar"
-                                style="width:0%">0%</div>
+                                style="width:0%">{{hotel['Rating']['least']}}%</div>
                         </div>
                     </div>
-                    <div class="col-md-1">0</div>
+                    <div
+                        class="col-md-1">{{hotel['Rating']['countleast']}}</div>
                 </div>
 
             </div>
@@ -484,11 +432,11 @@
                         </div>
                         <ul class="col-md-8 Evaluate2 d-flex mb-0">
 
-                            {% for i in range(1, 5) %}
+                            {% for i in range(1, 6) %}
                             <li><i class="fa-solid fa-star"
                                     style="color: #74C0FC;"></i></li>
                             {% endfor %}
-                            {% for i in range(1, 2) %}
+                            {% for i in range(1, 1) %}
                             <li><i class="fa-regular fa-star"
                                     style="color: #74C0FC;"></i></li>
                             {% endfor %}
@@ -503,11 +451,11 @@
                         </div>
                         <ul class="col-md-8 Evaluate2 d-flex mb-0">
 
-                            {% for i in range(1, 5) %}
+                            {% for i in range(1, 6) %}
                             <li><i class="fa-solid fa-star"
                                     style="color: #74C0FC;"></i></li>
                             {% endfor %}
-                            {% for i in range(1, 2) %}
+                            {% for i in range(1, 1) %}
                             <li><i class="fa-regular fa-star"
                                     style="color: #74C0FC;"></i></li>
                             {% endfor %}
@@ -522,41 +470,51 @@
 
     <!-- bình luận của khách hàng  -->
     <div class="container">
-        <div class="row d-flex align-items-center">
+        {% for i in range(6) %}
+        <div class="row d-flex align-items-center mt-3 p-3"
+            style="border-bottom: 1px solid #cfd8e8;">
             <div class="col-md-3">
                 <div class="row">
                     <div class="col-md-4 image-container">
                         <img
-                            src="https://res.cloudinary.com/devtqlbho/image/upload/v1733842675/4_qrekt5.webp"
+                            src="{{hotel['comments']['comment' + i|string]['img']}}"
                             alt="image user">
                     </div>
                     <div class="col-md-8">
-                        <div class="name">Hoài Thương</div>
-                        <div class="date">07/10/2024</div>
+                        <div
+                            class="name">{{hotel['comments']['comment' +
+                            i|string]['name']}}</div>
+                        <div
+                            class="date">{{hotel['comments']['comment' +
+                            i|string]['birthday']}}</div>
                         <div class="details">
-                            <span>🛏 phòng hướng ra biển...</span>
-                            <span>📅 1 đêm · tháng 10, 2024</span>
+                            <span>🛏
+                                {{hotel['comments']['comment' +
+                                i|string]['info1']}}</span>
+                            <span>📅
+                                {{hotel['comments']['comment' +
+                                i|string]['info2']}}</span>
                             <span><i class="fa-solid fa-person"
                                     style="color: #FFD43B;"></i> <i
                                     class="fa-solid fa-person"
-                                    style="color: #74C0FC;"></i> cặp đôi</span>
+                                    style="color: #74C0FC;"></i>
+                                {{hotel['comments']['comment' +
+                                i|string]['Room-type']}}</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-9">
-                <h4>Trải Nghiệm Đáng Nhớ Tại Oasia Hotel</h4>
+                <h4>{{hotel['comments']['comment' +
+                    i|string]['title']}}</h4>
                 <div class="rating">
-                    <span class="rating-score">8.0</span>
-                    <span class="rating-text">Rất tốt</span>
+                    <span class="rating-score">{{hotel['comments']['comment' +
+                        i|string]['Evaluate1']}}</span>
+                    <span class="rating-text">{{hotel['comments']['comment' +
+                        i|string]['Evaluate2']}}</span>
                 </div>
                 <p>
-                    Tại Oasia Hotel mang lại kỳ nghỉ 2 ngày 1 đêm với những
-                    trải nghiệm đáng nhớ.
-                    dịch vụ tốt, phòng rộng rãi với view đẹp, thức ăn
-                    khá ổn và nhân viên thân thiện là điểm sáng.
-                    Oasia Hotel là sự lựa chọn đáng trải nghiệm cho tôi nghỉ
-                    dưỡng.
+                    {{hotel['comments']['comment' + i|string]['comment']}}
                 </p>
                 <div class="feedback useful-information">
                     <i class="fa-solid fa-thumbs-up like-comment"></i> Thích
@@ -565,6 +523,7 @@
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
     <!-- end bình luận của khách hàng -->
 </div>

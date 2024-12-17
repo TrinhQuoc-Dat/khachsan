@@ -1,6 +1,7 @@
 from app.models import User, UserRole
 from app import app, db, login
 import hashlib
+import json, os
 
 def check_user(username, password, role=UserRole.USER):
     if username and password:
@@ -27,6 +28,13 @@ def add_user(username, password, avatar, role, email):
     db.session.commit()
 
     return u
+
+# load dữ liệu khách sạn từ file json 
+def load_hotel_data(file_name):
+    file_path = os.path.join("data", file_name)
+    with open(file_path, "r", encoding="utf-8") as file:
+        return json.load(file)
+
 
 if __name__ == '__main__':
     with app.app_context():

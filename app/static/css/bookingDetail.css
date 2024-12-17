@@ -152,7 +152,7 @@ button:hover {
       object-fit: cover;
 }
 
-.like-comment {
+.like-comment {   
       color: #c9cbc8;
       cursor: pointer;
       font-size: 18px;
@@ -186,4 +186,9 @@ button:hover {
 .rating {
       align-items: center;
       margin-bottom: 10px;
+}
+
+.fullscreen-video > video{
+      object-fit: fill;
+      border-radius: 10px;
 }
