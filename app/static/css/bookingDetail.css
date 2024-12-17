@@ -187,3 +187,8 @@ button:hover {
       align-items: center;
       margin-bottom: 10px;
 }
+
+.fullscreen-video > video{
+      object-fit: fill;
+      border-radius: 10px;
+}

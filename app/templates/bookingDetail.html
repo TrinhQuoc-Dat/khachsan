@@ -101,54 +101,54 @@
                     class="flex-image flex-column col-md-4 justify-content-between">
                     <div class="rounded-pill">
                         <img class="border-lg-image"
-                            src="{{ url_for('static', filename=hotel['img']['img1']) }}"
+                            src="{{ hotel['img']['img2'] }}"
                             width="95%" />
                     </div>
                     <div class="rounded-pill pt-0 ">
                         <img class="border-lg-image"
-                            src="{{ url_for('static', filename=hotel['img']['img2']) }}"
+                            src="{{ hotel['img']['img3'] }}"
                             width="95%" />
                     </div>
                 </div>
-                <div class="rounded-pill">
-                    <img class="border-lg-image"
-                        src="{{ url_for('static', filename=hotel['img']['img3']) }}"
-                        width="100%" />
+                <div class="rounded-pill fullscreen-video">
+                    <video width="100%" controls autoplay muted>
+                        <source src="{{ hotel['img']['img1'] }}" type="video/mp4">
+                    </video>
                 </div>
             </div>
             <div class="flex-image">
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename=hotel['img']['img4']) }}"
+                            src="{{ hotel['img']['img4'] }}"
                             width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename=hotel['img']['img5']) }}"
+                            src="{{ hotel['img']['img5'] }}"
                             width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename=hotel['img']['img6']) }}"
+                            src="{{ hotel['img']['img6'] }}"
                             width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename=hotel['img']['img7']) }}"
+                            src="{{ hotel['img']['img7'] }}"
                             width="100%" />
                     </button>
                 </div>
                 <div class="image-small">
                     <button class=" p-0 border-none">
                         <img class="border-sm-image"
-                            src="{{ url_for('static', filename=hotel['img']['img8']) }}"
+                            src="{{ hotel['img']['img8'] }}"
                             width="100%" />
                     </button>
                 </div>
@@ -432,11 +432,11 @@
                         </div>
                         <ul class="col-md-8 Evaluate2 d-flex mb-0">
 
-                            {% for i in range(1, 5) %}
+                            {% for i in range(1, 6) %}
                             <li><i class="fa-solid fa-star"
                                     style="color: #74C0FC;"></i></li>
                             {% endfor %}
-                            {% for i in range(1, 2) %}
+                            {% for i in range(1, 1) %}
                             <li><i class="fa-regular fa-star"
                                     style="color: #74C0FC;"></i></li>
                             {% endfor %}
@@ -451,11 +451,11 @@
                         </div>
                         <ul class="col-md-8 Evaluate2 d-flex mb-0">
 
-                            {% for i in range(1, 5) %}
+                            {% for i in range(1, 6) %}
                             <li><i class="fa-solid fa-star"
                                     style="color: #74C0FC;"></i></li>
                             {% endfor %}
-                            {% for i in range(1, 2) %}
+                            {% for i in range(1, 1) %}
                             <li><i class="fa-regular fa-star"
                                     style="color: #74C0FC;"></i></li>
                             {% endfor %}
@@ -471,7 +471,8 @@
     <!-- bình luận của khách hàng  -->
     <div class="container">
         {% for i in range(6) %}
-        <div class="row d-flex align-items-center mt-3 p-3" style="border-bottom: 1px solid #cfd8e8;">
+        <div class="row d-flex align-items-center mt-3 p-3"
+            style="border-bottom: 1px solid #cfd8e8;">
             <div class="col-md-3">
                 <div class="row">
                     <div class="col-md-4 image-container">
@@ -481,28 +482,36 @@
                     </div>
                     <div class="col-md-8">
                         <div
-                            class="name">{{hotel['comments']['comment' + i|string]['name']}}</div>
+                            class="name">{{hotel['comments']['comment' +
+                            i|string]['name']}}</div>
                         <div
-                            class="date">{{hotel['comments']['comment' + i|string]['birthday']}}</div>
+                            class="date">{{hotel['comments']['comment' +
+                            i|string]['birthday']}}</div>
                         <div class="details">
                             <span>🛏
-                                {{hotel['comments']['comment' + i|string]['info1']}}</span>
+                                {{hotel['comments']['comment' +
+                                i|string]['info1']}}</span>
                             <span>📅
-                                {{hotel['comments']['comment' + i|string]['info2']}}</span>
+                                {{hotel['comments']['comment' +
+                                i|string]['info2']}}</span>
                             <span><i class="fa-solid fa-person"
                                     style="color: #FFD43B;"></i> <i
                                     class="fa-solid fa-person"
                                     style="color: #74C0FC;"></i>
-                                {{hotel['comments']['comment' + i|string]['Room-type']}}</span>
+                                {{hotel['comments']['comment' +
+                                i|string]['Room-type']}}</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-9">
-                <h4>Trải Nghiệm Đáng Nhớ Tại Oasia Hotel</h4>
+                <h4>{{hotel['comments']['comment' +
+                    i|string]['title']}}</h4>
                 <div class="rating">
-                    <span class="rating-score">{{hotel['comments']['comment' + i|string]['Evaluate1']}}</span>
-                    <span class="rating-text">{{hotel['comments']['comment' + i|string]['Evaluate2']}}</span>
+                    <span class="rating-score">{{hotel['comments']['comment' +
+                        i|string]['Evaluate1']}}</span>
+                    <span class="rating-text">{{hotel['comments']['comment' +
+                        i|string]['Evaluate2']}}</span>
                 </div>
                 <p>
                     {{hotel['comments']['comment' + i|string]['comment']}}
