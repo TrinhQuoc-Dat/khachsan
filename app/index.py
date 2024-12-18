@@ -7,9 +7,7 @@ from app.models import UserRole
 from flask_login import login_user, logout_user, current_user
 import cloudinary
 import json
-
-
-
+from app import login
 
 @app.route('/')
 def home():
@@ -19,10 +17,22 @@ def home():
 def cart():
     return render_template('cart.html')
 
+
 @app.route('/reservation')
 def reservation():
     return render_template('reservation.html')
 
+
+@app.route('/login-admin', methods=['post'])
+def singin_admin():
+    username = request.form.get("username")
+    password = request.form.get("password")
+    user = dao.check_user(username=username,
+                          password=password,
+                          role=UserRole.ADMIN)
+    if user:
+        login_user(user=user)
+    return redirect('/admin')
 
 @app.route('/login', methods=['post', 'get'])
 def login():
@@ -30,14 +40,18 @@ def login():
     if request.method.__eq__('POST'):
         username = request.form.get('username')
         password = request.form.get('password')
-        user_role = request.form.get('user-role')
+        user_role = utils.get_user_role(request.form.get('user-role'))
+        
         try:
             u = dao.check_user(username=username, password=password,
-                role=utils.get_user_role(user_role))
+                role=user_role)
             print(u)
             if u:
                 login_user(user=u)
-                return redirect('/')
+                if (user_role == UserRole.ADMIN):
+                    return redirect('/admin')
+                else:
+                    return redirect('/')
             else:
                 err_mgs = "username hoặc mật khẩu không đúng!!!"
         except Exception as ex:
@@ -80,6 +94,14 @@ def check_username():
         return jsonify({'code': 200})
 
 
+
+@app.context_processor
+def common_response():
+    return {
+
+    }
+
+
 @app.route('/sign-out')
 def logout():
     logout_user()
@@ -106,5 +128,7 @@ def booking_detail(hotel_id=None):
 
 
 if __name__ == '__main__':
+    from app.admin import *
+
     app.run(debug=True)
 

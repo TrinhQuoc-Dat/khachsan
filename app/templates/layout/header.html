@@ -32,6 +32,12 @@
         <li class="nav-item">
           <a class="nav-link" href="/sign-out">Đăng xuất</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="badge badge-success sum-product-cart p-1" id="cartCounter">0</span>
+          </a>
+        </li>
         {% else %}
         <li class="nav-item">
           <a class="nav-link" href="/register">Đăng kí</a>
@@ -39,13 +45,6 @@
 
         <li class="nav-item">
           <a class="nav-link" href="/login">Đăng Nhập</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="/cart">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="badge badge-success sum-product-cart p-1" id="cartCounter">0</span>
-          </a>
         </li>
         {% endif %}
 
