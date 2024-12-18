@@ -11,33 +11,24 @@ from app import dao
 
 
 class AuthenticatecModelView(ModelView):
-    def is_accessible(self):
-        return (current_user.is_authenticated and
-                current_user.user_role.__eq__(UserRole.ADMIN))
-    
-class LogoutView(BaseView):
-    @expose()
-    def __index__(self):
-        logout_user()
-        return redirect('/admin')
+      def is_accessible(self):
+            return (current_user.is_authenticated and
+                  current_user.user_role.__eq__(UserRole.ADMIN))
 
-    def is_accessible(self):
-        return current_user.is_authenticated
+class LogoutView(BaseView):
+      @expose()
+      def __index__(self):
+            logout_user()
+            return redirect('/admin')
+
+      def is_accessible(self):
+            return current_user.is_authenticated
 
 class MyAdminIndex(AdminIndexView):
-    @expose('/')
-    def __index__(self):
-        return self.render('/admin/index.html')
+      @expose('/')
+      def __index__(self):
+            return self.render('/admin/index.html')
 
-
-class UserView(AuthenticatecModelView):
-from flask_admin import Admin
-from app import app, db
-from app.models import User, Person, Customer, Employee, Booking, Room, BookingDetail, RentalReceipt, Payment, RentalDetail, RentalCustomer
-from flask_admin.contrib.sqla import ModelView
-
-
-admin = Admin(app = app, name="Hotel Management", template_mode='bootstrap4')
 
 class UserView (ModelView):
       column_display_pk = True
@@ -97,22 +88,5 @@ admin.add_view(AuthenticatecModelView(RentalDetail, db.session, category="Quản
 admin.add_view(AuthenticatecModelView(RentalCustomer, db.session, category="Quản lý thuê phòng"))
 
 admin.add_view(LogoutView(name='Logout'))
-=======
-# Tổ chức các danh mục
-admin.add_view(UserView(User, db.session, category="Quản lý người dùng"))
-admin.add_view(PersonView(Person, db.session, category="Quản lý người dùng"))
-admin.add_view(ModelView(Customer, db.session, category="Quản lý người dùng"))
-admin.add_view(ModelView(Employee, db.session, category="Quản lý người dùng"))
-
-admin.add_view(RoomView(Room, db.session, category="Quản lý phòng"))
-
-admin.add_view(ModelView(Booking, db.session, category="Quản lý đặt phòng"))
-admin.add_view(ModelView(BookingDetail, db.session, category="Quản lý đặt phòng"))
-
-admin.add_view(ModelView(RentalReceipt, db.session, category="Quản lý hóa đơn"))
-admin.add_view(ModelView(Payment, db.session, category="Quản lý hóa đơn"))
-
-admin.add_view(ModelView(RentalDetail, db.session, category="Quản lý thuê phòng"))
-admin.add_view(ModelView(RentalCustomer, db.session, category="Quản lý thuê phòng"))
 
 

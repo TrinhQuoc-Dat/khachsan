@@ -28,8 +28,8 @@ def singin_admin():
     username = request.form.get("username")
     password = request.form.get("password")
     user = dao.check_user(username=username,
-                          password=password,
-                          role=UserRole.ADMIN)
+                        password=password,
+                        role=UserRole.ADMIN)
     if user:
         login_user(user=user)
     return redirect('/admin')

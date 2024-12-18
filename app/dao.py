@@ -7,8 +7,8 @@ def check_user(username, password, role=UserRole.USER):
     if username and password:
         password = str(hashlib.md5(password.strip().encode('utf-8')).hexdigest())
         return User.query.filter(User.username.__eq__(username.strip()),
-                             User.password.__eq__(password),
-                             User.user_role.__eq__(role)).first()
+                            User.password.__eq__(password),
+                            User.user_role.__eq__(role)).first()
     
 @login.user_loader
 def user_load(user_id):
@@ -22,10 +22,10 @@ def get_user_by_username(username):
 def add_user(username, password, avatar, role, email):
     password = str(hashlib.md5(password.strip().encode('utf-8')).hexdigest())
     u = User(username = username,
-             password = password,
-             avatar = avatar,
-             user_role = role,
-             email=email)
+            password = password,
+            avatar = avatar,
+            user_role = role,
+            email=email)
     db.session.add(u)
     db.session.commit()
 

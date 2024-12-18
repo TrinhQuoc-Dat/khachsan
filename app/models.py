@@ -184,7 +184,7 @@ if __name__ == '__main__':
         # db.drop_all()
         # db.create_all()
         u = User(username='quocdat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
-                 user_role=UserRole.ADMIN, email='2251050016dat@ou.edu.vn')
+                user_role=UserRole.ADMIN, email='2251050016dat@ou.edu.vn')
         db.session.add(u)
         db.session.commit()
 
