@@ -8,7 +8,7 @@ from flask_login import UserMixin
 
 
 class Person(db.Model):
-    __abstract__: True
+    __abstract__:True
     id = Column(Integer, primary_key=True, autoincrement=True)
     full_name = Column(String(50), nullable=False)
     phone = Column(String(10), nullable=False)
@@ -33,31 +33,11 @@ class User(db.Model, UserMixin):
     email = Column(String(50), nullable=False, unique=True)
     user_role = Column(Enum(UserRole), default=UserRole.USER)
     employees = relationship('Employee', backref='user', lazy=True)
-
-
-class CustomerType(EnumRole):
-    DOMESTIC = 1
-    FOREIGN = 2
-
-
-class Customer(db.Model):
-    __tablename__ = 'customer'
-
-    person_id = Column(Integer, ForeignKey(Person.id), primary_key=True)
-    type_customer = Column(Enum(CustomerType), default=CustomerType.DOMESTIC)
-    special_info = Column(String(255))
-    bookings = relationship('Booking', backref='customer', lazy=True)
-    booking_details = relationship('BookingDetail', backref='customer', lazy=True)
-    rental_receipts = relationship('RentalReceipt', backref='customer', lazy=True)
-    rental_customers = relationship('RentalCustomer', backref='customer', lazy=True)
-
-    def __index__(self):
-        return self.full_name
-
+    comments = relationship('Comment', backref='user', lazy=True)
 
 class Employee(db.Model):
     __tablename__ = 'employee'
-    person_id = Column(Integer, ForeignKey(Person.id), primary_key=True)
+    id = Column(Integer, ForeignKey(Person.id), unique=True, primary_key=True)
     salary = Column(Float)
     start_date = Column(DateTime, default=datetime.now())
     user_id = Column(Integer, ForeignKey(User.id))
@@ -67,6 +47,26 @@ class Employee(db.Model):
 
     def __index__(self):
         return self.full_name
+
+class CustomerType(EnumRole):
+    DOMESTIC = 1
+    FOREIGN = 2
+
+
+class Customer(db.Model):
+    __tablename__ = 'customer'
+    id = Column(Integer, ForeignKey(Person.id), unique=True, primary_key=True)
+    type_customer = Column(Enum(CustomerType), default=CustomerType.DOMESTIC)
+    special_info = Column(String(255))
+
+    bookings = relationship('Booking', backref='customer', lazy=True)
+    booking_details = relationship('BookingDetail', backref='customer', lazy=True)
+    rental_receipts = relationship('RentalReceipt', backref='customer', lazy=True)
+    rental_customers = relationship('RentalCustomer', backref='customer', lazy=True)
+
+    def __index__(self):
+        return self.full_name
+
 
 class OrderType(EnumRole):
     ONLINE = 1
@@ -79,10 +79,9 @@ class Booking(db.Model):
     created_date = Column(DateTime, default=datetime.now())
     total_customer = Column(Integer, nullable=False)
     total_amount = Column(Float)
-    customer_id = Column(Integer, ForeignKey(Customer.person_id), nullable=False)
+    customer_id = Column(Integer, ForeignKey(Customer.id), nullable=False)
     order_type_id = Column(Enum(OrderType), default=OrderType.ONLINE)
-    employee_id = Column(Integer, ForeignKey(Employee.person_id))
-    customer_id = Column(Integer, ForeignKey(Customer.person_id))
+    employee_id = Column(Integer, ForeignKey(Employee.id))
     booking_details = relationship('BookingDetail', backref='booking', lazy=True)
 
 
@@ -106,6 +105,8 @@ class Room(db.Model):
     type_room = Column(Enum(TypeRoom), default=TypeRoom.NORMAL)
     image = Column(String(255))
     booking_details = relationship('BookingDetail', backref='room', lazy=True)
+    rental_details = relationship('RentalDetail', backref='room', lazy=True)
+    comments = relationship('Comment', backref='room', lazy=True)
 
     def __index__(self):
         return self.name
@@ -117,7 +118,7 @@ class BookingDetail(db.Model):
     discount = Column(Float, default=1)
     room_id = Column(Integer, ForeignKey(Room.id), nullable=False)
     booking_id = Column(Integer, ForeignKey(Booking.id), nullable=False)
-    customer_id = Column(Integer, ForeignKey(Customer.person_id), nullable=False)
+    customer_id = Column(Integer, ForeignKey(Customer.id), nullable=False)
 
 
 class RentalReceipt(db.Model):
@@ -126,9 +127,10 @@ class RentalReceipt(db.Model):
     total_customer = Column(Integer)
     note = Column(String(255))
     total_amount = Column(Float)
-    customer_id = Column(Integer, ForeignKey(Customer.person_id), nullable=False)
-    employee_id = Column(Integer, ForeignKey(Employee.person_id), nullable=False)
+    customer_id = Column(Integer, ForeignKey(Customer.id), nullable=False)
+    employee_id = Column(Integer, ForeignKey(Employee.id), nullable=False)
     payments = relationship('Payment', backref='rental_receipt', lazy=True)
+    rental_details = relationship('RentalDetail', backref='rental_receipt', lazy=True)
 
 
 class TypePayment(EnumRole):
@@ -152,8 +154,8 @@ class Payment(db.Model):
 class RentalDetail(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     number_customer = Column(Integer)
-    date_in = Column(DateTime, default=lambda: datetime.now())
-    date_out = Column(DateTime, default=lambda: datetime.now())
+    date_in = Column(DateTime, default=datetime.now)
+    date_out = Column(DateTime, default=datetime.now)
     total_amount = Column(Float)
     room_id = Column(Integer, ForeignKey(Room.id), nullable=False)
     rental_receipt_id = Column(Integer, ForeignKey(RentalReceipt.id), nullable=False)
@@ -163,17 +165,28 @@ class RentalDetail(db.Model):
 class RentalCustomer(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     rental_detail_id = Column(Integer, ForeignKey(RentalDetail.id), nullable=False)
-    customer_id = Column(Integer, ForeignKey(Customer.person_id), nullable=False)
+    customer_id = Column(Integer, ForeignKey(Customer.id), nullable=False)
+
+
+class Comment(db.Model):
+    id = Column(Integer, primary_key= True, autoincrement=True)
+    title = Column(String(255), nullable=False)
+    comment = Column(String(255), nullable=False)
+    created_date = Column(DateTime, default=datetime.now)
+    star = Column(Integer, nullable=False)
+    
+    user_id = Column(Integer, ForeignKey(User.id), nullable=False)
+    room_id = Column(Integer, ForeignKey(Room.id), nullable=False)
+
 
 if __name__ == '__main__':
     with app.app_context():
-        pass
         # db.drop_all()
         # db.create_all()
-        # u = User(username='admin', password=str(hashlib.md5('1'.strip().encode('utf-8')).hexdigest()),
-        #         user_role=UserRole.ADMIN, email='nhatduy242@gmail.com')
-        # db.session.add(u)
-        # db.session.commit()
+        u = User(username='quocdat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
+                 user_role=UserRole.ADMIN, email='2251050016dat@ou.edu.vn')
+        db.session.add(u)
+        db.session.commit()
 
 
 

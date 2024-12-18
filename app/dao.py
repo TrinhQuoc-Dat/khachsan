@@ -9,9 +9,11 @@ def check_user(username, password, role=UserRole.USER):
         return User.query.filter(User.username.__eq__(username.strip()),
                              User.password.__eq__(password),
                              User.user_role.__eq__(role)).first()
+    
 @login.user_loader
-def get_user_by_id(user_id):
+def user_load(user_id):
     return User.query.get(user_id)
+
 
 def get_user_by_username(username):
     return User.query.filter(User.username.__eq__(username)).first()
