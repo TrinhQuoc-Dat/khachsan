@@ -15,14 +15,28 @@ class AuthenticatecModelView(ModelView):
             return (current_user.is_authenticated and
                   current_user.user_role.__eq__(UserRole.ADMIN))
 
-class LogoutView(BaseView):
-      @expose()
-      def __index__(self):
+class AuthenticatedView(BaseView):
+      def is_accessible(self):
+            return current_user.is_authenticated
+
+class LogoutView(AuthenticatedView):
+      @expose('/')
+      def index(self):
             logout_user()
             return redirect('/admin')
 
-      def is_accessible(self):
-            return current_user.is_authenticated
+# class StatisticView(AuthenticatedView):
+#       @expose('/')
+#       def index(self):
+#             return self.render('/admin/statistics.html')
+class StatisticView(AuthenticatedView):
+      @expose('/')
+      def index(self):
+            tong_doanh_thu = 8000000000  
+            so_phong_su_dung = 120 
+            doanh_thu = [1000000, 1500000, 2000000, 2500000, 3000000, 3500000, 4000000, 4500000, 5000000, 5500000, 6000000, 6500000]
+            tan_suat = [30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140]
+            return self.render('/admin/statistics.html', tong_doanh_thu=tong_doanh_thu, so_phong_su_dung=so_phong_su_dung, doanh_thu=doanh_thu, tan_suat=tan_suat)     
 
 class MyAdminIndex(AdminIndexView):
       @expose('/')
@@ -30,7 +44,7 @@ class MyAdminIndex(AdminIndexView):
             return self.render('/admin/index.html')
 
 
-class UserView (ModelView):
+class UserView (AuthenticatecModelView):
       column_display_pk = True
       column_searchable_list = ['username', 'email']
       column_filters = ['username', 'email']
@@ -62,8 +76,6 @@ class PersonView (AuthenticatecModelView):
       page_size = 10
 
 
-
-
 admin = Admin(app=app,
             name="Hotel Management", 
             template_mode='bootstrap4',
@@ -88,5 +100,6 @@ admin.add_view(AuthenticatecModelView(RentalDetail, db.session, category="Quản
 admin.add_view(AuthenticatecModelView(RentalCustomer, db.session, category="Quản lý thuê phòng"))
 
 admin.add_view(LogoutView(name='Logout'))
+admin.add_view(StatisticView(name='Thống Kê'))
 
 
