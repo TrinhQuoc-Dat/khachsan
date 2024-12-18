@@ -1,3 +1,4 @@
+
 {% extends '/admin/base.html' %}
 
 {% block body %}
@@ -48,4 +49,76 @@
     <button type="submit" class="btn btn-primary m-2 btn-danger">Đăng Nhập</button>
 </form>
 {% endif %}
+=======
+{% extends 'admin/master.html' %}
+<head>
+      <link rel="stylesheet"
+            href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+{% block body %}
+{% if current_user.is_authenticated %}
+
+<h1>CHAO MUNG DEN TRANG QUAN TRI</h1>
+<h2>CHAO {{current_user.username}}</h2>
+
+{% else %}
+<h1 class="text-center text-danger mt-1">ĐĂNG NHẬP QUẢN TRỊ</h1>
+<form method="post" action="/login-admin">
+      <div class="form-floating mb-3 mt-3">
+            <input type="text" class="form-control" id="username"
+                  placeholder="Tên đăng nhập" name="username" />
+            <label for="username">Tên đăng nhập</label>
+      </div>
+
+      <div class="form-floating mt-3 mb-3">
+            <input type="password" class="form-control" id="password"
+                  placeholder="Mật khẩu" name="password">
+            <label for="password">Mật khẩu</label>
+      </div>
+
+      <div class="form-floating mt-3 mb-3">
+            <button class="btn btn-danger">Đăng nhập</button>
+      </div>
+</form>
+
+<div class="d-flex">
+      <!-- Sidebar -->
+      <div class="sidebar p-3">
+            <h4 class="text-center border-bottom pb-3">Quản Trị Khách Sạn</h4>
+            <nav>
+                  <a href="#dashboard" class="active">🏠 Tổng Quan</a>
+                  <a href="#rooms">🛏️ Quản Lý Phòng</a>
+                  <a href="#customers">👤 Khách Hàng</a>
+                  <a href="#reports">📊 Báo Cáo</a>
+                  <a href="#settings">⚙️ Cài Đặt</a>
+            </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="flex-grow-1 p-4 bg-light">
+            <h2 class="fw-bold mb-4">Tổng Quan Khách Sạn</h2>
+            <div class="row g-4">
+                  <div class="col-md-4">
+                        <div class="bg-info text-white p-4 rounded">
+                              <h5>Doanh Thu Tháng</h5>
+                              <p class="fs-4 mb-0">250,000,000 VND</p>
+                        </div>
+                  </div>
+                  <div class="col-md-4">
+                        <div class="bg-success text-white p-4 rounded">
+                              <h5>Phòng Đã Đặt</h5>
+                              <p class="fs-4 mb-0">45/60 Phòng</p>
+                        </div>
+                  </div>
+                  <div class="col-md-4">
+                        <div class="bg-warning text-dark p-4 rounded">
+                              <h5>Khách Hiện Tại</h5>
+                              <p class="fs-4 mb-0">82 Khách</p>
+                        </div>
+                  </div>
+            </div>
+      </div>
+</div>
+{% endif %}
+
 {% endblock %}
