@@ -12,6 +12,8 @@ cloudinary.config(cloud_name='dmt3j04om',
             api_key='358476894396759',
             api_secret='BJB1D2g3nRAdPtErPMYLIELEuyM')
 
+app.config['PAGE_SIZE'] = 4
+
 login = LoginManager(app=app)
 
 db = SQLAlchemy(app=app)

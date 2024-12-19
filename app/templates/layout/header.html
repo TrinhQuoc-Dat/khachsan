@@ -35,7 +35,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/cart">
             <i class="fa-solid fa-cart-shopping"></i>
-            <span class="badge badge-success sum-product-cart p-1" id="cartCounter">0</span>
+            <span class="badge badge-success sum-product-cart p-1" id="cartCounter">{{ cart_stats.total_quantity }}</span>
           </a>
         </li>
         {% else %}

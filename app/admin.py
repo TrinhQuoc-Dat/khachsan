@@ -30,7 +30,7 @@ class MyAdminIndex(AdminIndexView):
             return self.render('/admin/index.html')
 
 
-class UserView (ModelView):
+class UserView(AuthenticatecModelView):
       column_display_pk = True
       column_searchable_list = ['username', 'email']
       column_filters = ['username', 'email']
