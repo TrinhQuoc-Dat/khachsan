@@ -25,6 +25,6 @@ body {
 
 }
 .function-selection> button a {
-      text-decoration: none;
       color: white;
+      list-style-type: none;
 }

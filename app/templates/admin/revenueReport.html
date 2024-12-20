@@ -14,18 +14,57 @@
             <div class="d-flex m-5 justify-content-center">
                   <h3 class="me-2"> Chọn thời gian: </h3>
                   <input class="calendar" type="month" id="monthPicker"
-                        name="monthPicker">
+                        name="revenue">
             </div>
 
             <div class="format-chart">
                   <canvas id="myChart"></canvas>
             </div>
 
+            <div class="container mt-5 mb-5">
+                  <h2 class="text-center mb-4">Bảng Doanh Thu</h2>
+                  <table class="table table-bordered table-striped report-table">
+                        <thead class="table-primary text-center">
+                              <tr>
+                                    <th>STT</th>
+                                    <th>Loại phòng</th>
+                                    <th>Doanh thu</th>
+                                    <th>Số lượt thuê</th>
+                                    <th>Tỷ lệ</th>
+                              </tr>
+                        </thead>
+                        <tbody>
+                              <tr>
+                                    <td class="text-center">1</td>
+                                    <td>Thường</td>
+                                    <td>80.000.000 VNĐ</td>
+                                    <td class="text-center">30</td>
+                                    <td class="text-center">62,5%</td>
+                              </tr>
+                              <tr>
+                                    <td class="text-center">2</td>
+                                    <td>VIP</td>
+                                    <td>35.000.000 VNĐ</td>
+                                    <td class="text-center">15</td>
+                                    <td class="text-center">37,5%</td>
+                              </tr>
+                        </tbody>
+                  </table>
+            </div>
+
+            <div class="d-flex justify-content-between mb-5">
+                  <div></div>
+                  <div class="format-button">
+                        <button type="button" class="btn btn-danger"><a href="{{ url_for('statistics') }}">Trở lại</a></button>
+                        <button type="button" class="btn btn-success" id="export-btn"><a href="#">Xuất báo cáo</a></button>
+                  </div>
+            </div>
       </div>
 
       <script
             src="{{ url_for('static', filename='js/calendarMonthYear.js') }}"></script>
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <script
-            src="{{ url_for('static', filename='js/revenue.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/revenue.js') }}"></script>
+      <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+      <script  src="{{ url_for('static', filename='js/exportRevenue.js') }}"></script>
 </body>

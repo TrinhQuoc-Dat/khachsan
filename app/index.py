@@ -101,11 +101,9 @@ def revenue_report():
 def density_report():
     return render_template('admin/densityReport.html')
 
-@app.context_processor
-def common_response():
-    return {
-
-    }
+@app.route('/admin/thong_ke', methods=['GET'])
+def statistics():
+    return render_template('admin/statistics.html')
 
 
 @app.route('/sign-out')

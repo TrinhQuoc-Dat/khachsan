@@ -7,3 +7,16 @@
       max-width: 80%;
       margin: 0 auto;
 }
+
+
+.format-button button {
+      margin-left: 20px;
+}     
+
+
+
+.format-button button a{
+      text-decoration: none;
+      color: white;
+}
+
