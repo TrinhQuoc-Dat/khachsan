@@ -93,7 +93,13 @@ def check_username():
     else:
         return jsonify({'code': 200})
 
+@app.route('/admin/revenueReport', methods=['GET'])
+def revenue_report():
+    return render_template('admin/revenueReport.html')
 
+@app.route('/admin/densityReport', methods=['GET'])
+def density_report():
+    return render_template('admin/densityReport.html')
 
 @app.context_processor
 def common_response():
@@ -112,7 +118,7 @@ def booking():
     return render_template('booking.html')
 
 
-# // http://127.0.0.1:5000/booking-detail/1
+# // http://127.0.0.1:5000/booking-detail=1
 @app.route('/booking-detail=<int:hotel_id>', methods=['get', 'post'])
 def booking_detail(hotel_id=None):
     if hotel_id:

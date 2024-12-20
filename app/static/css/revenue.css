@@ -1,0 +1,9 @@
+.calendar{
+      border-radius: 5px;
+      border: 1px dashed #000;
+}
+
+.format-chart{
+      max-width: 80%;
+      margin: 0 auto;
+}

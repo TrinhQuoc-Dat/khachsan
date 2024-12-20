@@ -38,6 +38,12 @@ class StatisticView(AuthenticatedView):
             tan_suat = [30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140]
             return self.render('/admin/statistics.html', tong_doanh_thu=tong_doanh_thu, so_phong_su_dung=so_phong_su_dung, doanh_thu=doanh_thu, tan_suat=tan_suat)     
 
+# ghi trước, chưa có dữ liệu thực
+class statis_doanh_thu(AuthenticatedView):
+      @expose('/')
+      def index(self):
+            return self.render('/admin/thong_ke_doanh_thu.html')
+
 class MyAdminIndex(AdminIndexView):
       @expose('/')
       def __index__(self):
@@ -100,6 +106,8 @@ admin.add_view(AuthenticatecModelView(RentalDetail, db.session, category="Quản
 admin.add_view(AuthenticatecModelView(RentalCustomer, db.session, category="Quản lý thuê phòng"))
 
 admin.add_view(LogoutView(name='Logout'))
-admin.add_view(StatisticView(name='Thống Kê'))
+admin.add_view(StatisticView(name='Thống Kê', endpoint='thong_ke', category="Thống kê"))
+admin.add_view(StatisticView(name='Báo cáo Doanh Thu', endpoint='bao_cao_doanh_thu', category="Thống kê"))
+admin.add_view(StatisticView(name='Mật Độ Sử Dụng Phòng', endpoint='mat_do_su_dung_phong', category="Thống kê"))
 
 
