@@ -11,9 +11,11 @@ from app import dao
 
 
 class AuthenticatecModelView(ModelView):
+      
       def is_accessible(self):
             return (current_user.is_authenticated and
                   current_user.user_role.__eq__(UserRole.ADMIN))
+      
 
 class AuthenticatedView(BaseView):
       def is_accessible(self):
@@ -52,7 +54,8 @@ class MyAdminIndex(AdminIndexView):
 
 class UserView (AuthenticatecModelView):
       column_display_pk = True
-      column_searchable_list = ['username', 'email']
+      form_columns = ['username','avatar', 'email', 'password', 'user_role']
+      column_searchable_list = ['username', 'email', 'password']
       column_filters = ['username', 'email']
       column_editable_list = ['username', 'email', 'password']
       column_exclude_list = ['password']
