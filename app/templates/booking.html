@@ -3,7 +3,7 @@
 {% block title %}Booking{% endblock %}
 {% block js %}
 <script src="{{ url_for('static', filename='js/checkOutDate.js') }}"></script>
-<script src="{{url_for('static', filename='js/booking.js')}}"></script>
+<script src="{{ url_for('static', filename='js/booking.js') }}"></script>
 
 {% endblock %}
 
@@ -13,87 +13,72 @@
         <div class="">
             <div class="container mt-3 mb-3 bg-light ">
                 <div class="container border border-3 rounded mx-auto">
-                    <form class="m-4">
-                        <div class="dropdown mb-2 ">
-                            <label for="location-dropdown" class="form-label title-color"><i
-                                    class="fa-solid fa-city" style="color: #63E6BE;"></i>
+                    <form class="m-4" action="/booking/search-room" method="get">
+                        <div class="mb-2 ">
+                            <label for="location" class="form-label title-color"><i class="fa-solid fa-city"
+                                    style="color: #63E6BE;"></i>
                                 Tên Phòng: </label>
-                            <input
-                                id="location-dropdown"
-                                type="text"
-                                class="form-control dropdown-toggle"
-                                placeholder="Thành phố, khách sạn, điểm đến"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false" />
-                            <ul class="dropdown-menu w-100">
-                                <!-- phần này để đổ dữ liệu từ database vào -->
-                                <li><a class="dropdown-item" href="#">Quận 1</a></li>
-                                <li><a class="dropdown-item" href="#">Đà Nẵng</a></li>
-                                <li><a class="dropdown-item" href="#">Link 3</a></li>
-                                <li><a class="dropdown-item" href="#">Thành phố Vũng
-                                        Tàu</a></li>
-                                <li><a class="dropdown-item">Nha Trang</a></li>
-                            </ul>
+                            <input id="location" type="text" class="form-control dropdown-toggle"
+                                placeholder="Tên Phòng" aria-expanded="false" name="name-room" />
                         </div>
-            
+
                         <!-- ngày nhận - ngày trả phòng -->
-                        <div
-                            class="row justify-content-center align-items-center text-center">
+                        <div class="row justify-content-center align-items-center text-center">
                             <div class="col-md-3 ">
-                                <label for="checkin-date" class="form-label title-color"><i
-                                        class="fa-solid fa-calendar"
-                                        style="color: #23e7d9;"></i> Check-in
-                                    date:</label>
-                                <input type="date" id="checkin-date"
-                                    class="form-control" />
+                                <label for="checkin-date" class="form-label title-color"><i class="fa-solid fa-calendar"
+                                        style="color: #23e7d9;"></i> Check-in date:
+                                </label>
+                                <input type="date" id="checkin-date" class="form-control" name="date-in" />
                             </div>
-            
+
                             <div class="col-md-3">
                                 <label class="mb-2 title-color"><i class="fa-solid fa-moon "
                                         style="color: #FFD43B;"></i> Số đêm</label>
-                                <select class=" form-select">
-                                    <option>1 đêm</option>
-                                    <option>2 đêm</option>
-                                    <option>3 đêm</option>
-                                    <option>4 đêm</option>
+                                <select class=" form-select" id="overnight" name="overnight">
+                                    {% for i in range(1, 5) %}
+                                    <option value="{{ i }}">{{ i }} đêm</option>
+                                    {% endfor %}
                                 </select>
                             </div>
-            
+
                             <div class="col-md-6">
-                                <label for="check-out-date" class="mb-3 title-color"><i
-                                        class="fa-solid fa-right-to-bracket"
-                                        style="color: #B197FC;"></i> Check out</label>
-                                <div><label for="checkout-date" id="current-date"></label>
+                                <label for="check-out-date" class="mb-3 title-color">
+                                    <i class="fa-solid fa-right-to-bracket" style="color: #B197FC;"></i> Check out
+                                </label>
+                                <div>
+                                    <label for="checkout-date" id="current-date"></label>
                                 </div>
                             </div>
-            
+
                             <div class="row mt-3 justify-content-center p-0">
                                 <div class="col-md-3 text-center">
-                                    <p class="title-color"> <i class="fa-solid fa-person"
-                                            style="color: #f5600f;"></i> Số lượng khách</p>
-                                    <select class="form-select">
-                                        <option>2</option>
-                                        <option>1</option>
-                                        <option>3</option>
+                                    <p class="title-color"> <i class="fa-solid fa-person" style="color: #f5600f;"></i>
+                                        Số lượng khách</p>
+                                    <select class="form-select" id="number-customer" name="number-customer">
+                                        <option value="2">2</option>
+                                        <option value="1">1</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
-            
+
                                 <div class="col-md-3 ">
-                                    <p class="title-color"> <i class="fa-solid fa-bed"
-                                            style="color: #e665d5;"></i> Loại phòng</p>
-                                    <select class="form-select">
-                                        <option>Normal</option>
-                                        <option>VIP</option>
+                                    <p class="title-color"> <i class="fa-solid fa-bed" style="color: #e665d5;"></i> Loại
+                                        phòng</p>
+                                    <select class="form-select" id="type-room" name="type-room">
+                                        <option value="Normal">
+                                            Normal</option>
+                                        <option value="VIP">VIP
+                                        </option>
                                     </select>
                                 </div>
-            
+
                                 <div class="col-md-6 text-center">
                                     <p class="mb-0"><br></p>
-                                    <button type="button" class="btn col-md-6"
-                                        style="background-color:#ff5e1e; color:antiquewhite"><i
-                                            class="fa-solid fa-magnifying-glass"
-                                            style="color: #ffffff;"></i>
-                                        Tìm khách sạn</button>
+                                    <button type="button" id="search" class="btn col-md-6"
+                                        style="background-color:#ff5e1e; color:antiquewhite">
+                                        <i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i>
+                                        Tìm phòng
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -102,239 +87,125 @@
             </div>
         </div>
         <div>
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-              </ul>
+            <form action="/booking">
+                <ul class="pagination">
+                    {% if pages %}
+                    {% if has_prev %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('booking', page=page - 1) }}">Previous</a>
+                    </li>
+                    {% endif %}
+
+                    {% for p in range(1, pages + 1) %}
+                    <li class="page-item {% if p == page %}active{% endif %}">
+                        <a class="page-link" href="{{ url_for('booking', page=p) }}">{{
+                            p }}</a>
+                    </li>
+                    {% endfor %}
+
+                    {% if has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('booking', page=page + 1) }}">Next</a>
+                    </li>
+                    {% endif %}
+                    {% endif %}
+                </ul>
+            </form>
         </div>
         <!-- khach san -->
-        <div class="mt-2">
-            <div class="border-booking">
-                <div class="d-flex p-3">
-                    <div class="item-2 p-1 me-3 container-image">
-                        <img src="{{ url_for('static', filename='image/ks.jpg') }}" alt="Khach san" class="mr-2">
-                    </div>
-                    <div class="d-flex flex-column item-7">
-                        <div class="d-flex  header-title">
-                            <div class="d-flex flex-column">    
-                                <div >
-                                    <h3 class="m-0 text-color-blue">Khach san</h3>
-                                    <div class="stats"></div>
-                                    <span></span>
-                                </div>
-                                <div>
-                                    <span class="text-small">Cách trung tâm 3km</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-space">
-                                <div>
-                                    <h5 class="m-0">Tuyệt hảo</h5>
-                                    <span class="text-color-stap"><a href="#" style="all: unset;">99 đánh giá <i class="fa-solid fa-star" style="color: #FFD43B;"></i></a></span>
-                                </div>
-                                <div>
+
+        <div id="room-search">
+            {% for r in rooms %}
+            <div class="mt-2">
+                <div class="border-booking">
+                    <div class="d-flex p-3">
+                        <div class="item-2 p-1 me-3 container-image">
+                            <img src="{{ r.image }}" alt="Khach san" class="mr-2">
+                        </div>
+                        <div class="d-flex flex-column item-7">
+                            <div class="d-flex  header-title">
+                                <div class="d-flex flex-column">
                                     <div>
-                                        <span class="border-three-corners text-color-write">9.5</span>
+                                        <h3 class="m-0 text-color-blue">Khách Sạn Oasia</h3>
+                                        <div class="stats"></div>
+                                        <span></span>
+                                    </div>
+                                    <div>
+                                        <span class="text-small">Cách trung tâm 3km</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-space">
+                                    <div>
+                                        <h5 class="m-0">Tuyệt hảo</h5>
+                                        <span class="text-color-stap"><a href="#" style="all: unset;">99 đánh giá <i
+                                                    class="fa-solid fa-star" style="color: #FFD43B;"></i></a></span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <span class="border-three-corners text-color-write">9.5</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mt-2">
-                            <div>
-                                <span  class="bg-color-green  text-color-write p-1 text-center rounded">Ưu đãi cuối năm</span>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="d-flex header-title">
-                                <div class="mt-1">
-                                    <h5>Phòng giường đôi nhìn ra biển</h5>
-                                    <ul class="no-bullet m-0 p-0">
-                                        <li>
-                                            <span class="text-small">1 giường đôi lớn</span>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex align-items-space">
-                                                <div><i class="fa-solid fa-check color-green"></i></div>
-                                                <div><span class="text-small color-green">Miễn phí hủy</span></div>
-                                            </div>
-                                            <div class="d-flex align-items-space">
-                                                <div><i class="fa-solid fa-check color-green"></i></div>
-                                                <div><span class="text-small color-green">Không cần thanh toán online - Thanh toán tại chỗ nghỉ</span></div>
-                                            </div>
-                                            <div>
-                                                <span class="text-small text-color-stap text-color-red">Chỉ còn 4 phòng với giá này trên trang của chúng tôi</span>
-                                            </div>
-                                        </li>
-                                    </ul>
+                            <div class="mt-2">
+                                <div>
+                                    <span class="bg-color-green  text-color-write p-1 text-center rounded">Ưu đãi cuối
+                                        năm</span>
                                 </div>
-                                <div class="text-aline-right">
-                                    <span class="text-small">1 đêm 2 người lớn</span>
-                                    <br>
-                                    <span class="text-color-discount">400.000 VND</span>
-                                    <h3>320.000 VND</h3>
-                                    <span class="text-small">Đã bao gồm thuế và phí</span>
-                                    <hr>
-                                    <input type="button" value="Chọn phòng" name="booking" class="btn btn-success" />
+                            </div>
+                            <div class="">
+                                <div class="d-flex header-title">
+                                    <div class="mt-1">
+                                        <h5>{{ r.name }}</h5>
+                                        <ul class="no-bullet m-0 p-0">
+                                            <li>
+                                                <span class="text-small">1 giường đôi lớn</span>
+                                            </li>
+                                            <li>
+                                                <div class="d-flex align-items-space">
+                                                    <div><i class="fa-solid fa-check color-green"></i></div>
+                                                    <div><span class="text-small color-green">Miễn phí hủy</span></div>
+                                                </div>
+                                                <div class="d-flex align-items-space">
+                                                    <div><i class="fa-solid fa-check color-green"></i></div>
+                                                    <div><span class="text-small color-green">Không cần thanh toán
+                                                            online -
+                                                            Thanh toán tại chỗ nghỉ</span></div>
+                                                </div>
+                                                <div>
+                                                    <span class="text-small text-color-stap text-color-red">Chỉ còn 4
+                                                        phòng
+                                                        với giá này trên trang của chúng tôi</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="text-aline-right">
+                                        <span class="text-small">1 đêm 2 người lớn</span>
+                                        <br>
+                                        <span class="text-color-discount">{{ '{:,.0f}'.format( r.price ) }} VND</span>
+                                        <h3>{{ '{:,.0f}'.format( r.price * 0.9) }} VND</h3>
+                                        <span class="text-small">Đã bao gồm thuế và phí</span>
+                                        <hr>
+                                        <input type="button"
+                                            onclick="add_cart('{{ r.id }}', '{{ r.name }}', '{{ r.price }}', '{{ r.type_room }}', '{{ r.image }}')"
+                                            value="Chọn phòng" name="booking" class="btn btn-success" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="mt-2">
-            <div class="border-booking">
-                <div class="d-flex p-3">
-                    <div class="item-2 p-1 me-3 container-image">
-                        <img src="{{ url_for('static', filename='image/ks.jpg') }}" alt="Khach san" class="mr-2">
-                    </div>
-                    <div class="d-flex flex-column item-7">
-                        <div class="d-flex  header-title">
-                            <div class="d-flex flex-column">    
-                                <div >
-                                    <h3 class="m-0 text-color-blue">Khach san</h3>
-                                    <div class="stats"></div>
-                                    <span></span>
-                                </div>
-                                <div>
-                                    <span class="text-small">Cách trung tâm 3km</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-space">
-                                <div>
-                                    <h5 class="m-0">Tuyệt hảo</h5>
-                                    <span class="text-color-stap"><a href="#" style="all: unset;">99 đánh giá <i class="fa-solid fa-star" style="color: #FFD43B;"></i></a></span>
-                                </div>
-                                <div>
-                                    <div>
-                                        <span class="border-three-corners text-color-write">9.5</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-2">
-                            <div>
-                                <span  class="bg-color-green  text-color-write p-1 text-center rounded">Ưu đãi cuối năm</span>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="d-flex header-title">
-                                <div class="mt-1">
-                                    <h5>Phòng giường đôi nhìn ra biển</h5>
-                                    <ul class="no-bullet m-0 p-0">
-                                        <li>
-                                            <span class="text-small">1 giường đôi lớn</span>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex align-items-space">
-                                                <div><i class="fa-solid fa-check color-green"></i></div>
-                                                <div><span class="text-small color-green">Miễn phí hủy</span></div>
-                                            </div>
-                                            <div class="d-flex align-items-space">
-                                                <div><i class="fa-solid fa-check color-green"></i></div>
-                                                <div><span class="text-small color-green">Không cần thanh toán online - Thanh toán tại chỗ nghỉ</span></div>
-                                            </div>
-                                            <div>
-                                                <span class="text-small text-color-stap text-color-red">Chỉ còn 4 phòng với giá này trên trang của chúng tôi</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="text-aline-right">
-                                    <span class="text-small">1 đêm 2 người lớn</span>
-                                    <br>
-                                    <span class="text-color-discount">400.000 VND</span>
-                                    <h3>320.000 VND</h3>
-                                    <span class="text-small">Đã bao gồm thuế và phí</span>
-                                    <hr>
-                                    <input type="button" value="Chọn phòng" name="booking" class="btn btn-success" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="mt-2">
-            <div class="border-booking">
-                <div class="d-flex p-3">
-                    <div class="item-2 p-1 me-3 container-image">
-                        <img src="{{ url_for('static', filename='image/ks.jpg') }}" alt="Khach san" class="mr-2">
-                    </div>
-                    <div class="d-flex flex-column item-7">
-                        <div class="d-flex  header-title">
-                            <div class="d-flex flex-column">    
-                                <div >
-                                    <h3 class="m-0 text-color-blue">Khach san</h3>
-                                    <div class="stats"></div>
-                                    <span></span>
-                                </div>
-                                <div>
-                                    <span class="text-small">Cách trung tâm 3km</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-space">
-                                <div>
-                                    <h5 class="m-0">Tuyệt hảo</h5>
-                                    <span class="text-color-stap"><a href="#" style="all: unset;">99 đánh giá <i class="fa-solid fa-star" style="color: #FFD43B;"></i></a></span>
-                                </div>
-                                <div>
-                                    <div>
-                                        <span class="border-three-corners text-color-write">9.5</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-2">
-                            <div>
-                                <span  class="bg-color-green  text-color-write p-1 text-center rounded">Ưu đãi cuối năm</span>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="d-flex header-title">
-                                <div class="mt-1">
-                                    <h5>Phòng giường đôi nhìn ra biển</h5>
-                                    <ul class="no-bullet m-0 p-0">
-                                        <li>
-                                            <span class="text-small">1 giường đôi lớn</span>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex align-items-space">
-                                                <div><i class="fa-solid fa-check color-green"></i></div>
-                                                <div><span class="text-small color-green">Miễn phí hủy</span></div>
-                                            </div>
-                                            <div class="d-flex align-items-space">
-                                                <div><i class="fa-solid fa-check color-green"></i></div>
-                                                <div><span class="text-small color-green">Không cần thanh toán online - Thanh toán tại chỗ nghỉ</span></div>
-                                            </div>
-                                            <div>
-                                                <span class="text-small text-color-stap text-color-red">Chỉ còn 4 phòng với giá này trên trang của chúng tôi</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="text-aline-right">
-                                    <span class="text-small">1 đêm 2 người lớn</span>
-                                    <br>
-                                    <span class="text-color-discount">400.000 VND</span>
-                                    <h3>320.000 VND</h3>
-                                    <span class="text-small">Đã bao gồm thuế và phí</span>
-                                    <hr>
-                                    <input type="button" value="Chọn phòng" name="booking" class="btn btn-success" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
 
 <div class="mt-5">
-    <div><img class="image-footer" src="https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1548818046002-1600x1200-FIT_AND_TRIM-9b196b4f45b914b3dbfea061903379d8.jpeg?_src=imagekit&tr=c-at_max,fo-auto,h-272,q-40,w-1280" alt="anh khach sạn"></div>
+    <div><img class="image-footer"
+            src="https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1548818046002-1600x1200-FIT_AND_TRIM-9b196b4f45b914b3dbfea061903379d8.jpeg?_src=imagekit&tr=c-at_max,fo-auto,h-272,q-40,w-1280"
+            alt="anh khach sạn"></div>
 </div>
 
 <div class="container mt-5">
@@ -381,7 +252,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <i class="fa-solid fa-arrow-left"  style="color: #9dafcd; "></i>
+                            <i class="fa-solid fa-arrow-left" style="color: #9dafcd; "></i>
                             Trả Phòng
                         </td>
                         <td>
@@ -406,9 +277,12 @@
                             <h6>Chính sách trẻ em</h6>
                             <p>Phù hợp cho tất cả trẻ em.</p>
                             <p>Trẻ em từ 18 tuổi trở lên sẽ được tính giá như người lớn tại chỗ nghỉ này.</p>
-                            <p>Để xem thông tin giá và tình trạng phòng trống chính xác, vui lòng thêm số lượng và độ tuổi của trẻ em trong nhóm của bạn khi tìm kiếm.</p>
-                            <p>Giá cho giường phụ chưa được bao gồm trong giá tổng và sẽ cần được thanh toán riêng trong kỳ nghỉ.</p>
-                            <p>Số lượng giường phụ được phép tùy thuộc vào tùy chọn của bạn. Vui lòng kiểm tra tùy chọn mà bạn đã chọn để biết thêm thông tin.</p>
+                            <p>Để xem thông tin giá và tình trạng phòng trống chính xác, vui lòng thêm số lượng và độ
+                                tuổi của trẻ em trong nhóm của bạn khi tìm kiếm.</p>
+                            <p>Giá cho giường phụ chưa được bao gồm trong giá tổng và sẽ cần được thanh toán riêng trong
+                                kỳ nghỉ.</p>
+                            <p>Số lượng giường phụ được phép tùy thuộc vào tùy chọn của bạn. Vui lòng kiểm tra tùy chọn
+                                mà bạn đã chọn để biết thêm thông tin.</p>
                             <p>Chỗ nghỉ này không có nôi/cũi.</p>
                             <p>Tất cả giường phụ tùy thuộc vào tình trạng có sẵn.</p>
                         </td>
@@ -437,7 +311,8 @@
                             Nhóm
                         </td>
                         <td>
-                            Khi đặt phòng nhiều hơn 4 phòng, các chính sách khác và các điều lệ bổ sung có thể được áp dụng.
+                            Khi đặt phòng nhiều hơn 4 phòng, các chính sách khác và các điều lệ bổ sung có thể được áp
+                            dụng.
                         </td>
                     </tr>
                     <tr>
@@ -446,8 +321,9 @@
                             Thanh Toán
                         </td>
                         <td>
-                            <img width="50px" src=" {{ url_for('static', filename='image/credict.png') }} "/>
-                            <img width="50px" src="https://tse4.mm.bing.net/th?id=OIP.1GNvjAZu4hlbE0bWflshGwHaHa&pid=Api&P=0&h=220">
+                            <img width="50px" src=" {{ url_for('static', filename='image/credict.png') }} " />
+                            <img width="50px"
+                                src="https://tse4.mm.bing.net/th?id=OIP.1GNvjAZu4hlbE0bWflshGwHaHa&pid=Api&P=0&h=220">
                             <span class="payment-money">Tền mặt</span>
                         </td>
                     </tr>
@@ -460,7 +336,7 @@
         <p class="mb-1">Những điên hấp dẫn của Oasia</p>
         <p class="mb-1">Nhấp vào đây để xem thêm khách sạn và chỗ nghỉ nổi tiếng ở Oasia</p>
     </div>
-    
+
 </div>
 
 {% endblock %}

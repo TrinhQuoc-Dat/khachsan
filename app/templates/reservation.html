@@ -15,33 +15,50 @@
     <div>
         <h3>Khách sạn Oasia</h3>
     </div>
-    <div class="border-booking ">
+    {% for b in booking %}
+    <div class="border-booking mt-2">
         <div class="p-3">
             <div class="d-flex justify-content-between space">
                 <div class="item-1 ">
-                    <img class="border-image-me" src="{{ url_for('static', filename='image/ks.jpg') }}" width="128px" alt="Khách sạn"/>
+                    <img class="border-image-me" src="{{ b[2] }}" width="128px" alt="Khách sạn"/>
                 </div>
                 <div class="item-7">
                     <div>
-                        <h4>Phòng ban công rộng rãi thoáng mát</h4>
+                        <h4>{{ b[1] }}</h4>
                     </div>
                     <div>
-                        <span>3 tháng 12</span>
+                        <span class="date">{{ b[5] }}</span>
                         <span> - </span>
-                        <span>4 tháng 12</span>
+                        <span class="date">{{ b[6] }}</span>
                     </div>
                     <div>
-                        <span>Đã đặt thành công</span>
+                        <span class="success">Đã đặt thành công</span>
+                    </div>
+                    <div>
+                        <span class="my-date">{{ b[3] }}</span>
                     </div>
                 </div>
                 <div class="item-2">
-                    <h3>300,000 VND</h3>
-                    <p>Mã đặt phòng: <span>4424565325</span></p>
-                    <p>Mã pin: <span>2434</span></p>
+                    <h3 class="text-danger">{{ '{:,.0f}'.format(b[8]) }} VND</h3>
+                    <p>Mã đặt phòng: <span>{{ b[7] }}</span></p>
+                    <p>Mã phòng: <span>{{ b[0] }}</span></p>
                 </div>
             </div>
         </div>
     </div>
-
+    {% endfor %}
 </div>
+
+<script>
+    window.onload = function (){
+        let date = document.getElementsByClassName('date')
+        for (let i = 0; i < date.length; i++){
+            date[i].innerText = moment(date[i].innerText).format('DD/MM/YYYY');
+        }
+        let myDate = document.getElementsByClassName('my-date')
+        for (let i = 0; i < myDate.length; i++){
+            myDate[i].innerText = moment(myDate[i].innerText).locale('vi').fromNow()
+        }
+    }
+</script>
 {% endblock %}

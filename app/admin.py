@@ -55,7 +55,8 @@ class MyAdminIndex(AdminIndexView):
             return self.render('/admin/index.html')
 
 
-class UserView (AuthenticatecModelView):
+
+class UserView(AuthenticatecModelView):
       column_display_pk = True
       form_column = ['id', 'username', 'email', 'avatar', 'password', 'user_role']
       column_searchable_list = ['username', 'email', 'user_role']
@@ -103,6 +104,7 @@ class RoomView(AuthenticatecModelView):
       can_export = True
       page_size = 10
       
+
       form_choices = {
             'max_customer': [
                   (1, '1'),
@@ -147,6 +149,7 @@ class customerView(AuthenticatecModelView):
             'type_customer':'Loại khách hàng',
             'special_info': 'note',
       }
+      
 
 class EmployeeView(AuthenticatecModelView):
       column_display_pk = True
@@ -198,7 +201,6 @@ class BookingView(AuthenticatecModelView):
 
 # Tổ chức các danh mục
 admin.add_view(UserView(User, db.session,name="Tài khoản", category="Quản lý người dùng"))
-# admin.add_view(PersonView(Person, db.session, category="Quản lý người dùng"))
 admin.add_view(customerView(Customer, db.session,name="Khách hàng", category="Quản lý người dùng"))
 admin.add_view(EmployeeView(Employee, db.session,name="Nhân Viên", category="Quản lý người dùng"))
 

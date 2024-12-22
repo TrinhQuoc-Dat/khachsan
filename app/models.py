@@ -6,19 +6,6 @@ from app import db, app
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 
-
-# class Person(db.Model):
-#     __abstract__:True
-#     id = Column(Integer, primary_key=True, autoincrement=True)
-#     full_name = Column(String(50), nullable=False)
-#     phone = Column(String(10), nullable=False)
-#     email = Column(String(50), nullable=False)
-#     cccd = Column(String(20), nullable=False, unique=True)
-#     address = Column(String(255))
-
-#     def __index__(self):
-#         return self.full_name
-
 class UserRole(EnumRole):
     USER = 1
     ADMIN = 2
@@ -31,11 +18,11 @@ class User(db.Model, UserMixin):
     password = Column(String(100), nullable=False)
     avatar = Column(String(255), default="https://res.cloudinary.com/devtqlbho/image/upload/v1734836011/avqqfhy2r_zob90e.webp")
     email = Column(String(50), nullable=False, unique=True)
+    created_date = Column(DateTime, default=datetime.now)
     user_role = Column(Enum(UserRole), default=UserRole.USER)
     employees = relationship('Employee', backref='user', lazy=True)
     comments = relationship('Comment', backref='user', lazy=True)
-    booking = relationship('Booking', backref='user', lazy=True)
-    
+    bookings = relationship('Booking', backref='user', lazy=True)
 
 class Employee(db.Model):
     __tablename__ = 'employee'
@@ -64,7 +51,7 @@ class Customer(db.Model):
     __tablename__ = 'customer'
     id = Column(Integer, primary_key=True, autoincrement=True)
     full_name = Column(String(50), nullable=False)
-    phone = Column(String(10), nullable=False)
+    phone = Column(String(10))
     email = Column(String(50), nullable=False)
     cccd = Column(String(20), nullable=False, unique=True)
     address = Column(String(255))
@@ -97,8 +84,6 @@ class Booking(db.Model):
     booking_details = relationship('BookingDetail', backref='booking', lazy=True)
     user_id = Column(Integer, ForeignKey(User.id), nullable=False)
 
-
-
 class TypeRoom(EnumRole):
     NORMAL = 1
     VIP = 2
@@ -123,6 +108,15 @@ class Room(db.Model):
 
     def __index__(self):
         return self.name
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "price": self.price,
+            "type-room": self.type_room.name,
+            "image": self.image
+        }
 
 class BookingDetail(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -195,11 +189,40 @@ class Comment(db.Model):
 if __name__ == '__main__':
     with app.app_context():
         pass
-        # db.drop_all()
-        # db.create_all()
-        # u = User(username='admin', password=str(hashlib.md5('1'.strip().encode('utf-8')).hexdigest()),
-        #         user_role=UserRole.ADMIN, email='2251050019duy@ou.edu.vn')
-        # db.session.add(u)
+        #db.drop_all()
+        #db.create_all()
+        # u = User(username='quocdat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
+        #         user_role=UserRole.ADMIN, email='2251050016dat@ou.edu.vn')
+        # u1 = User(username='dat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
+        #         user_role=UserRole.USER, email='2251050010dat@ou.edu.vn')
+        # db.session.add_all([u1, u])
+        # db.session.commit()
+
+        
+        # r1 = Room(name="Phòng Superior Giường Đôi Với Cửa Sổ",
+        #          max_customer= 3,
+        #          price=600000,
+        #          image="https://cf.bstatic.com/xdata/images/hotel/max1024x768/404490378.jpg?k=2a3ee25918786d09794c59ac8b8c67e48414183cf34e9a738d3a8393b09210f5&o=")
+        
+        # r2 = Room(name="Phòng Superior Có Giường Cỡ Queen",
+        #          max_customer= 3,
+        #          price=200000,
+        #          image="https://img.homedy.com/store/images/2020/04/16/phong-ngu-khach-san-5-sao-2-637226034911724690.jpg")
+        # r3 = Room(name="Phòng Ngủ Tập Thể 6 Giường Cho Cả Nam Và Nữ",
+        #          max_customer= 3,
+        #          price=800000,
+        #          image="https://noithatmyhouse.net/wp-content/uploads/2019/06/dien-tich-phong-khach-san-tieu-chuan_2.jpg")
+        # r4 = Room(name="Phòng gia đình với phòng tắm riêng.",
+        #          max_customer= 3,
+        #          price=350000,
+        #          image="https://maximilan.com.vn/wp-content/uploads/2020/03/96515_og_1.jpeg")
+        # r5 = Room(name="Phòng đơn Superior",
+        #          max_customer= 3,
+        #          price=200000,
+        #          image="https://dyf.vn/wp-content/uploads/2021/10/170433841_299853518329337_277745775002707996_n-1.jpg")
+        
+        # db.session.add_all([r1, r2, r3, r4, r5])
+        
         # db.session.commit()
 
 

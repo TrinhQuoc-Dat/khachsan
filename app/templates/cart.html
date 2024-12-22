@@ -17,7 +17,7 @@
         <div class="item-3 right-seach">
             <div class="border-booking mb-2">
                 <div class="d-flex flex-column p-2">
-                    <div>Oasia  
+                    <div>Oasia
                         <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                         <i class="fa-regular fa-thumbs-up" style="color: #FFD43B;"></i>
                     </div>
@@ -27,9 +27,9 @@
                             <p><span class="color-green text-small">vị trí tuyệt vời</span></p>
                         </div>
                         <div class="mb-1">
-                            <div >
+                            <div>
                                 <span class="border-three-corners text-color-write">9.5</span>
-                                <span class="title-header">Tốt:   <span>480 đánh giá</span></span>
+                                <span class="title-header">Tốt: <span>480 đánh giá</span></span>
                             </div>
                         </div>
                         <div>
@@ -49,30 +49,17 @@
                             <h4>Chi tiết phòng đặt của bạn</h4>
                         </div>
                         <div class="d-flex flex-column justify-content-between">
-                            <div class="d-flex">
-                                <div class="border-right-in">
-                                    <p>Nhận Phòng</p>
-                                    <h5>T3, 11 tháng 2 2025</h5>
-                                    <span class="text-small">Từ 14:00</span>
+                            <div>
+                                <h6>Các Phòng đã chọn</h6>
+                            </div>
+                            <div>
+                                <h6 class="mt-1" id="total-room">{{ cart_stats.total_quantity }} phòng lớn</h6>
+                                {% for r in session['cart'].values() %}
+                                <div id="room{{r.id}}">
+                                    <span>1 x {{ r.name }}</span>
                                 </div>
-                                <div class="ms-3">
-                                    <p>Trả Phòng</p>
-                                    <h5>T4, 12 tháng 2 2025</h5>
-                                    <span class="text-small">Cho đến 12:00</span>
-                                </div>
+                                {% endfor %}
                             </div>
-                            <div class="mt-1">
-                                <p>Tổng thời gian lưu trú</p>
-                            </div>
-                            <div class="mt-1">
-                                <h6>1 đêm</h6>
-                            </div>
-                        </div>
-                        <hr>
-                        <div>
-                            <p>Bạn đã chọn</p>
-                            <h6 class="mt-1">2 phòng lớn</h6>
-                            <span>2 x Phòng Deluxe Gia đình</span>
                         </div>
                     </div>
                 </div>
@@ -85,23 +72,25 @@
                     <div class="d-flex flex-column">
                         <div class="d-flex justify-content-between">
                             <div>Giá sốc</div>
-                            <div>4.268.000 VND</div>
+                            <div id="gia-soc">{{ '{:,.0f}'.format(cart_stats.total_amount) }} VND</div>
                         </div>
                         <div class="d-flex justify-content-between">
                             <div>Ưu Đãi</div>
-                            <div>-467.000 VND</div>
+                            <div class="uu-dai">-{{ '{:,.0f}'.format(cart_stats.total_amount * 0.1) }} VND</div>
                         </div>
                     </div>
                     <div class="bg-sum d-felx flex-column p-2 border-booking">
                         <div class="d-flex flex-row-reverse">
-                            <div class="text-color-discount font-weicht">467.000 VND</div>
+                            <div class=" uu-dai text-color-discount font-weicht">{{
+                                '{:,.0f}'.format(cart_stats.total_amount * 0.1) }} VND</div>
                         </div>
                         <div class="d-flex align-items-center justify-content-between ">
                             <div class="sum">
                                 Tổng Cộng
                             </div>
                             <div>
-                                <div class="sum">4.268.000 VND</div>
+                                <div id="tong" class="sum">{{ '{:,.0f}'.format(cart_stats.total_amount * 0.9) }} VND
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -109,22 +98,25 @@
             </div>
         </div>
         <div class="item-7">
-            <div class="border-booking mb-2">
-                <div class="p-3">
-                    <h2>Nhập thông tin chi tiết của bạn</h2>
-                    <form>
+            <form action="/reservation" method="post">
+                <div class="border-booking mb-2">
+                    <div class="p-3">
+                        <h2>Nhập thông tin chi tiết của bạn</h2>
                         <div class="d-flex justify-content-around">
                             <div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Họ và tên</label>
-                                    <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Nhập họ và tên...">
+                                    <input type="text" class="form-control" id="name" aria-describedby="name" name="name"
+                                        placeholder="Nhập họ và tên...">
                                 </div>
                             </div>
                             <div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Số điện thoại</label>
-                                    <input type="number" class="form-control" id="phone" name="phone" placeholder="Nhập số điện thoại...">
-                                    <small id="phone" class="form-text text-muted">Cần thiết để chỗ nghỉ xác nhận đặt phòng của bạn</small>
+                                    <input type="number" class="form-control" id="phone" name="phone"
+                                        placeholder="Nhập số điện thoại...">
+                                    <small id="phone" class="form-text text-muted">Cần thiết để chỗ nghỉ xác nhận đặt
+                                        phòng của bạn</small>
                                 </div>
                             </div>
                         </div>
@@ -132,62 +124,122 @@
                             <div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">CCCD</label>
-                                    <input type="number" class="form-control" id="cccd" name="cccd" placeholder="Nhập căn cước công dân...">
+                                    <input type="number" class="form-control" id="cccd" name="cccd"
+                                        placeholder="Nhập căn cước công dân...">
                                 </div>
                             </div>
                             <div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Địa chỉ email</label>
-                                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
-                                    <small id="emailHelp" class="form-text text-muted">Email xác nhận đặt phòng sẽ được gửi đến địa chỉ này</small>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        aria-describedby="emailHelp" placeholder="Enter email">
+                                    <small id="emailHelp" class="form-text text-muted">Email xác nhận đặt phòng sẽ được
+                                        gửi đến địa chỉ này</small>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    
-                </div>
-            </div>
-            <div class="border-booking p-3">
-                <div class="d-flex flex-column">
-                    <div>
-                        <h3>Phòng Deluxe Giường Đôi</h3>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <div>
-                            <i class="fa-regular fa-circle-dot color-icon p-1"></i>
-                            <span>Không mất phí</span>
-                            <i class="fa-regular fa-circle-question color-icon-blue ms-2"></i>
-                        </div>
-                        <div>
-                            <i class="fa-solid fa-child color-icon p-1"></i>
-                            <span>Khách: 2 người lớn</span>
-                            <i class="fa-regular fa-circle-question color-icon-blue ms-2"></i>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <div>
-                            <i class="fa-brands fa-goodreads-g color-icon p-1"></i>
-                            <span>Phòng sạch bong - 9,3</span>
-                        </div>
-                        <div>
-                            <i class="fa-solid fa-ban-smoking color-icon p-1"></i>
-                            <span>Không hút thuốc</span>
-                        </div>
+
+
                     </div>
                 </div>
-                <form>
+                {% for r in session['cart'].values() %}
+                <div class="border-booking p-3 mt-2" id="room-delete{{ r.id }}">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="d-flex flex-column">
+                                <div>
+                                    <h3>{{ r.name }}</h3>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div>
+                                        <i class="fa-regular fa-circle-dot color-icon p-1"></i>
+                                        <span class="text-small">Không mất phí</span>
+                                        <i class="fa-regular fa-circle-question color-icon-blue ms-2"></i>
+                                    </div>
+                                    <div>
+                                        <i class="fa-solid fa-child color-icon p-1"></i>
+                                        <span class="text-small">Khách: {{ r.number_customer }} người lớn</span>
+                                        <i class="fa-regular fa-circle-question color-icon-blue ms-2"></i>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div>
+                                        <i class="fa-brands fa-goodreads-g color-icon p-1"></i>
+                                        <span class="text-small">Phòng sạch bong - 9,3</span>
+                                    </div>
+                                    <div>
+                                        <i class="fa-solid fa-ban-smoking color-icon p-1"></i>
+                                        <span class="text-small">Không hút thuốc</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7 border-left-in">
+                            <div class="d-flex flex-column">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <div class="d-flex justify-content-around">
+                                        <div>
+                                            <p>Nhận Phòng</p>
+                                            <h5>{{ r.date_in }}</h5>
+                                            <span class="text-small">Từ 14:00</span>
+                                        </div>
+                                        <div class="ps-3 border-left-in">
+                                            <p>Trả Phòng</p>
+                                            <h5>{{ r.date_out }}</h5>
+                                            <span class="text-small">Cho đến 12:00</span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex mt-2 justify-content-between">
+                                        <div class="p-2">
+                                            <div class="mt-1">
+                                                <p class="text-small">Tổng thời gian lưu trú</p>
+                                            </div>
+                                            <div class="mt-1">
+                                                <h6 class="text-info">{{r.day}} đêm</h6>
+                                            </div>
+                                        </div>
+                                        <div class="border-left-in p-2">
+                                            <div class="d-flex flex-row-reverse">
+                                                <div class="font-weicht" style="font-weight: 500; font-size: large;">{{
+                                                    '{:,.0f}'.format(r.price) }} VND</div>
+                                            </div>
+                                            <div class="d-flex flex-row-reverse">
+                                                <div class="font-weicht text-color-discount"> - {{
+                                                    '{:,.0f}'.format(r.price|float * r.day|int * 0.1) }} VND</div>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-around ">
+                                                <div style="font-weight: 500; font-size: large;">
+                                                    Tổng Cộng:
+                                                </div>
+                                                <div>
+                                                    <div class="text-info" style="font-weight: 500; font-size: large;">
+                                                        {{ '{:,.0f}'.format(r.price|float * r.day|int - r.price|float *
+                                                        r.day|int * 0.1) }} VND</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="d-flex justify-content-around">
                         <div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Họ và tên</label>
-                                <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Nhập họ và tên...">
+                                <input type="text" class="form-control" id="name{{ r.id }}" name="name{{ r.id }}" aria-describedby="name{{ r.id }}"
+                                    placeholder="Nhập họ và tên...">
                             </div>
                         </div>
                         <div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Số điện thoại</label>
-                                <input type="number" class="form-control" id="phone" name="phone" placeholder="Nhập số điện thoại...">
-                                <small id="phone" class="form-text text-muted">Cần thiết để chỗ nghỉ xác nhận đặt phòng của bạn</small>
+                                <label for="exampleInputEmail1">Địa chỉ email</label>
+                                <input type="email" class="form-control" id="email{{ r.id }}" name="email{{ r.id }}"
+                                    aria-describedby="emailHelp" placeholder="Enter email">
+                                <small id="email{{ r.id }}" class="form-text text-muted">Email xác nhận đặt phòng sẽ được gửi
+                                    đến địa chỉ này</small>
                             </div>
                         </div>
                     </div>
@@ -195,37 +247,61 @@
                         <div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">CCCD</label>
-                                <input type="number" class="form-control" id="cccd" name="cccd" placeholder="Nhập căn cước công dân...">
+                                <input type="number" class="form-control" id="cccd{{ r.id }}" name="cccd{{ r.id }}"
+                                    placeholder="Nhập căn cước công dân...">
                             </div>
                         </div>
+                        
                         <div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Địa chỉ email</label>
-                                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
-                                <small id="emailHelp" class="form-text text-muted">Email xác nhận đặt phòng sẽ được gửi đến địa chỉ này</small>
+                                <label for="exampleInputEmail1">Địa Chỉ</label>
+                                <input type="text" class="form-control" id="address{{ r.id }}" name="address{{ r.id }}"
+                                    placeholder="Địa chỉ">
+                                <small id="address{{ r.id }}" class="form-text text-muted">Cần thiết để chỗ nghỉ xác nhận đặt phòng
+                                    của bạn</small>
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="border-booking mt-2">
-                <div class="d-flex flex-column p-2">
-                    <div>
-                        <h3>Thời gian đến của bạn đến với khách sạn</h3>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div><i class="fa-regular fa-circle-check p-2 color-green"></i></div>
-                        <div><p class="color-icon">Các phòng của bạn sẽ sẵn sàng để nhận trong khoảng từ 14:00 đến 00:00</p></div>
-                    </div>
-                    <div class="d-flex">
-                        <div><i class="fa-solid fa-bell-concierge p-2 color-green"></i></div>
-                        <div><p class="color-icon">Lễ tân 24 giờ - Luôn có trợ giúp mỗi khi bạn cần!</p></div>
+                    <div class="d-flex justify-content-around mt-2 me-5">
+                        <div>
+                            <select class="form-select" aria-label="Default select example" name="type-customer{{ r.id }}">
+                                <option selected value="DOMESTIC">Khách Trong nước</option>
+                                <option value="FOREIGN">Khách nước ngoài</option>
+                              </select>
+                        </div>
+                        <div>
+                            <input type="button" onclick="deleteRoom('{{ r.id }}')" value="Xóa phòng đặt"
+                            class="btn btn-danger" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="d-flex flex-row-reverse mt-2">
-                <input class="btn btn-success" value="Đặt các phòng đã chọn > " type="button" />
-            </div>
+                {% endfor %}
+                <div class="border-booking mt-2">
+                    <div class="d-flex flex-column p-2">
+                        <div>
+                            <h3>Thời gian đến của bạn đến với khách sạn</h3>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div><i class="fa-regular fa-circle-check p-2 color-green"></i></div>
+                            <div>
+                                <p class="color-icon">Các phòng của bạn sẽ sẵn sàng để nhận trong khoảng từ 14:00 đến
+                                    00:00</p>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div><i class="fa-solid fa-bell-concierge p-2 color-green"></i></div>
+                            <div>
+                                <p class="color-icon">Lễ tân 24 giờ - Luôn có trợ giúp mỗi khi bạn cần!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row-reverse mt-2">
+                    <a href="/reservation">
+                        <input class="btn btn-success" value="Đặt các phòng đã chọn > " type="submit" />
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
 </div>

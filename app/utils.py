@@ -6,3 +6,6 @@ def get_user_role(key):
     elif key.__eq__('ADMIN'):
         return UserRole.ADMIN
     return UserRole.EMPLOYEE
+
+def count_customer(cart):
+    return sum(int(c['number_customer']) for c in cart.values())

@@ -13,3 +13,9 @@
 .space{
     gap: 18px;
 }
+.success{
+    background-color: var(--bg-green);
+    border-radius: 5px;
+    color: white;
+    padding: 2px;
+}
