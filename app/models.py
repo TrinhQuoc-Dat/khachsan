@@ -7,17 +7,17 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 
 
-class Person(db.Model):
-    __abstract__:True
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    full_name = Column(String(50), nullable=False)
-    phone = Column(String(10), nullable=False)
-    email = Column(String(50), nullable=False)
-    cccd = Column(String(20), nullable=False, unique=True)
-    address = Column(String(255))
+# class Person(db.Model):
+#     __abstract__:True
+#     id = Column(Integer, primary_key=True, autoincrement=True)
+#     full_name = Column(String(50), nullable=False)
+#     phone = Column(String(10), nullable=False)
+#     email = Column(String(50), nullable=False)
+#     cccd = Column(String(20), nullable=False, unique=True)
+#     address = Column(String(255))
 
-    def __index__(self):
-        return self.full_name
+#     def __index__(self):
+#         return self.full_name
 
 class UserRole(EnumRole):
     USER = 1
@@ -29,15 +29,22 @@ class User(db.Model, UserMixin):
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String(50), nullable=False, unique=True)
     password = Column(String(100), nullable=False)
-    avatar = Column(String(255))
+    avatar = Column(String(255), default="https://res.cloudinary.com/devtqlbho/image/upload/v1734836011/avqqfhy2r_zob90e.webp")
     email = Column(String(50), nullable=False, unique=True)
     user_role = Column(Enum(UserRole), default=UserRole.USER)
     employees = relationship('Employee', backref='user', lazy=True)
     comments = relationship('Comment', backref='user', lazy=True)
+    booking = relationship('Booking', backref='user', lazy=True)
+    
 
 class Employee(db.Model):
     __tablename__ = 'employee'
-    id = Column(Integer, ForeignKey(Person.id), unique=True, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    full_name = Column(String(50), nullable=False)
+    phone = Column(String(10), nullable=False)
+    email = Column(String(50), nullable=False)
+    cccd = Column(String(20), nullable=False, unique=True)
+    address = Column(String(255))
     salary = Column(Float)
     start_date = Column(DateTime, default=datetime.now())
     user_id = Column(Integer, ForeignKey(User.id))
@@ -55,7 +62,12 @@ class CustomerType(EnumRole):
 
 class Customer(db.Model):
     __tablename__ = 'customer'
-    id = Column(Integer, ForeignKey(Person.id), unique=True, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    full_name = Column(String(50), nullable=False)
+    phone = Column(String(10), nullable=False)
+    email = Column(String(50), nullable=False)
+    cccd = Column(String(20), nullable=False, unique=True)
+    address = Column(String(255))
     type_customer = Column(Enum(CustomerType), default=CustomerType.DOMESTIC)
     special_info = Column(String(255))
 
@@ -83,6 +95,7 @@ class Booking(db.Model):
     order_type_id = Column(Enum(OrderType), default=OrderType.ONLINE)
     employee_id = Column(Integer, ForeignKey(Employee.id))
     booking_details = relationship('BookingDetail', backref='booking', lazy=True)
+    user_id = Column(Integer, ForeignKey(User.id), nullable=False)
 
 
 
@@ -184,8 +197,8 @@ if __name__ == '__main__':
         pass
         # db.drop_all()
         # db.create_all()
-        # u = User(username='quocdat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
-        #         user_role=UserRole.ADMIN, email='2251050016dat@ou.edu.vn')
+        # u = User(username='admin', password=str(hashlib.md5('1'.strip().encode('utf-8')).hexdigest()),
+        #         user_role=UserRole.ADMIN, email='2251050019duy@ou.edu.vn')
         # db.session.add(u)
         # db.session.commit()
 

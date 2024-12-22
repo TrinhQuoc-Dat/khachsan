@@ -1,0 +1,307 @@
+[33mcommit ef21728a96a345146ff499fabead9043d98d495d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mduy[m[33m, [m[1;31morigin/duy[m[33m)[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Sat Dec 21 23:01:58 2024 +0700
+
+    ss
+
+[33mcommit c435cde47ea07c406a1b3012793ec5baaec0d971[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Fri Dec 20 22:40:47 2024 +0700
+
+    ss
+
+[33mcommit d8dbfbe8c8bb40239eaefef1a251607452eef6a8[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Fri Dec 20 18:42:54 2024 +0700
+
+    ss
+
+[33mcommit 244a7115008b193f1b116f6c43b280815ffe5314[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Wed Dec 18 23:50:33 2024 +0700
+
+    ss
+
+[33mcommit ec97592b105e4be6f2624e789a238da82cf3b319[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Wed Dec 18 21:37:40 2024 +0700
+
+    fix loi sau khi merge
+
+[33mcommit 132bcd24d4744982b55c5271b67c8c201826b07e[m
+Merge: 5a8f00a bce3d05
+Author: TrinhQuoc-Dat <140597390+TrinhQuoc-Dat@users.noreply.github.com>
+Date:   Wed Dec 18 21:12:35 2024 +0700
+
+    Merge pull request #9 from TrinhQuoc-Dat/dat
+    
+    update
+
+[33mcommit bce3d05cd0085659530f243c50a43efe422780a3[m[33m ([m[1;31morigin/dat[m[33m)[m
+Merge: add120e 5a8f00a
+Author: TrinhQuoc-Dat <140597390+TrinhQuoc-Dat@users.noreply.github.com>
+Date:   Wed Dec 18 21:12:20 2024 +0700
+
+    Merge branch 'main' into dat
+
+[33mcommit 5a8f00a266c722cacabada8dc7851e669d4df789[m
+Merge: 88b2454 1da1c7e
+Author: Nhất Duy <140056838+nhatduydo@users.noreply.github.com>
+Date:   Wed Dec 18 21:07:54 2024 +0700
+
+    Merge pull request #8 from TrinhQuoc-Dat/duy
+    
+    ss
+
+[33mcommit add120e741e03c154c3a1af2af8ec87df3ab4708[m
+Author: TKW-TrinhQuocDat <trinhquocdat041004@gmail.com>
+Date:   Wed Dec 18 20:57:30 2024 +0700
+
+    update
+
+[33mcommit 1da1c7eb6e3eeeaa057da4367539c10b512b6fb2[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Tue Dec 17 23:43:28 2024 +0700
+
+    ss
+
+[33mcommit 88b24541972af6e1ec7ae7391d715fd7221d8c67[m
+Merge: 0fe5b98 58f3f66
+Author: Nhất Duy <140056838+nhatduydo@users.noreply.github.com>
+Date:   Tue Dec 17 19:20:55 2024 +0700
+
+    Merge pull request #7 from TrinhQuoc-Dat/duy
+    
+    Duy
+
+[33mcommit 58f3f666014088d12e81613e4d4e26dcba6bcab8[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Tue Dec 17 19:19:39 2024 +0700
+
+    ss
+
+[33mcommit d019d56f55a82e10a9529393216922a358eb71dc[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Mon Dec 16 15:00:22 2024 +0700
+
+    ss
+
+[33mcommit a65731a2083ca3dc41ce64d655e5ef82af85de14[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Sat Dec 14 22:45:52 2024 +0700
+
+    ss
+
+[33mcommit 9e1bd1ae41cd32f6b38b76b4d0efd55492f6cd50[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Sat Dec 14 22:29:46 2024 +0700
+
+    ss
+
+[33mcommit 14bac8f0a735e0c447ab8936b03613f649149037[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Sat Dec 14 08:27:17 2024 +0700
+
+    ss
+
+[33mcommit f54cd1898817021297cf186428e8da4fd1d720ce[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Sat Dec 14 08:17:11 2024 +0700
+
+    ss
+
+[33mcommit 0fe5b98c3f1370b29203350e2f112d4fc228b97b[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Tue Dec 10 23:28:06 2024 +0700
+
+    sau cơn khủng hoảng merger đơt 5 (không lỗi)
+    
+    sau cơn khủng hoảng merger đơt 5 (không lỗi)
+
+[33mcommit 536eb0616619ffe280c9d6a181aa8d95ec2024b4[m
+Merge: 9d20054 a71c67e
+Author: Nhất Duy <140056838+nhatduydo@users.noreply.github.com>
+Date:   Tue Dec 10 23:09:20 2024 +0700
+
+    Merge pull request #6 from TrinhQuoc-Dat/dat
+    
+    Dat
+
+[33mcommit a71c67e107b9de80486ed2abf29295a86e077842[m
+Merge: 8922040 9d20054
+Author: Nhất Duy <140056838+nhatduydo@users.noreply.github.com>
+Date:   Tue Dec 10 23:09:07 2024 +0700
+
+    Merge branch 'main' into dat
+
+[33mcommit 9d20054bc71d7892b1b34a0fd9ba1ffabb7df1c6[m
+Merge: 15f31c7 30e1c38
+Author: Nhất Duy <140056838+nhatduydo@users.noreply.github.com>
+Date:   Tue Dec 10 23:04:01 2024 +0700
+
+    Merge pull request #5 from TrinhQuoc-Dat/duy
+    
+    Duy => main
+
+[33mcommit 30e1c38ef9995630a913d60f212d7da3b4d17836[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Tue Dec 10 22:51:19 2024 +0700
+
+    SS
+
+[33mcommit 892204032426aac046b4966222116c29a55cad61[m
+Author: TKW-TrinhQuocDat <trinhquocdat041004@gmail.com>
+Date:   Tue Dec 10 22:23:33 2024 +0700
+
+    reservation
+
+[33mcommit 6ff04960e5d373c732c8e51f472311fe280e0512[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Mon Dec 9 23:32:55 2024 +0700
+
+    ss
+
+[33mcommit dc8c8032b8a06acbce8176c42a58cd783b8060df[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Mon Dec 9 13:10:02 2024 +0700
+
+    ss
+
+[33mcommit 6c12fe7cd1652c5b0378be28950d1b9d1d53532b[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Sun Dec 8 23:32:11 2024 +0700
+
+    ss
+
+[33mcommit 669197ecf1250005e2d5f099a7ad7ff46e58ea5c[m
+Author: TKW-TrinhQuocDat <trinhquocdat041004@gmail.com>
+Date:   Sun Dec 8 23:14:25 2024 +0700
+
+    update code ss
+
+[33mcommit eee6b46d60651bccf3035d8884a78fb1a3a124a9[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Sun Dec 8 21:31:12 2024 +0700
+
+    ss
+
+[33mcommit 15f31c7bf31b09ba18b0d2f508f49b82e46160a6[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Sun Dec 8 21:19:03 2024 +0700
+
+    ss
+
+[33mcommit 3f5bfbfb2d94f969f29253ba7ca314d6c5874dfe[m
+Merge: faf0194 9b0885e
+Author: TrinhQuoc-Dat <140597390+TrinhQuoc-Dat@users.noreply.github.com>
+Date:   Sun Dec 8 20:44:23 2024 +0700
+
+    Merge pull request #4 from TrinhQuoc-Dat/duy
+    
+    Duy
+
+[33mcommit 9b0885e0bc5ae76c519cc066caf718ada23eb458[m
+Merge: 592cabf faf0194
+Author: TrinhQuoc-Dat <140597390+TrinhQuoc-Dat@users.noreply.github.com>
+Date:   Sun Dec 8 20:43:35 2024 +0700
+
+    Merge branch 'main' into duy
+
+[33mcommit 592cabf1f7b3fc35c49275e0c183cfe87f293c0a[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Sun Dec 8 20:37:42 2024 +0700
+
+    ss
+
+[33mcommit 7b853f199742282311a7b6c8d719ba57f04db7e8[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Fri Dec 6 23:27:18 2024 +0700
+
+    ss
+
+[33mcommit 85d01a2f28acf03418af1d0ecca822c927d19cbd[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Thu Dec 5 23:21:26 2024 +0700
+
+    ss
+
+[33mcommit faf0194bc793f5f837b2005e5717b521b7e2e220[m
+Author: TKW-TrinhQuocDat <trinhquocdat041004@gmail.com>
+Date:   Thu Dec 5 23:06:34 2024 +0700
+
+    booking
+
+[33mcommit 4805e6abce9515d234e5d802a4a4fe68d6cab444[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Thu Dec 5 22:53:14 2024 +0700
+
+    Update index.html
+
+[33mcommit 0a1b72688181e699a592db3bba4e63bac29d2050[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Thu Dec 5 22:37:52 2024 +0700
+
+    ss
+
+[33mcommit 3075b927fa3f446b52e8f900f89ffbcc7f514b9d[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Wed Dec 4 23:24:49 2024 +0700
+
+    ss
+
+[33mcommit 863af956b42d03ad0cfd627bd881af4efa5a99f9[m
+Author: TKW-TrinhQuocDat <trinhquocdat041004@gmail.com>
+Date:   Mon Dec 2 23:52:22 2024 +0700
+
+    login logout
+
+[33mcommit bfbd26530e55811ade497269b44a64e956952f41[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Mon Dec 2 23:43:33 2024 +0700
+
+    ss
+
+[33mcommit b5fe07534b0305011189def45cad70667dc2739f[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Mon Dec 2 23:02:37 2024 +0700
+
+    ss
+
+[33mcommit a6faf0bb914576a94a6d2ae5c09a484c80dbbf7a[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Mon Dec 2 20:43:37 2024 +0700
+
+    ss
+
+[33mcommit 520429525187281272ef18bd16af9dc1ad7a251b[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Mon Dec 2 19:35:20 2024 +0700
+
+    ss
+
+[33mcommit 6328ac11d9fca84430d7e3cb66175f67d26ea231[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Mon Dec 2 14:44:23 2024 +0700
+
+    ss
+
+[33mcommit a5dd2db0f83c170a766c5d574114b53587c9680a[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Mon Dec 2 13:56:01 2024 +0700
+
+    ss
+
+[33mcommit 0b640b5ec2c35ec8f177af8b60758efb8c8cd36c[m
+Merge: 9d91f51 cad4088
+Author: Nhất Duy <140056838+nhatduydo@users.noreply.github.com>
+Date:   Mon Dec 2 11:17:49 2024 +0700
+
+    Merge pull request #3 from TrinhQuoc-Dat/duy
+    
+    ss
+
+[33mcommit cad4088e91d2ffe399778ae77a48224f31e83e3a[m
+Author: Nhất Duy <nhatduy242@gmail.com>
+Date:   Mon Dec 2 11:12:30 2024 +0700
+
+    s
