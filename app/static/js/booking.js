@@ -4,22 +4,41 @@ document.addEventListener('DOMContentLoaded', function() {
         get_room()
     })
 });
+window.onload = () =>{
+    const checkinDateInput = document.getElementById('checkin-date');
+    const today = new Date().toISOString().split('T')[0];   
+    checkinDateInput.value = today;
+}
 
 function get_room(){
     const name = document.getElementById('location').value
-    const dateIn =  document.getElementById('checkin-date').value
-    const day = document.getElementById('overnight').value
+    let dateIn =  document.getElementById('checkin-date').value
+    const day = parseInt(document.getElementById('overnight').value, 10);
     const typeRoom = document.getElementById('type-room').value
-    const dateOut = new Date(dateIn);
-    dateOut.setDate(dateOut.getDate() + day);
+    let dateOut;
 
+    if (!dateIn) {
+        const today = new Date();
+        dateIn = today.toISOString().split('T')[0]; 
+    }
+
+    dateIn = new Date(dateIn);
+    dateOut = new Date(dateIn);
+    dateOut.setDate(dateOut.getDate() + day);
+    const formatter = new Intl.DateTimeFormat('vi-VN', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+    const formattedDateOut = formatter.format(dateOut);
+    const formattedDateIn = formatter.format(dateIn);
 
     fetch('/api/booking/search-room',{
         method : 'post',
         body: JSON.stringify({
             "nameRoom" : name,
-            "dateIn": dateIn,
-            "dateOut": dateOut.toISOString(),
+            "dateIn": formattedDateIn,
+            "dateOut": formattedDateOut,
             "typeRoom": typeRoom
         }),
         headers: {
@@ -101,7 +120,7 @@ function get_room(){
                                         <h3>${  new Intl.NumberFormat('vi-VN').format( r.price *0.9) } VND</h3>
                                         <span class="text-small">Đã bao gồm thuế và phí</span>
                                         <hr>
-                                        <input type="button" onclick='add_cart(${String(r.id)} ,${r.name}, ${String(r.price)}, ${r.type-room}, ${r.image})' value="Chọn phòng" name="booking" class="btn btn-success" />
+                                        <input type="button" onclick="add_cart('${String(r.id)}' ,'${r.name}', '${String(r.price)}', '${r.type_room}', '${r.image}')" value="Chọn phòng" name="booking" class="btn btn-success" />
                                     </div>
                                 </div>
                             </div>
@@ -112,14 +131,34 @@ function get_room(){
             }
             roomSearch.innerHTML = areaRoom;
         }else {
-
+            if(data.code == 404) 
+                alert(data.error)
         }
     }).catch(err => console.error(err))
 }
 
 
-
 function add_cart(id ,name, price, typeRoom, image){
+
+    let dateIn =  document.getElementById('checkin-date').value
+    const day = parseInt(document.getElementById('overnight').value, 10);
+    let dateOut;
+
+    if (!dateIn) {
+        const today = new Date();
+        dateIn = today.toISOString().split('T')[0]; 
+    }
+
+    dateOut = new Date(dateIn);
+    dateOut.setDate(dateOut.getDate() + day);
+    const formatter = new Intl.DateTimeFormat('vi-VN', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+    const formattedDateOut = formatter.format(dateOut);
+    let numberCustomer = document.getElementById('number-customer').value
+    
     fetch('/api/add-room-cart', {
         method: 'post',
         body: JSON.stringify({
@@ -128,15 +167,24 @@ function add_cart(id ,name, price, typeRoom, image){
             'price': Number(price),
             'image': image,
             'type-room': typeRoom,
+            'number-customer': Number(numberCustomer),
+            'date-in':dateIn,
+            'date-out': formattedDateOut,
+            'day': day,
         }),
         headers:{
             'Content-Type': 'application/json'
         }
     }).then(res => res.json())
     .then(data => {
-        let cartCounter = document.getElementById('cartCounter');
-        cartCounter.innerText = data.total_quantity;
-        
+        if (data.code == 300){
+            let cartCounter = document.getElementById('cartCounter');
+            cartCounter.innerText = data.mess.total_quantity;
+            alert('Thêm Phòng Thành công!!!')
+        }
+        else {
+            alert(data.mess)
+        }
     }).catch(err => console.error(err))
 }
 

@@ -21,6 +21,9 @@
 .border-right-in{
     border-right: 1px solid var(--icon-color);
 }
+.border-left-in{
+    border-left: 1px solid var(--icon-color);
+}
 p{
     margin: 0;
 }

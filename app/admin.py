@@ -1,7 +1,7 @@
 
 from flask_admin import Admin, BaseView, AdminIndexView, expose
 from app import app, db
-from app.models import User, Person, Customer, UserRole, Employee, Booking, Room, BookingDetail, RentalReceipt, Payment, RentalDetail, RentalCustomer
+from app.models import User, Customer, UserRole, Employee, Booking, Room, BookingDetail, RentalReceipt, Payment, RentalDetail, RentalCustomer
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user, logout_user
 from flask import redirect, render_template, request
@@ -53,13 +53,6 @@ class RoomView(AuthenticatecModelView):
       can_export = True
       page_size = 10
       
-class PersonView (AuthenticatecModelView):
-      column_display_pk = True
-      column_searchable_list = ['full_name', 'phone', 'email']
-      column_filters = ['full_name', 'phone', 'email', 'cccd', 'address']
-      column_editable_list = ['full_name', 'phone', 'email']
-      can_export = True
-      page_size = 10
 
 
 
@@ -72,7 +65,6 @@ admin = Admin(app=app,
 
 # Tổ chức các danh mục
 admin.add_view(UserView(User, db.session, category="Quản lý người dùng"))
-admin.add_view(PersonView(Person, db.session, category="Quản lý người dùng"))
 admin.add_view(AuthenticatecModelView(Customer, db.session, category="Quản lý người dùng"))
 admin.add_view(AuthenticatecModelView(Employee, db.session, category="Quản lý người dùng"))
 
