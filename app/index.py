@@ -212,7 +212,18 @@ def check_username():
     else:
         return jsonify({'code': 200})
 
+@app.route('/admin/revenueReport', methods=['GET'])
+def revenue_report():
+    return render_template('admin/revenueReport.html')
 
+@app.route('/admin/densityReport', methods=['GET'])
+def density_report():
+    return render_template('admin/densityReport.html')
+
+
+@app.route('/admin/thong_ke', methods=['GET'])
+def statistics():
+    return render_template('admin/statistics.html')
 
 @app.context_processor
 def common_response():
@@ -220,7 +231,6 @@ def common_response():
         "cart_stats": dao.count_cart(session.get('cart'))
 
     }
-
 
 @app.route('/sign-out')
 def logout():
@@ -243,7 +253,7 @@ def booking():
                            has_prev=has_prev)
 
 
-# // http://127.0.0.1:5000/booking-detail/1
+# // http://127.0.0.1:5000/booking-detail=1
 @app.route('/booking-detail=<int:hotel_id>', methods=['get', 'post'])
 def booking_detail(hotel_id=None):
     if hotel_id:
@@ -254,7 +264,7 @@ def booking_detail(hotel_id=None):
         except FileNotFoundError:
             return f"Không tìm thấy dữ liệu cho khách sạn có ID {hotel_id}", 404
     else:
-        hotel_data = {}  # Dữ liệu mặc định khi không có hotel_id
+        hotel_data = {} 
     return render_template('bookingDetail.html', hotel=hotel_data)
 
 

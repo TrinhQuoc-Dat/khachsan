@@ -6,7 +6,6 @@ from app import db, app
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 
-
 class UserRole(EnumRole):
     USER = 1
     ADMIN = 2
@@ -17,7 +16,7 @@ class User(db.Model, UserMixin):
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String(50), nullable=False, unique=True)
     password = Column(String(100), nullable=False)
-    avatar = Column(String(255))
+    avatar = Column(String(255), default="https://res.cloudinary.com/devtqlbho/image/upload/v1734836011/avqqfhy2r_zob90e.webp")
     email = Column(String(50), nullable=False, unique=True)
     created_date = Column(DateTime, default=datetime.now)
     user_role = Column(Enum(UserRole), default=UserRole.USER)
@@ -84,7 +83,6 @@ class Booking(db.Model):
     employee_id = Column(Integer, ForeignKey(Employee.id))
     booking_details = relationship('BookingDetail', backref='booking', lazy=True)
     user_id = Column(Integer, ForeignKey(User.id), nullable=False)
-
 
 class TypeRoom(EnumRole):
     NORMAL = 1
@@ -190,8 +188,9 @@ class Comment(db.Model):
 
 if __name__ == '__main__':
     with app.app_context():
-        db.drop_all()
-        db.create_all()
+        pass
+        #db.drop_all()
+        #db.create_all()
         # u = User(username='quocdat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
         #         user_role=UserRole.ADMIN, email='2251050016dat@ou.edu.vn')
         # u1 = User(username='dat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
@@ -223,6 +222,7 @@ if __name__ == '__main__':
         #          image="https://dyf.vn/wp-content/uploads/2021/10/170433841_299853518329337_277745775002707996_n-1.jpg")
         
         # db.session.add_all([r1, r2, r3, r4, r5])
+        
         # db.session.commit()
 
 

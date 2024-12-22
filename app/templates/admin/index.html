@@ -1,55 +1,39 @@
 
-{% extends '/admin/base.html' %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+<link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous">
+<script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+<script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% extends '/admin/master.html' %}
 
 {% block body %}
 {% if current_user.is_authenticated %}
-<h1>CHAO MUNG DEN TRANG QUAN TRI</h1>
-
 <h1>WELCOM {{ current_user.name }} TO ADMINISTRAYTION WEBSITE!!!</h1>
-
-<div>
-      <canvas id="myChart"></canvas>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-const ctx = document.getElementById('myChart');
-
-new Chart(ctx, {
-type: 'bar',
-data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
-      borderWidth: 1
-      }]
-},
-options: {
-      scales: {
-      y: {
-      beginAtZero: true
-      }
-      }
-}
-});
-</script>
-
 {% else %}
 <h1 class="text-center text-danger">Dang nhap trang ADMIN</h1>
 <form method="post" action="{{ url_for('singin_admin') }}">
       <div class="form-group">
             <label for="username">Username:</label>
-            <input type="text" class="form-control" placeholder="Enter email"
+            <input type="text" class="form-control"
+                  placeholder="Enter email"
                   id="username" name="username" required>
       </div>
       <div class="form-group">
             <label for="password">Password:</label>
             <input type="password" class="form-control"
-                  placeholder="Enter password" name="password" id="password">
+                  placeholder="Enter password" name="password"
+                  id="password">
       </div>
-      <button type="submit" class="btn btn-primary m-2 btn-danger">Đăng
+      <button type="submit"
+            class="btn btn-primary m-2 btn-danger">Đăng
             Nhập</button>
 </form>
 {% endif %}
