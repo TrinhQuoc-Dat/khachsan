@@ -189,37 +189,37 @@ class Comment(db.Model):
 if __name__ == '__main__':
     with app.app_context():
         pass
-        #db.drop_all()
-        #db.create_all()
-        # u = User(username='quocdat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
-        #         user_role=UserRole.ADMIN, email='2251050016dat@ou.edu.vn')
-        # u1 = User(username='dat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
-        #         user_role=UserRole.USER, email='2251050010dat@ou.edu.vn')
+        # db.drop_all()
+        # # db.create_all()
+        # u = User(username='adminDuy', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
+        #         user_role=UserRole.ADMIN, email='adminDuy@ou.edu.vn')
+        # u1 = User(username='duy', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
+        #         user_role=UserRole.USER, email='userduy@ou.edu.vn')
         # db.session.add_all([u1, u])
         # db.session.commit()
 
         
         # r1 = Room(name="Phòng Superior Giường Đôi Với Cửa Sổ",
-        #          max_customer= 3,
-        #          price=600000,
-        #          image="https://cf.bstatic.com/xdata/images/hotel/max1024x768/404490378.jpg?k=2a3ee25918786d09794c59ac8b8c67e48414183cf34e9a738d3a8393b09210f5&o=")
+        #             max_customer= 3,
+        #             price=600000,
+        #             image="https://cf.bstatic.com/xdata/images/hotel/max1024x768/404490378.jpg?k=2a3ee25918786d09794c59ac8b8c67e48414183cf34e9a738d3a8393b09210f5&o=")
         
         # r2 = Room(name="Phòng Superior Có Giường Cỡ Queen",
-        #          max_customer= 3,
-        #          price=200000,
-        #          image="https://img.homedy.com/store/images/2020/04/16/phong-ngu-khach-san-5-sao-2-637226034911724690.jpg")
+        #             max_customer= 3,
+        #             price=200000,
+        #             image="https://img.homedy.com/store/images/2020/04/16/phong-ngu-khach-san-5-sao-2-637226034911724690.jpg")
         # r3 = Room(name="Phòng Ngủ Tập Thể 6 Giường Cho Cả Nam Và Nữ",
-        #          max_customer= 3,
-        #          price=800000,
-        #          image="https://noithatmyhouse.net/wp-content/uploads/2019/06/dien-tich-phong-khach-san-tieu-chuan_2.jpg")
+        #             max_customer= 3,
+        #             price=800000,
+        #             image="https://noithatmyhouse.net/wp-content/uploads/2019/06/dien-tich-phong-khach-san-tieu-chuan_2.jpg")
         # r4 = Room(name="Phòng gia đình với phòng tắm riêng.",
-        #          max_customer= 3,
-        #          price=350000,
-        #          image="https://maximilan.com.vn/wp-content/uploads/2020/03/96515_og_1.jpeg")
+        #             max_customer= 3,
+        #             price=350000,
+        #             image="https://maximilan.com.vn/wp-content/uploads/2020/03/96515_og_1.jpeg")
         # r5 = Room(name="Phòng đơn Superior",
-        #          max_customer= 3,
-        #          price=200000,
-        #          image="https://dyf.vn/wp-content/uploads/2021/10/170433841_299853518329337_277745775002707996_n-1.jpg")
+        #             max_customer= 3,
+        #             price=200000,
+        #             image="https://dyf.vn/wp-content/uploads/2021/10/170433841_299853518329337_277745775002707996_n-1.jpg")
         
         # db.session.add_all([r1, r2, r3, r4, r5])
         

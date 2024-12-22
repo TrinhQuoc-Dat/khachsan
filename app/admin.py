@@ -181,7 +181,8 @@ class UploadForm(FlaskForm):
       submit = SubmitField('Upload')
 
 class BookingView(AuthenticatecModelView):
-      column_display_pk = True
+      # column_display_pk = True
+      column_list = ('id', 'customer.full_name', 'booking_date')
       form_columns = {'id', 'created_date', 'total_customer', 'total_amount', 'customer_id', 'user_id'}
       column_searchable_list = ['created_date', 'total_customer', 'customer_id', 'user_id']
       column_filters = ['created_date', 'total_customer', 'customer_id', 'user_id']
@@ -215,9 +216,9 @@ admin.add_view(AuthenticatecModelView(Payment, db.session, category="Quản lý 
 admin.add_view(AuthenticatecModelView(RentalDetail, db.session, category="Quản lý thuê phòng"))
 admin.add_view(AuthenticatecModelView(RentalCustomer, db.session, category="Quản lý thuê phòng"))
 
-admin.add_view(LogoutView(name='Logout'))
 admin.add_view(StatisticView(name='Thống Kê', endpoint='thong_ke', category="Thống kê"))
 admin.add_view(StatisticView(name='Báo cáo Doanh Thu', endpoint='bao_cao_doanh_thu', category="Thống kê"))
 admin.add_view(StatisticView(name='Mật Độ Sử Dụng Phòng', endpoint='mat_do_su_dung_phong', category="Thống kê"))
+admin.add_view(LogoutView(name='Logout'))
 
 
