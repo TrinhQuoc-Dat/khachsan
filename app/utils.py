@@ -1,4 +1,5 @@
 from app.models import UserRole
+from collections import defaultdict
 
 def get_user_role(key):
     if key.__eq__('USER'):
@@ -9,3 +10,6 @@ def get_user_role(key):
 
 def count_customer(cart):
     return sum(int(c['number_customer']) for c in cart.values())
+
+
+

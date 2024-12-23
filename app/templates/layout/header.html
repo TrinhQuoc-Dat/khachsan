@@ -17,7 +17,7 @@
         </li>
         {% if current_user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="/">
+          <a class="nav-link" href="/reservation">
             {% if current_user.avatar %}
             <img src="{{ current_user.avatar }}" width="30" class="rounded-circle" alt="{{ current_user.avatar }}" />
             {% else %}
@@ -27,7 +27,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  username" href="/sign-out">{{ current_user.username }}</a>
+          <a class="nav-link  username" href="/reservation">{{ current_user.username }}</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/sign-out">Đăng xuất</a>

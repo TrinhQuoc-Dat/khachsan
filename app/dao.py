@@ -92,27 +92,55 @@ def add_booking(total_amount, total_customer, customer, employee_id = None, orde
 def get_booking(user_id):
     b = db.session.query(Room.id, Room.name, Room.image, 
                             Booking.created_date, Booking.total_amount, BookingDetail.date_in, 
-                            BookingDetail.date_out, Booking.id, func.sum(Room.price * func.datediff(BookingDetail.date_out, BookingDetail.date_in)))\
+                            BookingDetail.date_out, Booking.id, func.sum(Room.price * func.datediff(BookingDetail.date_out, BookingDetail.date_in) * BookingDetail.discount), BookingDetail.id,BookingDetail.delete)\
                             .join(Room, BookingDetail.room_id.__eq__(Room.id))\
                             .join(Booking, BookingDetail.booking_id.__eq__(Booking.id))\
                             .filter(Booking.user_id.__eq__(user_id))\
                             .group_by(Room.id, Room.name, Room.image, 
                             Booking.created_date, Booking.total_amount, BookingDetail.date_in, 
-                            BookingDetail.date_out, Booking.id)
+                            BookingDetail.date_out, Booking.id, BookingDetail.id, BookingDetail.delete)\
+                            .order_by(-BookingDetail.id)
+    return b.all()
+
+def get_booking_name(name):
+    b = db.session.query(Room.id, Room.name, Booking.id, Booking.created_date, Booking.total_amount, 
+                          BookingDetail.id, BookingDetail.date_in, BookingDetail.date_out, Customer.id, Customer.full_name)\
+                          .join(Room, BookingDetail.room_id.__eq__(Room.id))\
+                          .join(Booking, BookingDetail.booking_id.__eq__(Booking.id))\
+                          .join(Customer, Booking.customer_id.__eq__(Customer.id))\
+                          .filter(Customer.full_name.contains(name), BookingDetail.delete.__eq__(0))
     return b.all()
 
 
+# def get_name_booking(name):
+#     b = db.session.query(Booking.id, Booking.created_date, Booking.total_amount, Customer.id, Customer.full_name)\
+#                         .join(Customer, Booking.customer_id.__eq__(Customer.id))\
+#                         .filter(Customer.full_name.contains(name))
+#     return b.all()
+
+
+def get_booking_detail(id):
+    return BookingDetail.query.get(id)
+
+
+def delete_booking_detail(id):
+    book = get_booking_detail(id)
+
+    book.delete = True
+    db.session.commit()
+    return book
 
 
 def add_bookingdetail(date_in, date_out, room_id, booking, customer, discount = 0.1):
-        bd = BookingDetail(date_in = date_in,
-                        date_out = date_out,
-                        discount = discount,
-                        room_id= room_id,
-                        booking = booking,
-                        customer = customer),
-        db.session.add(bd)
-        db.session.commit()
+    bd = BookingDetail(date_in = date_in,
+                    date_out = date_out,
+                    discount = discount,
+                    room_id= room_id,
+                    booking = booking,
+                    customer = customer)
+    db.session.add(bd)
+    db.session.commit()
+    return bd
 
 def get_rooms(page):
     room = Room.query.filter(Room.status.__eq__(StatusRoom.EMPTY))

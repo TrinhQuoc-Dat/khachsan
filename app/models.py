@@ -126,6 +126,14 @@ class BookingDetail(db.Model):
     room_id = Column(Integer, ForeignKey(Room.id), nullable=False)
     booking_id = Column(Integer, ForeignKey(Booking.id), nullable=False)
     customer_id = Column(Integer, ForeignKey(Customer.id), nullable=False)
+    delete = Column(Boolean, default=0)
+
+    def to_id(self):
+        return {
+            'id': str(id),
+            'delete': str(self.delete)
+        }
+
 
 
 class RentalReceipt(db.Model):
@@ -190,12 +198,14 @@ if __name__ == '__main__':
     with app.app_context():
         pass
         # db.drop_all()
-        # # db.create_all()
+        # db.create_all()
         # u = User(username='adminDuy', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
         #         user_role=UserRole.ADMIN, email='adminDuy@ou.edu.vn')
         # u1 = User(username='duy', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
-        #         user_role=UserRole.USER, email='userduy@ou.edu.vn')
-        # db.session.add_all([u1, u])
+        #             user_role=UserRole.USER, email='userduy@ou.edu.vn')
+        # u2 = User(username='dat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
+        #             user_role=UserRole.EMPLOYEE, email='dat@ou.edu.vn')
+        # db.session.add_all([u1, u2, u])
         # db.session.commit()
 
         

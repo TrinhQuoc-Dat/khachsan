@@ -4,6 +4,7 @@
 
 {% block js %}
 <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+<script src="{{ url_for('static', filename='js/reservation.js') }}"></script>
 {% endblock %}
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}" />
@@ -11,7 +12,7 @@
 
 {% block content %}
 <h1 class="text-center text-danger mt-2">Thông tin chi tiết đặt phòng</h1>
-
+{% if session['cart'] %}
 <div class="container mt-3 mb-4 p-0">
     <div class="d-flex align-items-space">
         <div class="item-3 right-seach">
@@ -305,5 +306,11 @@
         </div>
     </div>
 </div>
-
+{% else %}
+<div class="container">
+    <div class="alert alert-info mt-3 text-center">
+        <h6 class="text-danger">Không có Phòng nào được đặt!!!</h6>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

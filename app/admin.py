@@ -6,7 +6,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user, logout_user
 from flask import redirect, render_template, request
 from datetime import datetime
-from app import dao
+from app import dao, utils
 from wtforms.validators import NumberRange
 
 from flask_admin.contrib.sqla import ModelView
@@ -22,7 +22,10 @@ class AuthenticatecModelView(ModelView):
 
 class AuthenticatedView(BaseView):
       def is_accessible(self):
-            return current_user.is_authenticated
+            return (current_user.is_authenticated and current_user.user_role.__eq__(UserRole.ADMIN))
+      
+
+      
 
 class LogoutView(AuthenticatedView):
       @expose('/')
@@ -48,6 +51,33 @@ class statis_doanh_thu(AuthenticatedView):
       @expose('/')
       def index(self):
             return self.render('/admin/thong_ke_doanh_thu.html')
+
+
+class PaymentConfirmation(BaseView):
+      @expose('/')
+      def index(self):
+            return self.render('/admin/payment.html')
+      
+      def is_accessible(self):
+            return (current_user.is_authenticated and
+                  current_user.user_role.__eq__(UserRole.EMPLOYEE))
+
+
+class RentalRoom(BaseView):
+      @expose('/')
+      def index(self, **kwargs):
+            name = request.args.get('name')
+            bookings = None
+            if name:
+                  bookings = dao.get_booking_name(name=name)
+                  # bookings = utils.process_booking_data(bookings=bookings)
+                  print(bookings)
+
+            return self.render('/admin/RentalRoom.html', bookings=bookings)
+      
+      def is_accessible(self):
+            return (current_user.is_authenticated and
+                  current_user.user_role.__eq__(UserRole.EMPLOYEE))
 
 class MyAdminIndex(AdminIndexView):
       @expose('/')
@@ -96,6 +126,10 @@ class UserView(AuthenticatecModelView):
                   model.avatar = upload_result.get("secure_url")
             super().on_model_change(form, model, is_created)
 
+
+      def is_accessible(self):
+        return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
+
 class RoomView(AuthenticatecModelView):
       column_display_pk = True
       column_searchable_list = [ 'name', 'price','max_customer', 'type_room']
@@ -132,6 +166,8 @@ class RoomView(AuthenticatecModelView):
             'type_room':'Loại phòng',
             'image': 'Hình ảnh',
       }
+      def is_accessible(self):
+        return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
 
 class customerView(AuthenticatecModelView):
       column_display_pk = True
@@ -149,7 +185,8 @@ class customerView(AuthenticatecModelView):
             'type_customer':'Loại khách hàng',
             'special_info': 'note',
       }
-      
+      def is_accessible(self):
+        return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
 
 class EmployeeView(AuthenticatecModelView):
       column_display_pk = True
@@ -167,6 +204,42 @@ class EmployeeView(AuthenticatecModelView):
             'salary':'Lương',
             'start_date': 'Ngày vào làm',
       }
+      def is_accessible(self):
+        return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
+
+
+class BookingDetailView(AuthenticatecModelView):
+      column_display_pk = True
+      def is_accessible(self):
+        return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
+
+class RentalReceiptView(AuthenticatecModelView):
+      column_display_pk = True
+      def is_accessible(self):
+        return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
+
+
+class PaymentView(AuthenticatecModelView):
+      column_display_pk = True
+      def is_accessible(self):
+        return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
+
+      
+
+class RentalCustomerView(AuthenticatecModelView):
+      column_display_pk = True
+
+
+      def is_accessible(self):
+        return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
+
+
+class RentalDetailView(AuthenticatecModelView):
+      column_display_pk = True
+
+      def is_accessible(self):
+        return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
+
 
 admin = Admin(app=app,
             name="Hotel Management", 
@@ -199,7 +272,8 @@ class BookingView(AuthenticatecModelView):
             'order_type_id': 'Loại phòng',
             'user_id': 'Mã người dùng',
       }
-
+      def is_accessible(self):
+            return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
 # Tổ chức các danh mục
 admin.add_view(UserView(User, db.session,name="Tài khoản", category="Quản lý người dùng"))
 admin.add_view(customerView(Customer, db.session,name="Khách hàng", category="Quản lý người dùng"))
@@ -208,17 +282,19 @@ admin.add_view(EmployeeView(Employee, db.session,name="Nhân Viên", category="Q
 admin.add_view(RoomView(Room, db.session, category="Quản lý phòng"))
 
 admin.add_view(BookingView(Booking, db.session, category="Quản lý đặt phòng"))
-admin.add_view(AuthenticatecModelView(BookingDetail, db.session, category="Quản lý đặt phòng"))
+admin.add_view(BookingDetailView(BookingDetail, db.session, category="Quản lý đặt phòng"))
 
-admin.add_view(AuthenticatecModelView(RentalReceipt, db.session, category="Quản lý hóa đơn"))
-admin.add_view(AuthenticatecModelView(Payment, db.session, category="Quản lý hóa đơn"))
+admin.add_view(RentalReceiptView(RentalReceipt, db.session, category="Quản lý hóa đơn"))
+admin.add_view(PaymentView(Payment, db.session, category="Quản lý hóa đơn"))
 
-admin.add_view(AuthenticatecModelView(RentalDetail, db.session, category="Quản lý thuê phòng"))
-admin.add_view(AuthenticatecModelView(RentalCustomer, db.session, category="Quản lý thuê phòng"))
+admin.add_view(RentalDetailView(RentalDetail, db.session, category="Quản lý thuê phòng"))
+admin.add_view(RentalCustomerView(RentalCustomer, db.session, category="Quản lý thuê phòng"))
 
 admin.add_view(StatisticView(name='Thống Kê', endpoint='thong_ke', category="Thống kê"))
 admin.add_view(StatisticView(name='Báo cáo Doanh Thu', endpoint='bao_cao_doanh_thu', category="Thống kê"))
 admin.add_view(StatisticView(name='Mật Độ Sử Dụng Phòng', endpoint='mat_do_su_dung_phong', category="Thống kê"))
+admin.add_view(PaymentConfirmation(name='Xác Nhận Thanh toán'))
+admin.add_view(RentalRoom(name='Lập Phiếu Thuê Phòng'))
 admin.add_view(LogoutView(name='Logout'))
 
 
