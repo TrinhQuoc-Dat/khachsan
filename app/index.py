@@ -152,6 +152,16 @@ def delete_room_cart():
     return jsonify({'mess': dao.count_cart(cart)})
 
 
+@app.route('/api/delete-booking-detail/<int:id>', methods=['delete'])
+@login_required
+def delete_booking_detail(id):
+    book = dao.delete_booking_detail(id)
+    if book:
+        return jsonify({'code': 200, 'booking_detail': book.to_id()})
+    else:
+        return jsonify({'code ': 500, 'error': "Lỗi server!!!"})
+    
+
 
 @app.route('/login', methods=['post', 'get'])
 def login():

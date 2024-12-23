@@ -352,4 +352,9 @@ div .promotion{
 .sum-product-cart{
     color: var(--bg-red);
 }
-
+.danger{
+    background-color: red;
+    color:#ebf3ff;
+    padding: 2px;
+    border-radius: 5px;
+}

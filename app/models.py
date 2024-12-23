@@ -49,6 +49,11 @@ class CustomerType(EnumRole):
     def __init__(self, id, multiplier):
         self.id = id
         self.multiplier = multiplier
+
+
+    def __init__(self, id, multiplier):
+        self.id = id
+        self.multiplier = multiplier
         
 class Customer(db.Model):
     __tablename__ = 'customer'
@@ -100,9 +105,10 @@ class StatusRoom(EnumRole):
     RENT = 3
     PROBLEM = 4
 
-class ExtraGuest(EnumRole):
-    two = (1, 1.0)
-    three = (2, 1.25) # phụ thu thêm 25% giá phòng nếu có 3 khách
+class max_customer(EnumRole):
+    MOT = (1, 1.0)
+    HAI = (2, 1.0)
+    BA = (3, 1.25)
     def __init__(self, id, multiplier):
         self.id = id
         self.multiplier = multiplier
@@ -110,7 +116,7 @@ class ExtraGuest(EnumRole):
 class Room(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), nullable=False)
-    max_customer = Column(Enum(ExtraGuest), default=ExtraGuest.two)
+    max_customer = Column(Enum(max_customer), default=max_customer.HAI)
     price = Column(Float, nullable=False)
     status = Column(Enum(StatusRoom), default=StatusRoom.EMPTY)
     type_room = Column(Enum(TypeRoom), default=TypeRoom.NORMAL)
@@ -135,10 +141,17 @@ class BookingDetail(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     date_in = Column(DateTime, default=datetime.now())
     date_out = Column(DateTime, nullable=False)
-    discount = Column(Float, default=1)
+    discount = Column(Float, default=1) # nếu giảm 10% => discount = 0.9
     room_id = Column(Integer, ForeignKey(Room.id), nullable=False)
     booking_id = Column(Integer, ForeignKey(Booking.id), nullable=False)
     customer_id = Column(Integer, ForeignKey(Customer.id), nullable=False)
+    delete = Column(Boolean, default=0)
+
+    def to_id(self):
+        return {
+            'id': str(id),
+            'delete': str(self.delete)
+        }
 
 
 class RentalReceipt(db.Model):
@@ -177,12 +190,13 @@ class RentalDetail(db.Model):
     date_in = Column(DateTime, default=datetime.now)
     date_out = Column(DateTime, default=datetime.now)
     total_amount = Column(Float)
-    discount = Column(Float, default=1.0)
-    quantity_regular = Column(Integer, default=0)
-    quantity_vip = Column(Integer, default=0)
+    discount = Column(Float, default=1)
     room_id = Column(Integer, ForeignKey(Room.id), nullable=False)
     rental_receipt_id = Column(Integer, ForeignKey(RentalReceipt.id), nullable=False)
     rental_customers = relationship('RentalCustomer', backref='rental_detail', lazy=True)
+    
+    quantity = Column(Integer, default=0)
+
 
 
 class RentalCustomer(db.Model):
@@ -206,37 +220,63 @@ if __name__ == '__main__':
     with app.app_context():
         # pass
         # db.drop_all()
-        db.create_all()
-        u = User(username='admin', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
-                user_role=UserRole.ADMIN, email='adminDuy@ou.edu.vn')
-        u1 = User(username='duy', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
-                user_role=UserRole.USER, email='userduy@ou.edu.vn')
-        db.session.add_all([u1, u])
-        db.session.commit()
+        # db.create_all()
+        # u = User(username='adminDuy', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
+        #         user_role=UserRole.ADMIN, email='adminDuy@ou.edu.vn')
+        # u1 = User(username='duy', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
+        #             user_role=UserRole.USER, email='userduy@ou.edu.vn')
+        # u2 = User(username='dat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
+        #             user_role=UserRole.EMPLOYEE, email='dat@ou.edu.vn')
+        # db.session.add_all([u1, u2, u])
+        # db.session.commit()
 
         
-        r1 = Room(name="Phòng Superior Giường Đôi Với Cửa Sổ",
-                    max_customer= 3,
-                    price=600000,
-                    image="https://cf.bstatic.com/xdata/images/hotel/max1024x768/404490378.jpg?k=2a3ee25918786d09794c59ac8b8c67e48414183cf34e9a738d3a8393b09210f5&o=")
-        
-        r2 = Room(name="Phòng Superior Có Giường Cỡ Queen",
-                    max_customer= 3,
-                    price=200000,
-                    image="https://img.homedy.com/store/images/2020/04/16/phong-ngu-khach-san-5-sao-2-637226034911724690.jpg")
-        r3 = Room(name="Phòng Ngủ Tập Thể 6 Giường Cho Cả Nam Và Nữ",
-                    max_customer= 3,
-                    price=800000,
-                    image="https://noithatmyhouse.net/wp-content/uploads/2019/06/dien-tich-phong-khach-san-tieu-chuan_2.jpg")
-        r4 = Room(name="Phòng gia đình với phòng tắm riêng.",
-                    max_customer= 3,
-                    price=350000,
-                    image="https://maximilan.com.vn/wp-content/uploads/2020/03/96515_og_1.jpeg")
-        r5 = Room(name="Phòng đơn Superior",
-                    max_customer= 3,
-                    price=200000,
-                    image="https://dyf.vn/wp-content/uploads/2021/10/170433841_299853518329337_277745775002707996_n-1.jpg")
+        # r1 = Room(name="Phòng Superior Giường Đôi Với Cửa Sổ",
+        #             max_customer= max_customer.HAI,
+        #             price=600000,
+        #             image="https://cf.bstatic.com/xdata/images/hotel/max1024x768/404490378.jpg?k=2a3ee25918786d09794c59ac8b8c67e48414183cf34e9a738d3a8393b09210f5&o=")
+
+        # r2 = Room(name="Phòng Superior Có Giường Cỡ Queen",
+        #             max_customer= max_customer.BA,
+        #             price=200000,
+        #             image="https://img.homedy.com/store/images/2020/04/16/phong-ngu-khach-san-5-sao-2-637226034911724690.jpg")
+        # r3 = Room(name="Phòng Ngủ Tập Thể 6 Giường Cho Cả Nam Và Nữ",
+        #             max_customer= max_customer.BA,
+        #             price=800000,
+        #             image="https://noithatmyhouse.net/wp-content/uploads/2019/06/dien-tich-phong-khach-san-tieu-chuan_2.jpg")
+        # r4 = Room(name="Phòng gia đình với phòng tắm riêng.",
+        #             max_customer= max_customer.HAI,
+        #             price=350000,
+        #             image="https://maximilan.com.vn/wp-content/uploads/2020/03/96515_og_1.jpeg")
+        # r5 = Room(name="Phòng đơn Superior",
+        #             max_customer= max_customer.BA,
+        #             price=200000,
+        #             image="https://dyf.vn/wp-content/uploads/2021/10/170433841_299853518329337_277745775002707996_n-1.jpg")
         
         db.session.add_all([r1, r2, r3, r4, r5])
         
-        db.session.commit()
+        # db.session.commit()
+        
+        customer1 = Customer(
+        full_name="Nguyễn Văn A",
+        phone="0987654321",
+        email="nguyenvana@example.com",
+        cccd="123456789012",
+        address="Hà Nội",
+        type_customer=CustomerType.DOMESTIC,
+        special_info="Khách hàng thân thiết"
+    )
+
+    customer2 = Customer(
+        full_name="Trần Thị B",
+        phone="0123456789",
+        email="tranthib@example.com",
+        cccd="987654321098",
+        address="Hồ Chí Minh",
+        type_customer=CustomerType.FOREIGN,
+        special_info="Khách hàng quốc tế"
+    )
+
+    db.session.add_all([customer1, customer2])
+    db.session.commit()
+
