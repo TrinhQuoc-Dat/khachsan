@@ -130,6 +130,7 @@ class UserView(AuthenticatecModelView):
       def is_accessible(self):
         return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
 
+
 class RoomView(AuthenticatecModelView):
       column_display_pk = True
       column_searchable_list = [ 'name', 'price','max_customer', 'type_room']
@@ -210,17 +211,39 @@ class EmployeeView(AuthenticatecModelView):
 
 class BookingDetailView(AuthenticatecModelView):
       column_display_pk = True
+      
+      form_column = ['id', 'date_in','date_out', 'customer_id', 'booking_id', 'room_id']
+      column_searchable_list = ['date_in','date_out', 'customer_id', 'booking_id', 'room_id']
+      column_filters = ['date_in','date_out', 'customer_id', 'booking_id', 'room_id']
+      page_size = 10
+      column_labels = {
+            'id': 'ID',
+            'date_in': 'Ngày thuê phòng',
+            'date_out': 'Ngày trả phòng',
+            'customer_id': 'mã khách hàng',
+            'booking_id': 'mã đặt phòng',
+            'room_id': 'mã phòng',
+            'discount': 'mã giảm giá',
+            'delete': 'Xóa'
+      }
+      
       def is_accessible(self):
-        return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
+            return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
 
 class RentalReceiptView(AuthenticatecModelView):
       column_display_pk = True
+      column_formatters = {
+            'total_amount': lambda v, c, m, p: f"{float(m.total_amount):,.1f}"
+      }
       def is_accessible(self):
         return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
 
 
 class PaymentView(AuthenticatecModelView):
       column_display_pk = True
+      column_formatters = {
+            'amount': lambda v, c, m, p: f"{float(m.amount):,.1f}"
+      }
       def is_accessible(self):
         return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
 
@@ -287,8 +310,8 @@ admin.add_view(BookingDetailView(BookingDetail, db.session, category="Quản lý
 admin.add_view(RentalReceiptView(RentalReceipt, db.session, category="Quản lý hóa đơn"))
 admin.add_view(PaymentView(Payment, db.session, category="Quản lý hóa đơn"))
 
-admin.add_view(RentalDetailView(RentalDetail, db.session, category="Quản lý thuê phòng"))
-admin.add_view(RentalCustomerView(RentalCustomer, db.session, category="Quản lý thuê phòng"))
+admin.add_view(RentalDetailView(RentalDetail, db.session, name="Chi tiết phiếu thuê", category="Phiếu thuê"))
+# admin.add_view(RentalCustomerView(RentalCustomer, db.session, category="Quản lý thuê phòng"))
 
 admin.add_view(StatisticView(name='Thống Kê', endpoint='thong_ke', category="Thống kê"))
 admin.add_view(StatisticView(name='Báo cáo Doanh Thu', endpoint='bao_cao_doanh_thu', category="Thống kê"))
