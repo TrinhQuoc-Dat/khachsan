@@ -203,8 +203,8 @@ class EmployeeView(AuthenticatecModelView):
 
 class BookingDetailView(AuthenticatecModelView):
       column_display_pk = True
-      
-      form_column = ['id', 'date_in','date_out', 'customer_id', 'booking_id', 'room_id']
+      column_list = ['id','date_in','date_out', 'formatted_discount', 'room_id', 'booking_id','customer_id' ]
+      form_column = ['id', 'date_in','date_out','discount', 'customer_id', 'booking_id', 'room_id']
       column_searchable_list = ['date_in','date_out', 'customer_id', 'booking_id', 'room_id']
       column_filters = ['date_in','date_out', 'customer_id', 'booking_id', 'room_id']
       page_size = 8
@@ -220,9 +220,17 @@ class BookingDetailView(AuthenticatecModelView):
             'delete': 'Xóa',
             'customer': 'Mã khách hàng',
             'booking': 'Mã đặt phòng',
-            'room': 'Mã phòng'
+            'room': 'Mã phòng',
+            'formatted_discount': 'Mã giảm giá (%)'
       }
       
+      def formatted_discount(self, context, model, name):
+            if model.discount is None or model.discount == 1.0:
+                  return "0%"
+            return f"{round((1 - model.discount) * 100)}%"
+      column_formatters = {
+            'formatted_discount': formatted_discount
+      }
       def is_accessible(self):
             return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
 
@@ -286,14 +294,17 @@ class RentalDetailView(AuthenticatecModelView):
             'discount': 'Giảm giá',
             'formatted_discount': 'Giảm giá (%)'
       }
+      column_formatters = {
+            'total_amount': lambda v, c, m, p: f"{m.total_amount:,.1f}"
+      }
 
-      def _formatted_discount(self, context, model, name):
+      def formatted_discount(self, context, model, name):
             if model.discount is None or model.discount == 1.0:
                   return "0%"
-            return f"{int((1 - model.discount) * 100)}%"
+            return f"{round((1 - model.discount) * 100)}%"
 
       column_formatters = {
-            'formatted_discount': _formatted_discount
+            'formatted_discount': formatted_discount
       }
       def is_accessible(self):
             return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
@@ -331,6 +342,10 @@ class BookingView(AuthenticatecModelView):
             'user_id': 'Mã người dùng',
             'employee_id': 'Mã nhân viên'
       }
+      column_formatters = {
+            'total_amount': lambda v, c, m, p: f"{m.total_amount:,.1f}"
+      }
+      
       def is_accessible(self):
             return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
 # Tổ chức các danh mục
