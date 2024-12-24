@@ -79,7 +79,6 @@ def search_room():
 
     date_obj = datetime.strptime(date_in, '%d/%m/%Y')
     date_in = date_obj.strftime('%Y-%m-%d')
-    print(name, date_out, date_in, type_room)
 
     try:
          rooms = dao.get_room_search(name_room=name,
@@ -114,7 +113,7 @@ def add_room_cart():
 
     date_obj = datetime.strptime(date_out, '%d/%m/%Y')
     date_out = date_obj.strftime('%Y-%m-%d')
-    print(name, date_out, date_in, type_room)
+
     cart = session.get('cart')
 
     if not cart:
@@ -135,7 +134,6 @@ def add_room_cart():
             'day': day,
         }
     # session.pop('cart', None)
-    print(cart)
     session['cart'] = cart
     return jsonify({'code': 300, 'mess': dao.count_cart(cart)})
 
@@ -144,7 +142,6 @@ def add_room_cart():
 def delete_room_cart():
     id = request.json.get('id')
     cart = session.get('cart')
-    print(id)
     if cart and id in cart:
         del cart[id]
         session['cart'] = cart
@@ -161,6 +158,38 @@ def delete_booking_detail(id):
     else:
         return jsonify({'code ': 500, 'error': "Lỗi server!!!"})
     
+@app.route('/api/search-customer', methods=['post'])
+@login_required
+def search_customer():
+    id = request.json.get('id')
+
+    try:
+        c = dao.search_customer(id)
+        c = c.to_dict() if c else None
+        print(c)
+        if c:
+            return jsonify({'code': 200, 'customer': c })
+        else:
+            return jsonify({'code': 400})
+    except Exception as ex:
+        return jsonify({'code ': 500, 'error': str(ex)})
+    
+
+
+@app.route('/api/lap-phieu-thue-phong', methods=['post'])
+@login_required
+def rental_room():
+    booking_id = request.json.get('bookind_id')
+
+    e_id = current_user.id
+
+    rd = dao.add_rental_receipt(e_id)
+    rental = dao.get_booking_rental(booking_id)
+
+    print(rental)
+
+    return jsonify({'code' : 200})
+
 
 
 @app.route('/login', methods=['post', 'get'])
@@ -203,7 +232,6 @@ def sign_in():
             if avatar:
                 upload_result = cloudinary.uploader.upload(avatar)
                 avatar_path = upload_result['secure_url']
-                print("sdfsadkfdksf" + avatar_path)
             dao.add_user(password=password, email=email, avatar=avatar_path,
                 username=username, role=UserRole.USER)
             return redirect(url_for('login'))

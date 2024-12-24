@@ -1,4 +1,4 @@
-from app.models import User, UserRole, Room, StatusRoom,BookingDetail, TypeRoom, Customer, CustomerType, OrderType, Booking
+from app.models import User, UserRole, Room, StatusRoom,BookingDetail,Employee, RentalReceipt,RentalDetail, TypeRoom, Customer, CustomerType, OrderType, Booking
 from sqlalchemy import and_, or_, func
 from app import app, db, login
 import hashlib
@@ -63,6 +63,9 @@ def count_cart(cart):
         'total_amount': total_amount,
     }
     
+def search_customer(id):
+    return Customer.query.filter(
+        or_(Customer.id == id, Customer.cccd == id)).first()
 
 def add_customer(name, email, cccd, phone = None, address=None , type_customer = CustomerType.DOMESTIC, **kwa):
     c = Customer(full_name=name,
@@ -88,6 +91,34 @@ def add_booking(total_amount, total_customer, customer, employee_id = None, orde
     db.session.commit()
     return b
 
+
+def get_booking_rental(id):
+    b = db.session.query(Room.id, Room.price, BookingDetail.id, BookingDetail.date_in, 
+                         BookingDetail.date_out, BookingDetail.discount, Customer.id, Customer.full_name)\
+                         .join(Room, BookingDetail.room_id.__eq__(Room.id))\
+                         .join(Customer, BookingDetail.customer_id.__eq__(Customer.id))\
+                         .filter(BookingDetail.booking_id.__eq__(id))
+    
+    return b.all()
+
+
+def get_employee(user_id):
+    return Employee.query.filter(Employee.user_id.__eq__(user_id)).first()
+
+def add_rental_receipt(employee_id, total_amount = None, note = None):
+    r = RentalReceipt(employee_id=employee_id, total_amount = total_amount, note=note)
+    db.session.add(r)
+    db.session.commit()
+    return r
+
+
+def add_rental_detail(date_in, date_out, total_amount, number_customer, room_id, rental_receipt_id):
+    r = RentalDetail(date_in=date_in,
+                     date_out=date_out,
+                     total_amount= total_amount,
+                     number_customer = number_customer,
+                     room_id=room_id,
+                     rental_receipt=rental_receipt_id)
 
 def get_booking(user_id):
     b = db.session.query(Room.id, Room.name, Room.image, 

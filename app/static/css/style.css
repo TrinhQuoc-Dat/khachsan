@@ -358,3 +358,9 @@ div .promotion{
     padding: 2px;
     border-radius: 5px;
 }
+.display-none{
+    display: none;    
+}
+.display{
+    display: block;
+}
