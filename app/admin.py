@@ -1,13 +1,13 @@
-
 from flask_admin import Admin, BaseView, AdminIndexView, expose
 from app import app, db
-from app.models import User, Customer, UserRole, Employee, Booking, Room, BookingDetail, RentalReceipt, Payment, RentalDetail, RentalCustomer
+from app.models import User, Customer, UserRole, Employee, Booking, Room, BookingDetail, RentalReceipt, Payment, RentalDetail
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user, logout_user
 from flask import redirect, render_template, request
 from datetime import datetime
 from app import dao, utils
 from wtforms.validators import NumberRange
+from collections import defaultdict
 
 from flask_admin.contrib.sqla import ModelView
 from flask_wtf.file import FileField, FileAllowed, FileRequired
@@ -59,20 +59,52 @@ class PaymentConfirmation(BaseView):
                   current_user.user_role.__eq__(UserRole.EMPLOYEE))
 
 class RentalRoom(BaseView):
-      @expose('/')
-      def index(self, **kwargs):
+    @expose('/')
+    def index(self, **kwargs):
             name = request.args.get('name')
             bookings = None
+            grouped_data = defaultdict(lambda: {
+                  'customer_id': None,
+                  'customer_name': None,
+                  'booking_id': None,
+                  'booking_date': None,
+                  'booking': {}
+            })
+
             if name:
                   bookings = dao.get_booking_name(name=name)
-                  # bookings = utils.process_booking_data(bookings=bookings)
-                  print(bookings)
+                  for booking in bookings:
+                        room_id = booking[0]
+                        room_name = booking[1]
+                        booking_id = booking[2]
+                        booking_date = booking[3]
+                        total_amount = booking[4]
+                        booking_detail_id = booking[5]
+                        check_in_date = booking[6]
+                        check_out_date = booking[7]
+                        customer_id = booking[8]
+                        customer_name = booking[9]
 
-            return self.render('/admin/RentalRoom.html', bookings=bookings)
-      
-      def is_accessible(self):
-            return (current_user.is_authenticated and
-                  current_user.user_role.__eq__(UserRole.EMPLOYEE))
+                        if not grouped_data[customer_id]['customer_id']:
+                              grouped_data[customer_id]['customer_id'] = customer_id
+                              grouped_data[customer_id]['customer_name'] = customer_name
+                              grouped_data[customer_id]['booking_id'] = booking_id
+                              grouped_data[customer_id]['booking_date'] = booking_date
+
+                        grouped_data[customer_id]['booking'][room_id] = {
+                              'room_id': room_id,
+                              'room_name': room_name,
+                              'booking_detail_id': booking_detail_id,
+                              'check_in_date': check_in_date,
+                              'check_out_date': check_out_date,
+                              'total_amount': total_amount
+                        }
+
+            return self.render('/admin/RentalRoom.html', bookings=grouped_data)
+
+    def is_accessible(self):
+        return (current_user.is_authenticated and
+                current_user.user_role.__eq__(UserRole.EMPLOYEE))
 
 class MyAdminIndex(AdminIndexView):
       @expose('/')
@@ -186,6 +218,8 @@ class EmployeeView(AuthenticatecModelView):
       column_display_pk = True
       column_searchable_list = ['full_name', 'phone', 'email', 'cccd']
       column_filters = ['full_name', 'phone', 'email', 'cccd', 'address']
+      column_list  = ['id','full_name','phone', 'cccd', 'address', 'salary','start_date','user_id']
+      form_columns  = ['full_name','phone', 'cccd', 'email', 'address', 'salary','start_date','user_id']
       column_editable_list = ['full_name', 'phone', 'email']
       can_export = True
       page_size = 10
@@ -197,6 +231,7 @@ class EmployeeView(AuthenticatecModelView):
             'address':'Địa chỉ',
             'salary':'Lương',
             'start_date': 'Ngày vào làm',
+            'user_id': 'Tên đăng nhập',
       }
       def is_accessible(self):
         return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
@@ -272,8 +307,6 @@ class PaymentView(AuthenticatecModelView):
       def is_accessible(self):
         return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
 
-class RentalCustomerView(AuthenticatecModelView):
-      column_display_pk = True
       def is_accessible(self):
             return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
 
@@ -362,7 +395,7 @@ admin.add_view(RentalReceiptView(RentalReceipt, db.session,name = "Biên lai", c
 admin.add_view(PaymentView(Payment, db.session,name = "Thanh toán", category="Quản lý hóa đơn"))
 
 admin.add_view(RentalDetailView(RentalDetail, db.session, name="Chi tiết phiếu thuê", category="Phiếu thuê"))
-# admin.add_view(RentalCustomerView(RentalCustomer, db.session, category="Quản lý thuê phòng"))
+
 
 admin.add_view(StatisticView(name='Thống Kê', endpoint='thong_ke', category="Thống kê"))
 admin.add_view(StatisticView(name='Báo cáo Doanh Thu', endpoint='bao_cao_doanh_thu', category="Thống kê"))
