@@ -50,11 +50,6 @@ class CustomerType(EnumRole):
         self.id = id
         self.multiplier = multiplier
 
-
-    def __init__(self, id, multiplier):
-        self.id = id
-        self.multiplier = multiplier
-        
 class Customer(db.Model):
     __tablename__ = 'customer'
     id = Column(Integer, primary_key=True, autoincrement=True)
