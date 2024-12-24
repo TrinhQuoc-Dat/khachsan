@@ -1,10 +1,11 @@
 from app.models import User, UserRole, Room, StatusRoom,BookingDetail,Employee, RentalReceipt,RentalDetail, TypeRoom, Customer, CustomerType, OrderType, Booking
-from sqlalchemy import and_, or_, func
+from sqlalchemy import and_, or_, func,extract
 from app import app, db, login
 import hashlib
 import json, os
 import cloudinary.uploader
 from flask_login import current_user
+from datetime import datetime
 
 def check_user(username, password, role=UserRole.USER):
     if username and password:
@@ -225,16 +226,84 @@ def load_hotel_data(file_name):
     with open(file_path, "r", encoding="utf-8") as file:
         return json.load(file)
 
-def revenue_stats_Room():
-    return db.session.query(Room.id, Room.name, func.sum(RentalDetail.quantity * Room.price * RentalDetail.discount * Customer.type_customer * Room.max_customer))\
-            .join(RentalDetail, RentalDetail.room_id.__eq__(Room.id)).join(RentalCustomer, RentalCustomer.rental_detail_id.__eq__(RentalDetail.id))\
-            .join(Customer, Customer.id.__eq__(RentalCustomer.customer_id)).group_by(Room.id,Room.name,Room.type_room).all()
+# def revenue_stats_Room(time='month', year= datetime.now().year):
+    
+#     return db.session.query(
+#         Room.type_room,
+#         func.sum(
+#             Room.price * 
+#             RentalDetail.discount * 
+#             RentalDetail.number_customer * 
+#             func.IF(Customer.type_customer == CustomerType.FOREIGN, CustomerType.FOREIGN.value[0], CustomerType.DOMESTIC.value[1])
+#         ).label('total_revenue'),
+#         func.count(RentalDetail.id).label('rental_count'),
+#         extract('month', RentalDetail.date_in).label('rental_month')  # Dùng hàm extract
+#     ).join(
+#         RentalDetail, Room.id == RentalDetail.room_id
+#     ).join(
+#         Customer, RentalDetail.customer_id == Customer.id
+#     ).group_by(
+#         Room.id,  # Thêm Room.id vào GROUP BY
+#         Room.type_room, 
+#         func.extract(time, RentalDetail.date_in)  # `time` đã được kiểm tra
+#     ).filter(
+#         func.extract('year', RentalDetail.date_in) == year
+#     ).order_by(
+#         func.extract(time, RentalDetail.date_in)
+#     ).all()
 
+def revenue_stats_Room(time='month', year=datetime.now().year, month=None):
+    # Query to calculate statistics for NORMAL rooms
+    normal_stats = db.session.query(
+        func.sum(
+            Room.price * 
+            RentalDetail.discount * 
+            RentalDetail.number_customer * 
+            func.IF(Customer.type_customer == CustomerType.FOREIGN, CustomerType.FOREIGN.value[0], CustomerType.DOMESTIC.value[1])
+        ).label('total_revenue'),
+        func.count(RentalDetail.id).label('rental_count')
+    ).join(
+        RentalDetail, Room.id == RentalDetail.room_id
+    ).join(
+        Customer, RentalDetail.customer_id == Customer.id
+    ).filter(
+        func.extract('year', RentalDetail.date_in) == year,
+        func.extract('month', RentalDetail.date_in) == month,  # Chỉ lọc theo tháng được chọn
+        Room.type_room == 'NORMAL'
+    ).all()
+
+    # Query to calculate statistics for VIP rooms
+    vip_stats = db.session.query(
+        func.sum(
+            Room.price * 
+            RentalDetail.discount * 
+            RentalDetail.number_customer * 
+            func.IF(Customer.type_customer == CustomerType.FOREIGN, CustomerType.FOREIGN.value[0], CustomerType.DOMESTIC.value[1])
+        ).label('total_revenue'),
+        func.count(RentalDetail.id).label('rental_count')
+    ).join(
+        RentalDetail, Room.id == RentalDetail.room_id
+    ).join(
+        Customer, RentalDetail.customer_id == Customer.id
+    ).filter(
+        func.extract('year', RentalDetail.date_in) == year,
+        func.extract('month', RentalDetail.date_in) == month, 
+        Room.type_room == 'VIP'
+    ).all()
+
+    # Combine results into a structured output
+    result = [
+        {"type_room": "NORMAL", "total_revenue": normal_stats[0][0], "rental_count": normal_stats[0][1]},
+        {"type_room": "VIP", "total_revenue": vip_stats[0][0], "rental_count": vip_stats[0][1]}
+    ]
+
+    return result
+    
 if __name__ == '__main__':
     with app.app_context():
         # u = check_user(username='dat', password=str(123), role=UserRole.USER)
         # print(u)
         # b = get_booking()
         # print(b)
-        print(revenue_stats_Room())
+        print(revenue_stats_Room(month=2, year=2024))
 

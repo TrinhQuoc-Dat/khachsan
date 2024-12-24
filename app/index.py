@@ -250,24 +250,18 @@ def check_username():
     else:
         return jsonify({'code': 200})
 
-@app.route('/admin/revenueReport', methods=['GET'])
-def revenue_report():
-    return render_template('admin/revenueReport.html')
+@app.route('/admin/revenueStats', methods=['GET'])
+def revenueStats():
+    return render_template('admin/revenueStats.html')
 
-@app.route('/admin/densityReport', methods=['GET'])
-def density_report():
-    return render_template('admin/densityReport.html')
-
-
-@app.route('/admin/thong_ke', methods=['GET'])
-def statistics():
-    return render_template('admin/statistics.html')
+@app.route('/admin/frequencyStats', methods=['GET'])
+def frequencyStats():
+    return render_template('admin/frequencyStats.html')
 
 @app.context_processor
 def common_response():
     return {
         "cart_stats": dao.count_cart(session.get('cart'))
-
     }
 
 @app.route('/sign-out')

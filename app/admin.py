@@ -9,6 +9,7 @@ from app import dao, utils
 from wtforms.validators import NumberRange
 from collections import defaultdict
 
+
 from flask_admin.contrib.sqla import ModelView
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from flask_wtf import FlaskForm
@@ -30,24 +31,17 @@ class LogoutView(AuthenticatedView):
             logout_user()
             return redirect('/admin')
 
-# class StatisticView(AuthenticatedView):
-#       @expose('/')
-#       def index(self):
-#             return self.render('/admin/statistics.html')
-class StatisticView(AuthenticatedView):
+class RevenueStatsView(AuthenticatedView):
       @expose('/')
-      def index(self):
-            tong_doanh_thu = 8000000000  
-            so_phong_su_dung = 120 
-            doanh_thu = [1000000, 1500000, 2000000, 2500000, 3000000, 3500000, 4000000, 4500000, 5000000, 5500000, 6000000, 6500000]
-            tan_suat = [30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140]
-            return self.render('/admin/statistics.html', tong_doanh_thu=tong_doanh_thu, so_phong_su_dung=so_phong_su_dung, doanh_thu=doanh_thu, tan_suat=tan_suat)     
+      def index(self, *args, **kwargs):
 
-# ghi trước, chưa có dữ liệu thực
-class statis_doanh_thu(AuthenticatedView):
+            return self.render('/admin/revenueStats.html', statsRevenue=dao.revenue_stats_Room(month=3, year=2024))
+
+
+class FrequencyStatsView(AuthenticatedView):
       @expose('/')
       def index(self):
-            return self.render('/admin/thong_ke_doanh_thu.html')
+            return self.render('/admin/frequencyStats.html')
 
 class PaymentConfirmation(BaseView):
       @expose('/')
@@ -271,10 +265,10 @@ class BookingDetailView(AuthenticatecModelView):
 
 class RentalReceiptView(AuthenticatecModelView):
       column_display_pk = True
-      form_column = ['id', 'created_date', 'total_customer', 'note', 'total_amount','payments', 'customer_id', 'employee_id', 'rental_details']
-      column_searchable_list = ['created_date', 'total_customer','total_amount', 'customer_id', 'employee_id']
+      form_column = ['id', 'created_date', 'total_customer', 'note', 'total_amount','payments', 'employee_id', 'rental_details']
+      column_searchable_list = ['created_date', 'total_customer','total_amount', 'employee_id']
       page_size = 8
-      column_filters = ['created_date', 'total_customer', 'customer_id', 'employee_id']
+      column_filters = ['created_date', 'total_customer', 'employee_id']
       column_labels = {
             'id': 'ID',
             'created_date': 'Ngày tạo',
@@ -397,9 +391,8 @@ admin.add_view(PaymentView(Payment, db.session,name = "Thanh toán", category="Q
 admin.add_view(RentalDetailView(RentalDetail, db.session, name="Chi tiết phiếu thuê", category="Phiếu thuê"))
 
 
-admin.add_view(StatisticView(name='Thống Kê', endpoint='thong_ke', category="Thống kê"))
-admin.add_view(StatisticView(name='Báo cáo Doanh Thu', endpoint='bao_cao_doanh_thu', category="Thống kê"))
-admin.add_view(StatisticView(name='Mật Độ Sử Dụng Phòng', endpoint='mat_do_su_dung_phong', category="Thống kê"))
+admin.add_view(RevenueStatsView(name='Báo cáo Doanh Thu',endpoint='revenueStats',category="Thống kê"))
+admin.add_view(FrequencyStatsView(name='Mật Độ Sử Dụng Phòng',endpoint='frequencyStats',category="Thống kê"))
 admin.add_view(PaymentConfirmation(name='Xác Nhận Thanh toán'))
 admin.add_view(RentalRoom(name='Lập Phiếu Thuê Phòng'))
 admin.add_view(LogoutView(name='Logout'))
