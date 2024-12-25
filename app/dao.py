@@ -226,33 +226,8 @@ def load_hotel_data(file_name):
     with open(file_path, "r", encoding="utf-8") as file:
         return json.load(file)
 
-# def revenue_stats_Room(time='month', year= datetime.now().year):
-    
-#     return db.session.query(
-#         Room.type_room,
-#         func.sum(
-#             Room.price * 
-#             RentalDetail.discount * 
-#             RentalDetail.number_customer * 
-#             func.IF(Customer.type_customer == CustomerType.FOREIGN, CustomerType.FOREIGN.value[0], CustomerType.DOMESTIC.value[1])
-#         ).label('total_revenue'),
-#         func.count(RentalDetail.id).label('rental_count'),
-#         extract('month', RentalDetail.date_in).label('rental_month')  # Dùng hàm extract
-#     ).join(
-#         RentalDetail, Room.id == RentalDetail.room_id
-#     ).join(
-#         Customer, RentalDetail.customer_id == Customer.id
-#     ).group_by(
-#         Room.id,  # Thêm Room.id vào GROUP BY
-#         Room.type_room, 
-#         func.extract(time, RentalDetail.date_in)  # `time` đã được kiểm tra
-#     ).filter(
-#         func.extract('year', RentalDetail.date_in) == year
-#     ).order_by(
-#         func.extract(time, RentalDetail.date_in)
-#     ).all()
 
-def revenue_stats_Room(time='month', year=datetime.now().year, month=None):
+def revenue_stats_Room(month=None,  year=datetime.now().year):
     # Query to calculate statistics for NORMAL rooms
     normal_stats = db.session.query(
         func.sum(
@@ -291,7 +266,6 @@ def revenue_stats_Room(time='month', year=datetime.now().year, month=None):
         Room.type_room == 'VIP'
     ).all()
 
-    # Combine results into a structured output
     result = [
         {"type_room": "NORMAL", "total_revenue": normal_stats[0][0], "rental_count": normal_stats[0][1]},
         {"type_room": "VIP", "total_revenue": vip_stats[0][0], "rental_count": vip_stats[0][1]}

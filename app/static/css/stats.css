@@ -1,30 +1,14 @@
-body {
-      box-sizing: border-box;
+.format-button {
+      margin-top: 50px;
+      
+}
+.format-button button {
+      margin-left: 20px;
 }
 
-.statistic-table {
-      border: 1px solid #ccc;
-      margin-top: 30px;
-      padding: 20px;
-      font-size: x-large;
-}
-
-
-.statistic-table tr th {
-      background-color: #f2f2f2;
-      border: 1px solid #ccc;
-      padding: 5px;
-}
-
-.function-selection> button {
-      margin-top: 30px;
-      border: none;
-      border-radius: 5px;
-      padding: 10px;
-      list-style-type: none;
-
-}
-.function-selection> button a {
+.format-button button a{
       color: white;
-      list-style-type: none;
+}
+.format-button button a:hover{
+      text-decoration: none;
 }

@@ -10,11 +10,17 @@
 
 {% block body %}
 <div class="container">
+      <div class="d-flex m-5 justify-content-center">
+            <h3 class="me-2"> Chọn thời gian: </h3>
+            <input class="calendar" type="month" id="monthPicker"
+                  name="revenue">
+      </div>
+
       <div class="row">
             <div class="report-title">BÁO CÁO DOANH THU THEO THÁNG</div>
             <div class="col-md-6 col-12">
                   <table class="table">
-                        <p class="text-center">Tháng: ………………</p>
+                        <p class="text-center">Tháng: </p>
                         <thead>
                               <tr>
                                     <th>STT</th>
@@ -25,45 +31,35 @@
                               </tr>
                         </thead>
                         <tbody>
-                              
-                              {% for s in statsRevenue %}
-                              <tr>
-                                    <td>1</td>
-                                    <td>{{ s[0] }}</td> <!-- Loại phòng -->
-                                    <td>{{ "{:,.0f}".format(s[1]) }}</td> <!-- Doanh thu -->
-                                    <td>{{ s[2] }}</td> <!-- Số lượt thuê -->
-                                    <td>123</td>
-                              </tr>
-
-                              <tr>
-                                    <td>2</td>
-                                    <td>{{ s[3] }}</td> <!-- Loại phòng -->
-                                    <td>{{ "{:,.0f}".format(s[4]) }}</td> <!-- Doanh thu -->
-                                    <td>{{ s[5] }}</td> <!-- Số lượt thuê -->
-                                    <td>456</td>
-                              </tr>
-                              
-                              {% endfor %}
                         </tbody>
                         <tfoot>
-                                    <tr>
+                              <tr>
                                     <td colspan="5">
-                                          Tổng doanh thu: …………………………………………………
+                                          Tổng doanh thu:
                                     </td>
-                                    </tr>
+                              </tr>
                         </tfoot>
                   </table>
             </div>
             <div class="col-md-6 col-12">
-
+                  <canvas id="myChart"></canvas>
             </div>
       </div>
+
+      <div class="d-flex justify-content-between mb-5">
+            <div></div>
+            <div class="format-button">
+                  <button type="button" class="btn btn-danger"><a href="{{ url_for('admin.index') }}">Trở lại</a></button>
+                  <button type="button" class="btn btn-success" id="export-btn"><a href="#">Xuất báo cáo</a></button>
+            </div>
+      </div>
+
 </div>
-
-
-<script src="{{ url_for('static', filename='js/calendarYear.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{ url_for('static', filename='js/statistics.js') }}"></script>
-      <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-      <script src="{{ url_for('static', filename='js/export.js') }}"></script>
+<script
+      src="{{ url_for('static', filename='js/calendarMonthYear.js') }}"></script>
+<script
+      src="{{ url_for('static', filename='js/loadRevenueStats.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+ 
 {% endblock %}

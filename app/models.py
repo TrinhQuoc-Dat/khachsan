@@ -363,8 +363,6 @@ if __name__ == '__main__':
     with app.app_context():
         pass
         # seed_data()
-        
-
         # db.drop_all()
         
         db.create_all()
@@ -378,7 +376,8 @@ if __name__ == '__main__':
         db.session.add_all([u1, u2, u])
         db.session.commit()
 
-        
+
+
         # r1 = Room(name="Phòng Superior Giường Đôi Với Cửa Sổ",
         #             max_customer= MaxCustomer.HAI,
         #             price=600000,
@@ -404,6 +403,3 @@ if __name__ == '__main__':
         
         # db.session.commit()
         
-
-    
-

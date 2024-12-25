@@ -254,6 +254,15 @@ def check_username():
 def revenueStats():
     return render_template('admin/revenueStats.html')
 
+@app.route('/api/revenue', methods=['POST'])
+def revenueStats_by_time():
+    data = request.get_json()
+    stats = dao.revenue_stats_Room(month=data.get('month'), year=data.get('year'))
+    return jsonify({
+        "normal": stats[0],
+        "vip": stats[1]
+    })
+
 @app.route('/admin/frequencyStats', methods=['GET'])
 def frequencyStats():
     return render_template('admin/frequencyStats.html')
@@ -263,6 +272,7 @@ def common_response():
     return {
         "cart_stats": dao.count_cart(session.get('cart'))
     }
+
 
 @app.route('/sign-out')
 def logout():
