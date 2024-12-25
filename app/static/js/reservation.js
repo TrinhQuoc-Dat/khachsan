@@ -7,10 +7,7 @@ function deleteBookingDetail(id){
         .then(data => {
             if(data.code == 200){
                 bookingDetail = document.getElementById('booking-detail' + id)
-                bookingDetail.innerText = "Đã hủy đặt phòng"
-                bookingDetail.classList.remove('success');
-                bookingDetail.classList.add('danger')
-                console.log('ok')
+                bookingDetail.style.display = 'none'
             }else {
                 alert(data.error)
             }

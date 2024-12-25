@@ -10,6 +10,10 @@
 {% block body %}
 <h1 class="text-danger text-center">Lập Phiếu Thuê Phòng</h1>
 
+<div class="alert alert-info display-none" id="rentalsuccess" >
+    <p class="m-0">Lập phiếu thuê phòng thành công!!!</p>
+</div>
+
 <div>
     <form action="/admin/rentalroom/">
         <div class="form-group">
@@ -22,7 +26,7 @@
 {% if bookings %}
 
 {% for index, value in bookings.items() %}
-<div class="border-booking p-3 mt-2">
+<div class="border-booking p-3 mt-2" id="booking-rental">
     <h2>Thông tin đặt phòng</h2>
     <div id="booking-details">
         <p>
@@ -66,11 +70,11 @@
                     <td>{{ b.check_out_date }}</td>
                     <td>{{ b.total_amount }} VND</td>
                     <td>
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-select" aria-label="Default select example" id="number-customer{{ b.room_id }}">
                             <option value="1">1</option>
                             <option selected value="2">2</option>
                             <option value="3">3</option>
-                          </select>
+                        </select>
                     </td>
 
                 </tr>
@@ -82,7 +86,7 @@
     <div class="d-flex justify-content-between">
         <div></div>
         <div>
-            <input type="button" onclick="LapPhieuThue('{{ value.booking_id }}')" value="Lập phiếu Thuê Phòng" class="btn btn-danger" />
+            <input type="button" onclick="LapPhieuThue('{{ value.booking_id }}', '{{ value.customer_id }}')" value="Lập phiếu Thuê Phòng" class="btn btn-danger" />
         </div>
     </div>
 </div>

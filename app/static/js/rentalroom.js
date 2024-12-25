@@ -29,17 +29,34 @@ function searchCustomer(obj){
 }
 
 
-function LapPhieuThue(id){
+function LapPhieuThue(id, customerId){
+    let roomCustomers = []
+    let selects = document.querySelectorAll('.form-select')
+
+    selects.forEach(select => {
+        let roomId = select.id.replace('number-customer', '') 
+        let numberCustomer = select.value
+        roomCustomers.push({
+            'room_id': roomId,
+            'number_customer': numberCustomer
+        })
+    })
     fetch('/api/lap-phieu-thue-phong', {
         method:'post',
         body: JSON.stringify({
-            'booking_id': id
+            'booking_id': id,
+            'customer-id': customerId,
+            'rooms': roomCustomers,
         }),
         headers: {
             'Content-Type': 'application/json'
         }
     }).then(res => res.json())
     .then(data => {
-
+        if(data.code == 200){
+            rentalsuccess = document.getElementById('rentalsuccess')
+            rentalsuccess.classList.remove('display-none')
+            document.getElementById('booking-rental').style.display = 'none'
+        }
     }).catch(err => console.log(err))
 }

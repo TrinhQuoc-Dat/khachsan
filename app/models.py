@@ -2,7 +2,7 @@ import hashlib
 from enum import Enum as EnumRole
 from sqlalchemy import Column, Integer, String, ForeignKey, Enum, Float, DateTime, Boolean
 from datetime import datetime
-from app import db, app
+from app import db, app, utils
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 
@@ -61,6 +61,7 @@ class Customer(db.Model):
     type_customer = Column(Enum(CustomerType), default=CustomerType.DOMESTIC)
     special_info = Column(String(255))
 
+    payments = relationship('Payment', backref='customer', lazy=True)
     bookings = relationship('Booking', backref='customer', lazy=True)
     booking_details = relationship('BookingDetail', backref='customer', lazy=True)
 
@@ -83,6 +84,10 @@ class OrderType(EnumRole):
     OFFLINE = 2
     PHONE = 3
 
+class StatusBooking(EnumRole):
+    BOOK = 1
+    RENTAL = 2
+    DELETE = 3
 
 class Booking(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -91,6 +96,7 @@ class Booking(db.Model):
     total_amount = Column(Float)
     customer_id = Column(Integer, ForeignKey('customer.id', ondelete='CASCADE'), nullable=False)
     order_type_id = Column(Enum(OrderType), default=OrderType.ONLINE)
+    status = Column(Enum(StatusBooking), default=StatusBooking.BOOK)
     employee_id = Column(Integer, ForeignKey(Employee.id, ondelete='SET NULL'))
     booking_details = relationship('BookingDetail', backref='booking', lazy=True)
     user_id = Column(Integer, ForeignKey(User.id), nullable=False)
@@ -148,24 +154,31 @@ class BookingDetail(db.Model):
     room_id = Column(Integer, ForeignKey(Room.id, ondelete='CASCADE'), nullable=False)
     booking_id = Column(Integer, ForeignKey(Booking.id, ondelete='CASCADE'), nullable=False)
     customer_id = Column(Integer, ForeignKey(Customer.id, ondelete='CASCADE'), nullable=False)
-    delete = Column(Boolean, default=0)
 
     def to_id(self):
         return {
             'id': str(id),
-            'delete': str(self.delete)
         }
 
 
 class RentalReceipt(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     created_date = Column(DateTime, default=datetime.now())
-    total_customer = Column(Integer)
     note = Column(String(255))
     total_amount = Column(Float)
-    employee_id = Column(Integer, ForeignKey(Employee.id), nullable=False)
+    employee_id = Column(Integer, ForeignKey(Employee.id, ondelete='RESTRICT'), nullable=False)
+    customer_id = Column(Integer, ForeignKey(Customer.id, ondelete='RESTRICT'), nullable=False)
     payments = relationship('Payment', backref='rental_receipt', lazy=True)
     rental_details = relationship('RentalDetail', backref='rental_receipt', lazy=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'created_date': self.created_date,
+            'total_amount': self.total_amount,
+            'employee_id': self.employee_id,
+            'customer_id': self.customer_id,
+        }
 
 
 class TypePayment(EnumRole):
@@ -180,7 +193,7 @@ class Payment(db.Model):
     type_payment = Column(Enum(TypePayment), default=TypePayment.MONEY)
     amount = Column(Float, nullable=False)
     status = Column(Boolean, default=False)
-    note = Column(String(100))
+    customer_id = Column(Integer, ForeignKey(Customer.id, ondelete='RESTRICT'), nullable=False)
     rental_receipt_id = Column(Integer, ForeignKey(RentalReceipt.id, ondelete='RESTRICT'), nullable=False)
 
     def __index__(self):
@@ -195,8 +208,21 @@ class RentalDetail(db.Model):
     discount = Column(Float, default=1)
     room_id = Column(Integer, ForeignKey(Room.id), nullable=False)
     rental_receipt_id = Column(Integer, ForeignKey(RentalReceipt.id), nullable=False)
-    quantity = Column(Integer, default=0)
+    customer_id = Column(Integer, ForeignKey(Customer.id, ondelete='CASCADE'), nullable=False)
+    
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'number_customer': self.number_customer,
+            'date_in': self.date_in,
+            'date_out': self.date_out,
+            'total_amount': self.total_amount,
+            'discount': self.discount,
+            'room_id': self.room_id,
+            'rental_receipt_id': self.rental_receipt_id,
+            'customer_id': self.customer_id,
+        }
 
 
 class Comment(db.Model):
@@ -214,44 +240,8 @@ if __name__ == '__main__':
     with app.app_context():
         # pass
 
-        db.drop_all()
-        db.create_all()
-        u = User(username='adminDuy', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
-                user_role=UserRole.ADMIN, email='adminDuy@ou.edu.vn')
-        u1 = User(username='duy', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
-                    user_role=UserRole.USER, email='userduy@ou.edu.vn')
-        u2 = User(username='dat', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
-                    user_role=UserRole.EMPLOYEE, email='dat@ou.edu.vn')
-        db.session.add_all([u1, u2, u])
-        db.session.commit()
-
-        
-        r1 = Room(name="Phòng Superior Giường Đôi Với Cửa Sổ",
-                    max_customer= MaxCustomer.HAI,
-                    price=600000,
-                    image="https://cf.bstatic.com/xdata/images/hotel/max1024x768/404490378.jpg?k=2a3ee25918786d09794c59ac8b8c67e48414183cf34e9a738d3a8393b09210f5&o=")
-        
-        r2 = Room(name="Phòng Superior Có Giường Cỡ Queen",
-                    max_customer= MaxCustomer.HAI,
-                    price=200000,
-                    image="https://img.homedy.com/store/images/2020/04/16/phong-ngu-khach-san-5-sao-2-637226034911724690.jpg")
-        r3 = Room(name="Phòng Ngủ Tập Thể 6 Giường Cho Cả Nam Và Nữ",
-                    max_customer= MaxCustomer.BA,
-                    price=800000,
-                    image="https://noithatmyhouse.net/wp-content/uploads/2019/06/dien-tich-phong-khach-san-tieu-chuan_2.jpg")
-        r4 = Room(name="Phòng gia đình với phòng tắm riêng.",
-                    max_customer= MaxCustomer.BA,
-                    price=350000,
-                    image="https://maximilan.com.vn/wp-content/uploads/2020/03/96515_og_1.jpeg")
-        r5 = Room(name="Phòng đơn Superior",
-                    max_customer= MaxCustomer.BA,
-                    price=200000,
-                    image="https://dyf.vn/wp-content/uploads/2021/10/170433841_299853518329337_277745775002707996_n-1.jpg")
-        db.session.add_all([r1, r2, r3, r4, r5])
-        db.session.commit()
-
         # db.drop_all()
-        # db.create_all()
+        db.create_all()
         # u = User(username='adminDuy', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
         #         user_role=UserRole.ADMIN, email='adminDuy@ou.edu.vn')
         # u1 = User(username='duy', password=str(hashlib.md5('123'.strip().encode('utf-8')).hexdigest()),
@@ -261,53 +251,65 @@ if __name__ == '__main__':
         # db.session.add_all([u1, u2, u])
         # db.session.commit()
 
+
+
+        # e = Employee(full_name = 'Nguễn Văn A',
+        #             phone = '0977787423',
+        #             email = 'vana@gmail.com',
+        #             cccd = '098459345534',
+        #             address = 'HCM',
+        #             salary = 54653423,
+        #             user_id = 2)
+        # db.session.add(e)
+        # db.session.commit()
+
         
         # r1 = Room(name="Phòng Superior Giường Đôi Với Cửa Sổ",
-        #             max_customer= max_customer.HAI,
+        #             max_customer= MaxCustomer.HAI,
         #             price=600000,
         #             image="https://cf.bstatic.com/xdata/images/hotel/max1024x768/404490378.jpg?k=2a3ee25918786d09794c59ac8b8c67e48414183cf34e9a738d3a8393b09210f5&o=")
-
+        
         # r2 = Room(name="Phòng Superior Có Giường Cỡ Queen",
-        #             max_customer= max_customer.BA,
+        #             max_customer= MaxCustomer.HAI,
         #             price=200000,
         #             image="https://img.homedy.com/store/images/2020/04/16/phong-ngu-khach-san-5-sao-2-637226034911724690.jpg")
         # r3 = Room(name="Phòng Ngủ Tập Thể 6 Giường Cho Cả Nam Và Nữ",
-        #             max_customer= max_customer.BA,
+        #             max_customer= MaxCustomer.BA,
         #             price=800000,
         #             image="https://noithatmyhouse.net/wp-content/uploads/2019/06/dien-tich-phong-khach-san-tieu-chuan_2.jpg")
         # r4 = Room(name="Phòng gia đình với phòng tắm riêng.",
-        #             max_customer= max_customer.HAI,
+        #             max_customer= MaxCustomer.BA,
         #             price=350000,
         #             image="https://maximilan.com.vn/wp-content/uploads/2020/03/96515_og_1.jpeg")
         # r5 = Room(name="Phòng đơn Superior",
-        #             max_customer= max_customer.BA,
+        #             max_customer= MaxCustomer.BA,
         #             price=200000,
         #             image="https://dyf.vn/wp-content/uploads/2021/10/170433841_299853518329337_277745775002707996_n-1.jpg")
+        # db.session.add_all([r1, r2, r3, r4, r5])
+        # db.session.commit()
+    
 
         
-       
+        # customer1 = Customer(
+        # full_name="Nguyễn Văn A",
+        # phone="0987654321",
+        # email="nguyenvana@example.com",
+        # cccd="123456789012",
+        # address="Hà Nội",
+        # type_customer=CustomerType.DOMESTIC,
+        # special_info="Khách hàng thân thiết"
+        # )
 
-        
-        customer1 = Customer(
-        full_name="Nguyễn Văn A",
-        phone="0987654321",
-        email="nguyenvana@example.com",
-        cccd="123456789012",
-        address="Hà Nội",
-        type_customer=CustomerType.DOMESTIC,
-        special_info="Khách hàng thân thiết"
-        )
+        # customer2 = Customer(
+        #     full_name="Trần Thị B",
+        #     phone="0123456789",
+        #     email="tranthib@example.com",
+        #     cccd="987654321098",
+        #     address="Hồ Chí Minh",
+        #     type_customer=CustomerType.FOREIGN,
+        #     special_info="Khách hàng quốc tế"
+        # )
 
-        customer2 = Customer(
-            full_name="Trần Thị B",
-            phone="0123456789",
-            email="tranthib@example.com",
-            cccd="987654321098",
-            address="Hồ Chí Minh",
-            type_customer=CustomerType.FOREIGN,
-            special_info="Khách hàng quốc tế"
-        )
-
-        db.session.add_all([customer1, customer2])
-        db.session.commit()
+        # db.session.add_all([customer1, customer2])
+        # db.session.commit()
 

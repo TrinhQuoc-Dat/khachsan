@@ -3,7 +3,7 @@ import math
 import cloudinary.uploader
 from app import app, db, dao, utils
 from flask import render_template, request, redirect, jsonify, url_for, session
-from app.models import UserRole
+from app.models import UserRole, StatusBooking
 from flask_login import login_user, logout_user, current_user, login_required
 import cloudinary
 import json
@@ -179,18 +179,83 @@ def search_customer():
 @app.route('/api/lap-phieu-thue-phong', methods=['post'])
 @login_required
 def rental_room():
-    booking_id = request.json.get('bookind_id')
+    if request.method.__eq__('POST'):
+        try:
+            booking_id = request.json.get('booking_id')
+            customer_id = request.json.get('customer-id')
+            rooms = request.json.get('rooms', [])
+            booking = dao.get_booking_id(booking_id=booking_id)
+            books = dao.get_booking_rental(booking_id)
+            employee = dao.get_employee(current_user.id)
+            rental = dao.add_rental_receipt(employee_id=employee, customer_id= customer_id)
+            total = 0
+            for book in books:
+                number_customer = next(
+                    (room['number_customer'] for room in rooms if room['room_id'] == str(book[0])), 1)
+                
+                days = (book[4] - book[3]).days
+                total += book[1] * book[5] * days
+                dao.add_rental_detail(
+                    date_in=book[3],
+                    date_out=book[4],
+                    number_customer=number_customer,
+                    total_amount=book[1] * book[5] * days,
+                    room_id=book[0],
+                    rental_receipt_id=rental,
+                    customer_id=book[6]
+                )
+            rental.total_amount = total
+            booking.status = StatusBooking.RENTAL
+            db.session.commit()
+            return jsonify({'code': 200})
+        except Exception as ex:
+            print("Error occurred:", ex)
+            return jsonify({'code': 500, 'error': 'Lỗi Server!!!'})
+       
 
-    e_id = current_user.id
 
-    rd = dao.add_rental_receipt(e_id)
-    rental = dao.get_booking_rental(booking_id)
+@app.route('/api/search-rental', methods=['post'])
+def search_rental():
+    try:
+        name = request.json.get('name')
+        rental = dao.get_rental_payment(name)
+        rental_dict = {}
+        if rental:
+            for rental_detail, customer, room, rental_receipt in rental:
+                receipt_id = rental_receipt.id
+                if receipt_id not in rental_dict:
+                    rental_dict[receipt_id] = {
+                        'rental_receipt': rental_receipt.to_dict(),
+                        'details' : []
+                    }
 
-    print(rental)
+                rental_dict[receipt_id]['details'].append({
+                    'customer': customer.to_dict(),
+                    'room': room.to_dict(),
+                    'receipt_detail': rental_detail.to_dict()
+                })
+            return jsonify({'code': 200, 'rental': rental_dict})
+        else:
+            return jsonify({'code': 400, 'error': 'Không tìm thấy phiếu Thuê phòng!!!'})
+    except Exception as ex:
+        return jsonify({'code': 500, 'error': "Lỗi server!!!"})
 
-    return jsonify({'code' : 200})
 
+@app.route('/api/payment', methods=['post'])
+def payment():
+    if request.method.__eq__('POST'):
+        try:
+            rr_id = request.json.get('rental-receipt-id')
+            c_id = request.json.get('customer-id')
+            amount = request.json.get('amount')
 
+            pay = dao.add_payment(rental_id = rr_id,
+                                customer_id = c_id,
+                                amount = amount)
+            if pay:
+                return jsonify({'code': 200})
+        except Exception as ex:
+            return jsonify({'code': 500, 'error': "Lỗi Server!!!"})
 
 @app.route('/login', methods=['post', 'get'])
 def login():
@@ -198,7 +263,7 @@ def login():
     if request.method.__eq__('POST'):
         username = request.form.get('username')
         password = request.form.get('password')
-        user_role = utils.get_user_role(request.form.get('user-role'))
+        user_role = dao.get_user_role(request.form.get('user-role'))
         
         try:
             u = dao.check_user(username=username, password=password,
