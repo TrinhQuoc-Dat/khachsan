@@ -290,6 +290,8 @@ if __name__ == '__main__':
     
 
         
+
+        
         # customer1 = Customer(
         # full_name="Nguyễn Văn A",
         # phone="0987654321",

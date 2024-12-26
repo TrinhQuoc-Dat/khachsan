@@ -22,10 +22,9 @@ def get_user_by_username(username):
     return User.query.filter(User.username.__eq__(username)).first()
 
 def get_room_search(name_room=None, date_in=None, date_out=None, type_room=None):
-    room = Room.query.filter(Room.status.__eq__(StatusRoom.EMPTY))
 
     page_size = app.config['PAGE_SIZE']
-
+    room = Room.query
     if name_room:
         room = room.filter(Room.name.contains(name_room))
     
@@ -34,9 +33,8 @@ def get_room_search(name_room=None, date_in=None, date_out=None, type_room=None)
     else:
         room = room.filter(Room.type_room.__eq__(TypeRoom.VIP))
 
-    
     if date_in and date_out:
-        room = room.filter(
+         room = room.filter(
             ~Room.id.in_(
                 db.session.query(BookingDetail.room_id).filter(
                     or_(
@@ -45,7 +43,17 @@ def get_room_search(name_room=None, date_in=None, date_out=None, type_room=None)
                         and_(BookingDetail.date_in >= date_in, BookingDetail.date_out <= date_out)
                     )
                 )
-            ))
+            ),
+            ~Room.id.in_(
+                db.session.query(RentalDetail.room_id).filter(
+                    or_(
+                        and_(RentalDetail.date_in <= date_in, RentalDetail.date_out > date_in),
+                        and_(RentalDetail.date_in < date_out, RentalDetail.date_out >= date_out),
+                        and_(RentalDetail.date_in >= date_in, RentalDetail.date_out <= date_out)
+                    )
+                )
+            )
+        )
     
     return room.all()
 
@@ -167,11 +175,13 @@ def get_rental_payment(name = None):
                                 .join(Customer, RentalDetail.customer_id.__eq__(Customer.id))\
                                 .join(Room, RentalDetail.room_id.__eq__(Room.id))\
                                 .join(RentalReceipt, RentalDetail.rental_receipt_id.__eq__(RentalReceipt.id))\
-                                .filter(or_(Customer.full_name.contains(name), RentalReceipt.id.__eq__(name)))
+                                .filter(or_(Customer.full_name.contains(name), RentalReceipt.id == name)) \
+                                .outerjoin(Payment, RentalReceipt.id == Payment.rental_receipt_id) \
+                                .filter(Payment.id == None)
     else:
         r = db.session.query(RentalReceipt.id, RentalReceipt.total_amount, RentalReceipt.created_date,
                              RentalDetail.id, Customer.full_name, Room.name, RentalDetail.date_in,
-                             RentalDetail.date_out, RentalDetail.total_amount, RentalDetail.total_amount)\
+                             RentalDetail.date_out, RentalDetail.total_amount, Customer.id)\
                                 .join(Customer, RentalDetail.customer_id.__eq__(Customer.id))\
                                 .join(Room, RentalDetail.room_id.__eq__(Room.id))\
                                 .join(RentalReceipt, RentalDetail.rental_receipt_id.__eq__(RentalReceipt.id))\

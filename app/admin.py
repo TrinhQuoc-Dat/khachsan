@@ -55,36 +55,30 @@ class statis_doanh_thu(AuthenticatedView):
 
 class PaymentConfirmation(BaseView):
       @expose('/')
-      def index(self):
+      def index(self, **kwargs):
             payment = dao.get_rental_payment()
-            # RentalReceipt.id, RentalReceipt.total_amount, RentalReceipt.created_date,
-            #                  RentalDetail.id, Customer.full_name, Room.name, RentalDetail.date_in,
-            #                  RentalDetail.date_out, RentalDetail.total_amount, RentalReceipt.total_amount
-
-            dict = {}
+            payment_dict = {}
             for p in payment:
-                  rental_id, total_amount, created_date = p[0], p[1], p[2]
+                  rental_id, total_amount, created_date, customer_id = p[0], p[1], p[2], p[9]
                   detail = {
                         "room_id": p[3],
                         "customer_name": p[4],
                         "room_name": p[5],
                         "check_in_date": p[6],
                         "check_out_date": p[7],
-                        "room_price": p[8],
-                        "amount": p[9]
+                        "amount": p[8],
                         }
-                  if rental_id not in dict:
-                    dict[rental_id] = {
+                  if rental_id not in payment_dict:
+                    payment_dict[rental_id] = {
                         'rental_id': rental_id,
                         'total_amount': total_amount,
                         'created_date': created_date,
+                        'customer_id': customer_id,
                         'details' : []
                   }
                     
-                  dict[rental_id]['details'].append(detail)
-
-            print(dict)
-            return self.render('/admin/payment.html', payment_confirm = dict)
+                  payment_dict[rental_id]['details'].append(detail)
+            return self.render('/admin/payment.html', payment_confirm = payment_dict)
       
       def is_accessible(self):
             return (current_user.is_authenticated and
@@ -94,6 +88,8 @@ class PaymentConfirmation(BaseView):
 class RentalRoom(BaseView):
     @expose('/')
     def index(self, **kwargs):
+            if request.method.__eq__("post"):
+                 pass
             name = request.args.get('name')
             bookings = None
             grouped_data = defaultdict(lambda: {

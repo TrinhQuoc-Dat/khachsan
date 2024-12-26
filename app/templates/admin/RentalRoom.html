@@ -10,6 +10,10 @@
 {% block body %}
 <h1 class="text-danger text-center">Lập Phiếu Thuê Phòng</h1>
 
+<div id="error-mess" class="alert alert-danger display-none">
+    <p id="mess"></p>
+</div>
+
 <div class="alert alert-info display-none" id="rentalsuccess" >
     <p class="m-0">Lập phiếu thuê phòng thành công!!!</p>
 </div>
@@ -92,109 +96,99 @@
 </div>
 {% endfor %}
 {% else %}
-<form id="rental-form" action="/create-rental" method="POST">
-    <h2>Thông Tin Khách Hàng</h2>
-    <div id="input-cccd" class="form-group">
-        <label for="exampleInputEmail1">Nhập mã khách Hàng or CCCD</label>
-        <input type="number" class="form-control" id="ma" aria-describedby="ma" onblur="searchCustomer(this)" name="ma"
-            placeholder="Nhập mã or cccd...">
-    </div>  
-    <div id="input-customer" class="display-none">
-        <div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Họ và tên</label>
-                <input type="text" class="form-control" id="nameb" aria-describedby="name" name="nameb"
-                    placeholder="Nhập họ và tên...">
+<form id="rental-form" action="/admin/rentalroom/" method="POST">
+    <div id="add-rental">
+        <div class="d-flex justify-content-around border-booking p-2 mt-3">
+            <div id="input-customer">
+                <h2>Thông Tin Khách Hàng</h2>
+    
+                <div id="input-cccd" class="form-group">
+                    <label for="exampleInputEmail1">Nhập mã khách Hàng or CCCD</label>
+                    <input type="number" class="form-control" id="cccd" aria-describedby="cccd" onblur="searchCustomer(this)" name="cccd"
+                        placeholder="Nhập mã or cccd...">
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Họ và tên</label>
+                        <input type="text" class="form-control" id="name" aria-describedby="name" name="name"
+                            placeholder="Nhập họ và tên...">
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Số điện thoại</label>
+                        <input type="number" class="form-control" id="phone" name="phone" placeholder="Nhập số điện thoại...">
+                        <small id="phone" class="form-text text-muted">Cần thiết để chỗ nghỉ xác nhận đặt
+                            phòng của bạn</small>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Địa chỉ email</label>
+                        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+                            placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">Email xác nhận đặt phòng sẽ được
+                            gửi đến địa chỉ này</small>
+                    </div>
+                </div>
+                <div>
+                    <select class="form-select" aria-label="Default select example" id="type-customer" name="type-customer">
+                        <option selected value="DOMESTIC">Khách Trong nước</option>
+                        <option value="FOREIGN">Khách nước ngoài</option>
+                      </select>
+                </div>
             </div>
-        </div>
-        <div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Số điện thoại</label>
-                <input type="number" class="form-control" id="phoneb" name="phoneb" placeholder="Nhập số điện thoại...">
-                <small id="phone" class="form-text text-muted">Cần thiết để chỗ nghỉ xác nhận đặt
-                    phòng của bạn</small>
-            </div>
-        </div>
-        <div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">CCCD</label>
-                <input type="number" class="form-control" id="cccdb" name="cccdb" placeholder="Nhập căn cước công dân...">
-            </div>
-        </div>
-        <div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Địa chỉ email</label>
-                <input type="email" class="form-control" id="emailb" name="emailb" aria-describedby="emailHelp"
-                    placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">Email xác nhận đặt phòng sẽ được
-                    gửi đến địa chỉ này</small>
+            <div>
+                <h2>Thông Tin Phòng</h2>
+                <div class="mt-2">
+                    <label for="room_type">Loại phòng:</label>
+                    <select class="form-select" id="type" name="type" aria-label="Default select example">
+                        <option value="Normal">Phòng thường</option>
+                        <option value="VIP">Phòng VIP</option>
+                      </select>
+                </div>
+                <div class="form-group mt-2">
+                    <label class="form-group" for="check_in_date">Ngày nhận phòng:</label>
+                    <input type="date" class="form-control" id="check_in_date" name="check_in_date" required>
+                    <small id="check_in_date" class="form-text text-muted"></small>
+                </div>
+    
+                <div class="form-group mt-2">
+                    <label class="form-group" for="check_out_date">Ngày trả phòng:</label>
+                    <input type="date" class="form-control" onblur="searchRoom(this)" id="check_out_date" name="check_out_date" required/>
+                    <small id="check_out_date" class="form-text text-muted"></small>
+                </div>
+
+                <div class="mt-2">
+                    <label for="room_number">Số phòng:</label>
+                    <select class="form-select" id="room" name="room" onchange="updateRoomPrice(this)" aria-label="Default select example">
+                        <option value="">Chọn phòng</option>
+                    </select>
+                </div>
+                <div class="mt-2">
+                    <label for="room_number">Số Khách:</label>
+                    <select class="form-select" aria-label="Default select example" id="number-cus" name="number-cus">
+                        <option value="1">1</option>
+                        <option selected value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="d-flex mt-5">
+                    <div><h4>Giá Phòng:</h4> </div>
+                    <div><h4  id="room-price" class="text-danger ms-3">112345667 VND</h4></div>
+                </div>
             </div>
         </div>
     </div>
     
-
-
-    <h2>Thông Tin Phòng</h2>
-    <label for="room_number">Số phòng:</label>
-    <select id="room_number" name="room_number" required>
-        <option value="">-- Chọn phòng --</option>
-        <option value="101">101</option>
-        <option value="102">102</option>
-        <option value="103">103</option>
-    </select>
-    <br><br>
-
-    <label for="room_type">Loại phòng:</label>
-    <select id="room_type" name="room_type" required>
-        <option value="">-- Chọn loại phòng --</option>
-        <option value="single">Phòng đơn</option>
-        <option value="double">Phòng đôi</option>
-        <option value="suite">Phòng suite</option>
-    </select>
-    <br><br>
-
-    <label for="check_in_date">Ngày nhận phòng:</label>
-    <input type="date" id="check_in_date" name="check_in_date" required>
-    <br><br>
-
-    <label for="check_out_date">Ngày trả phòng:</label>
-    <input type="date" id="check_out_date" name="check_out_date" required>
-    <br><br>
-
-    <div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Họ và tên</label>
-            <input type="text" class="form-control" id="nameb" aria-describedby="name" name="nameb"
-                placeholder="Nhập họ và tên...">
+    <div class="d-flex justify-content-between mt-2">
+        <div>
+            <input type="button" value="Thêm phiếu thuê" onclick="addRentalForm()" class="btn btn-info" />
+        </div>
+        <div>
+            <input type="button" onclick="addRental()" value="Lập Toàn bộ phiếu thuê phòng" class="btn btn-danger"/>
         </div>
     </div>
-    <div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Số điện thoại</label>
-            <input type="number" class="form-control" id="phoneb" name="phoneb" placeholder="Nhập số điện thoại...">
-            <small id="phone" class="form-text text-muted">Cần thiết để chỗ nghỉ xác nhận đặt
-                phòng của bạn</small>
-        </div>
-    </div>
-    <div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">CCCD</label>
-            <input type="number" class="form-control" id="cccdb" name="cccdb" placeholder="Nhập căn cước công dân...">
-        </div>
-    </div>
-    <div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Địa chỉ email</label>
-            <input type="email" class="form-control" id="emailb" name="emailb" aria-describedby="emailHelp"
-                placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">Email xác nhận đặt phòng sẽ được
-                gửi đến địa chỉ này</small>
-        </div>
-    </div>
-
-
-
-    <button type="submit">Lập Phiếu Thuê Phòng</button>
 </form>
 
 {% endif %}

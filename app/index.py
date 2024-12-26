@@ -3,7 +3,7 @@ import math
 import cloudinary.uploader
 from app import app, db, dao, utils
 from flask import render_template, request, redirect, jsonify, url_for, session
-from app.models import UserRole, StatusBooking
+from app.models import UserRole, StatusBooking, CustomerType
 from flask_login import login_user, logout_user, current_user, login_required
 import cloudinary
 import json
@@ -166,7 +166,6 @@ def search_customer():
     try:
         c = dao.search_customer(id)
         c = c.to_dict() if c else None
-        print(c)
         if c:
             return jsonify({'code': 200, 'customer': c })
         else:
@@ -257,6 +256,76 @@ def payment():
         except Exception as ex:
             return jsonify({'code': 500, 'error': "Lỗi Server!!!"})
 
+
+@app.route('/api/search-room-rental', methods=['post'])
+@login_required
+def search_room_rental():
+    if request.method.__eq__("POST"):
+        type = request.json.get('type')
+        date_in = request.json.get('date-in')
+        date_out = request.json.get('date-out')
+
+        print(type, date_in, date_out)
+        try:
+
+            rooms = dao.get_room_search(type_room=type, date_in=date_in, date_out=date_out)
+            if rooms:
+                rooms = [room.to_dict() for room in rooms]
+                return jsonify({'code': 200, 'rooms': rooms})
+            else:
+                return jsonify({'code': 400, 'mess': 'Hết phòng!!!'})
+        except Exception as ex:
+            return jsonify({'code': 500, 'mess': 'Lỗi server!!!'})
+            
+
+@app.route('/api/add-rental-receipt', methods=['post'])
+@login_required
+def add_rental_receipts():
+    if request.method.__eq__('POST'):
+        try:
+            data = request.json.get('data')
+            receipt = None
+            for d in data:
+                customer = d['customer']
+                room = d['room']
+                print(room['check_in_date'])
+                c = dao.search_customer(customer['cccd'])
+                if c is None:
+                    type = None
+                    if customer['typeCustomer'] == 'DOMESTIC':
+                        type = CustomerType.DOMESTIC
+                    else:
+                        type = CustomerType.FOREIGN
+                    c = dao.add_customer(name=customer['name'],
+                                         email=customer['email'],
+                                         cccd=customer['cccd'],
+                                         phone=customer['phone'],
+                                         type_customer=type)
+                print(c)
+                
+                employee = dao.get_employee(current_user.id)
+                print(employee)
+                if receipt is None:
+                    tong = 0
+                    for d in data:
+                        tong += d['room']['total_amount']
+                    receipt = dao.add_rental_receipt(employee_id=employee,
+                                                 customer_id=c.id, total_amount = tong)
+                print(receipt)
+                r_detail = dao.add_rental_detail(date_in=datetime.fromisoformat(room['check_in_date'].replace("Z", "")).date(),
+                                    date_out=datetime.fromisoformat(room['check_out_date'].replace("Z", "")).date(),
+                                    total_amount=room['total_amount'],
+                                    number_customer=room['number_customer'],
+                                    room_id=room['room_id'],
+                                    rental_receipt_id = receipt,
+                                    customer_id = c.id)
+                print(r_detail)
+
+            return jsonify({'code': 200})
+        except Exception as ex:
+            return jsonify({'code': 500, 'mess': 'Lỗi server!!!'})
+
+
 @app.route('/login', methods=['post', 'get'])
 def login():
     err_mgs = ""
@@ -268,7 +337,6 @@ def login():
         try:
             u = dao.check_user(username=username, password=password,
                 role=user_role)
-            print(u)
             if u:
                 login_user(user=u)
                 if (user_role == UserRole.ADMIN):

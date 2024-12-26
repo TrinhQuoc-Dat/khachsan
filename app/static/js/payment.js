@@ -18,7 +18,7 @@ function searchRental(){
                 for (receiptId in data.rental){
                     let receipt = data.rental[receiptId];
 
-                    html += `<div class="border-booking p-3">
+                    html += `<div class="border-booking p-3 mt-2">
                                 <div>
                                     <h3 class="text-danger text-center">Hóa đơn thanh toán</h3>
                                 </div>
@@ -70,8 +70,6 @@ function searchRental(){
         }).catch(err => console.log(err))
     }
 }
-
-
 
 function payment(customerId, rentalReceiptId, amount){
     if (confirm('Xác nhận thanh toán !!!') == true){
