@@ -1,4 +1,4 @@
-from app.models import User, UserRole, Room, StatusRoom,BookingDetail,Employee, RentalReceipt,RentalDetail, TypeRoom, Customer, CustomerType, OrderType, Booking
+from app.models import User, UserRole, Room,MaxCustomer, StatusRoom,BookingDetail,Employee, RentalReceipt,RentalDetail, TypeRoom, Customer, CustomerType, OrderType, Booking
 from sqlalchemy import and_, or_, func,extract
 from app import app, db, login
 import hashlib
@@ -6,6 +6,7 @@ import json, os
 import cloudinary.uploader
 from flask_login import current_user
 from datetime import datetime
+import calendar
 
 def check_user(username, password, role=UserRole.USER):
     if username and password:
@@ -233,8 +234,8 @@ def revenue_stats_Room(month=None,  year=datetime.now().year):
         func.sum(
             Room.price * 
             RentalDetail.discount * 
-            RentalDetail.number_customer * 
-            func.IF(Customer.type_customer == CustomerType.FOREIGN, CustomerType.FOREIGN.value[0], CustomerType.DOMESTIC.value[1])
+            func.IF(Room.max_customer == MaxCustomer.MOT or Room.max_customer == MaxCustomer.HAI, MaxCustomer.MOT.value and MaxCustomer.HAI.value, MaxCustomer.BA.value) *
+            func.IF(Customer.type_customer == CustomerType.FOREIGN, CustomerType.FOREIGN.value, CustomerType.DOMESTIC.value)
         ).label('total_revenue'),
         func.count(RentalDetail.id).label('rental_count')
     ).join(
@@ -253,7 +254,8 @@ def revenue_stats_Room(month=None,  year=datetime.now().year):
             Room.price * 
             RentalDetail.discount * 
             RentalDetail.number_customer * 
-            func.IF(Customer.type_customer == CustomerType.FOREIGN, CustomerType.FOREIGN.value[0], CustomerType.DOMESTIC.value[1])
+            func.IF(Room.max_customer == MaxCustomer.MOT or Room.max_customer == MaxCustomer.HAI, MaxCustomer.MOT.value and MaxCustomer.HAI.value, MaxCustomer.BA.value) *
+            func.IF(Customer.type_customer == CustomerType.FOREIGN, CustomerType.FOREIGN.value, CustomerType.DOMESTIC.value)
         ).label('total_revenue'),
         func.count(RentalDetail.id).label('rental_count')
     ).join(
@@ -273,11 +275,66 @@ def revenue_stats_Room(month=None,  year=datetime.now().year):
 
     return result
     
+def frequency_stats_Room(month=None, year=datetime.now().year):
+    if month is None:
+        month = datetime.now().month
+    # Tổng số ngày trong tháng
+    total_days_in_month = calendar.monthrange(year, month)[1]
+    
+    # Lấy đầu tháng và cuối tháng
+    start_date = datetime(year, month, 1)
+    end_date = datetime(year, month, total_days_in_month)
+    
+    result = (
+        db.session.query(
+            Room.id.label("room_id"),
+            Room.name.label("room_name"),
+            func.coalesce(func.sum(
+                func.greatest(
+                    0,
+                    func.datediff(
+                        func.least(RentalDetail.date_out, end_date),
+                        func.greatest(RentalDetail.date_in, start_date)
+                    )
+                )
+            ), 0).label("days_rented"),
+            (func.coalesce(func.sum(
+                func.greatest(
+                    0,
+                    func.datediff(
+                        func.least(RentalDetail.date_out, end_date),
+                        func.greatest(RentalDetail.date_in, start_date)
+                    )
+                )
+            ), 0) / total_days_in_month * 100).label("usage_rate")
+        )
+        .join(RentalDetail, Room.id == RentalDetail.room_id)
+        .group_by(Room.id)
+        .order_by(Room.id)
+        .all()
+    )
+    
+    result_with_stt = [
+        {
+            "stt": index + 1,
+            "room_id": row.room_id,
+            "room_name": row.room_name,
+            "days_rented": row.days_rented,
+            "usage_rate": round(row.usage_rate, 2) 
+        }
+        for index, row in enumerate(result)
+    ]
+    
+    return result_with_stt
+    
 if __name__ == '__main__':
     with app.app_context():
         # u = check_user(username='dat', password=str(123), role=UserRole.USER)
         # print(u)
         # b = get_booking()
         # print(b)
-        print(revenue_stats_Room(month=2, year=2024))
+        # print(revenue_stats_Room(month=2, year=2024))
+        stats = frequency_stats_Room(month=12, year=2024)
+        for item in stats:
+            print(item)
 

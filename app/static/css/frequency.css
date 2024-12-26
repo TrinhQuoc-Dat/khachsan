@@ -1,0 +1,15 @@
+.format-chart canvas {
+      width: 400px; 
+      height: 400px;    
+}
+
+.format-button button {
+      margin-left: 20px;
+}
+
+.format-button button a{
+      color: white;
+}
+.format-button button a:hover{
+      text-decoration: none;
+}

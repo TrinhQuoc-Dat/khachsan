@@ -250,10 +250,6 @@ def check_username():
     else:
         return jsonify({'code': 200})
 
-@app.route('/admin/revenueStats', methods=['GET'])
-def revenueStats():
-    return render_template('admin/revenueStats.html')
-
 @app.route('/api/revenue', methods=['POST'])
 def revenueStats_by_time():
     data = request.get_json()
@@ -262,6 +258,31 @@ def revenueStats_by_time():
         "normal": stats[0],
         "vip": stats[1]
     })
+    
+
+
+@app.route('/api/frequency', methods=['POST'])
+def frequency_by_time():
+    # Lấy dữ liệu từ request
+    data = request.get_json()
+
+    month = data.get('month', datetime.now().month)  # Nếu không có tháng, sử dụng tháng hiện tại
+    year = data.get('year', datetime.now().year)  # Nếu không có năm, sử dụng năm hiện tại
+
+    # Gọi hàm thống kê
+    stats = dao.frequency_stats_Room(month=month, year=year)
+
+    result = [
+        {
+            'stt': index + 1,
+            'room_id': row["room_id"],
+            'room_name': row["room_name"],
+            'days_rented': row["days_rented"],
+            'usage_rate': row["usage_rate"]
+        }
+        for index, row in enumerate(stats)
+    ]
+    return jsonify(result)
 
 @app.route('/admin/frequencyStats', methods=['GET'])
 def frequencyStats():
@@ -288,11 +309,11 @@ def booking():
     has_next = page < end
 
     return render_template('booking.html', 
-                           rooms = dao.get_rooms(page=page), 
-                           pages=end,
-                           page=page,
-                           has_next=has_next,
-                           has_prev=has_prev)
+                            rooms = dao.get_rooms(page=page), 
+                            pages=end,
+                            page=page,
+                            has_next=has_next,
+                            has_prev=has_prev)
 
 
 # // http://127.0.0.1:5000/booking-detail=1

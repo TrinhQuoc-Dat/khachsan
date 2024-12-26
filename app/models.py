@@ -6,6 +6,7 @@ from app import db, app
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from datetime import datetime, timedelta
+
 class UserRole(EnumRole):
     USER = 1
     ADMIN = 2
@@ -43,12 +44,8 @@ class Employee(db.Model):
         return self.full_name
 
 class CustomerType(EnumRole):
-    DOMESTIC = (1, 1.0) 
-    FOREIGN = (2, 1.5)
-
-    def __init__(self, id, multiplier):
-        self.id = id
-        self.multiplier = multiplier
+    DOMESTIC = 1.0 
+    FOREIGN = 1.5
 
 class Customer(db.Model):
     __tablename__ = 'customer'
@@ -112,13 +109,9 @@ class StatusRoom(EnumRole):
 
 
 class MaxCustomer(EnumRole):
-    MOT = (1, 1.0)
-    HAI = (2, 1.0)
-    BA = (3, 1.25)
-    def __init__(self, id, multiplier):
-        self.id = id
-        self.multiplier = multiplier
-
+    MOT = 1.0
+    HAI = 1.0
+    BA = 1.25
 
 class Room(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
