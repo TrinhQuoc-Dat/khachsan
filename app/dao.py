@@ -229,7 +229,6 @@ def load_hotel_data(file_name):
 
 
 def revenue_stats_Room(month=None,  year=datetime.now().year):
-    # Query to calculate statistics for NORMAL rooms
     normal_stats = db.session.query(
         func.sum(
             Room.price * 
@@ -239,16 +238,15 @@ def revenue_stats_Room(month=None,  year=datetime.now().year):
         ).label('total_revenue'),
         func.count(RentalDetail.id).label('rental_count')
     ).join(
-        RentalDetail, Room.id == RentalDetail.room_id
+        RentalDetail, Room.id.__eq__(RentalDetail.room_id)
     ).join(
-        Customer, RentalDetail.customer_id == Customer.id
+        Customer, RentalDetail.customer_id.__eq__(Customer.id)
     ).filter(
-        func.extract('year', RentalDetail.date_in) == year,
-        func.extract('month', RentalDetail.date_in) == month,  # Chỉ lọc theo tháng được chọn
+        func.extract('year', RentalDetail.date_in).__eq__(year),
+        func.extract('month', RentalDetail.date_in).__eq__(month),  # Chỉ lọc theo tháng được chọn
         Room.type_room == 'NORMAL'
     ).all()
 
-    # Query to calculate statistics for VIP rooms
     vip_stats = db.session.query(
         func.sum(
             Room.price * 
@@ -259,12 +257,12 @@ def revenue_stats_Room(month=None,  year=datetime.now().year):
         ).label('total_revenue'),
         func.count(RentalDetail.id).label('rental_count')
     ).join(
-        RentalDetail, Room.id == RentalDetail.room_id
+        RentalDetail, Room.id.__eq__(RentalDetail.room_id)
     ).join(
-        Customer, RentalDetail.customer_id == Customer.id
+        Customer, RentalDetail.customer_id.__eq__(Customer.id)
     ).filter(
-        func.extract('year', RentalDetail.date_in) == year,
-        func.extract('month', RentalDetail.date_in) == month, 
+        func.extract('year', RentalDetail.date_in).__eq__(year),
+        func.extract('month', RentalDetail.date_in).__eq__(month), 
         Room.type_room == 'VIP'
     ).all()
 

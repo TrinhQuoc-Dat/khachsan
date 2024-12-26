@@ -2,7 +2,6 @@ const monthPicker = document.getElementById('monthPicker');
 const tableBody = document.querySelector(".report-table tbody");
 const chartCtx = document.getElementById("myChart").getContext("2d");
 
-// Khai báo biến chart ở phạm vi global
 let chart = null;
 
 // Lấy tháng năm mặc định khi load trang
@@ -17,8 +16,8 @@ function fetchAndUpdateStats(month, year) {
                   'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                  month: parseInt(month),  // Đảm bảo month là số
-                  year: parseInt(year)     // Đảm bảo year là số
+                  month: parseInt(month),
+                  year: parseInt(year)   
             })
       })
             .then(response => {
@@ -43,7 +42,7 @@ function updateTable(data) {
       let tableContent = "";
 
       data.forEach((row, index) => {
-            const usageRate = parseFloat(row.usage_rate).toFixed(2);
+            const usageRate = parseFloat(row.usage_rate).toFixed(1);
             tableContent += `
                   <tr>
                   <td>${index + 1}</td>
@@ -58,12 +57,13 @@ function updateTable(data) {
 }
 
 function updateChart(data) {
-      // Destroy chart cũ nếu tồn tại
+      // Xóa chart cũ nếu tồn tại
       if (chart) {
             chart.destroy();
       }
-
+       // Tạo mảng các nhãn cho biểu đồ từ dữ liệu (tên các phòng)
       const labels = data.map(row => row.room_name);
+      // Tạo mảng tỷ lệ sử dụng (usage rate) của các phòng từ dữ liệu
       const usageRates = data.map(row => parseFloat(row.usage_rate));
 
       chart = new Chart(chartCtx, {

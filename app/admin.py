@@ -100,7 +100,7 @@ class RentalRoom(BaseView):
         return (current_user.is_authenticated and
                 current_user.user_role.__eq__(UserRole.EMPLOYEE))
 
-class MyAdminIndex(AdminIndexView):
+class MyAdminIndexView(AdminIndexView):
       @expose('/')
       def __index__(self):
             return self.render('/admin/index.html')
@@ -339,7 +339,7 @@ class RentalDetailView(AuthenticatecModelView):
 admin = Admin(app=app,
             name="Hotel Management", 
             template_mode='bootstrap4',
-            index_view=MyAdminIndex())
+            index_view=MyAdminIndexView())
 
 class UploadForm(FlaskForm):
       file = FileField('Upload File', validators=[

@@ -5,6 +5,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+      
 <link rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -17,6 +18,106 @@
 {% block body %}
 {% if current_user.is_authenticated %}
 <h1>WELCOM {{ current_user.name }} TO ADMINISTRAYTION WEBSITE!!!</h1>
+<h3 class="text-center text-danger">Thông tin tổng quan</h3>
+<div class="container">
+      <div class="row">
+            <div class="col-md-5 Overview">
+                        <!-- Card 1 -->
+                        <div>
+                              <div class="card card-custom p-3">
+                              <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                          <h5>Phòng Trống</h5>
+                                          <h2 class="fw-bold">0</h2>
+                                    </div>
+                                    <div class="icon-wrapper bg-primary text-white">
+                                          <i class="bi bi-house"></i>
+                                    </div>
+                              </div>
+                              </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div>
+                              <div class="card card-custom p-3">
+                              <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                          <h5>Phòng Đã Đặt</h5>
+                                          <h2 class="fw-bold">0</h2>
+                                    </div>
+                                    <div class="icon-wrapper bg-success text-white">
+                                          <i class="bi bi-building"></i>
+                                    </div>
+                              </div>
+                              </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div>
+                              <div class="card card-custom p-3">
+                              <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                          <h5>Khách Hiện Tại</h5>
+                                          <h2 class="fw-bold">0</h2>
+                                    </div>
+                                    <div class="icon-wrapper bg-info text-white">
+                                          <i class="bi bi-people"></i>
+                                    </div>
+                              </div>
+                              </div>
+                        </div>
+                        <!-- Card 4 -->
+                        <div>
+                              <div class="card card-custom p-3">
+                              <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                          <h5>Đặt Phòng Hôm Nay</h5>
+                                          <h2 class="fw-bold">0</h2>
+                                    </div>
+                                    <div class="icon-wrapper bg-warning text-white">
+                                          <i class="bi bi-calendar-event"></i>
+                                    </div>
+                              </div>
+                              </div>
+                        </div>
+                        <!-- Card 5 -->
+                        <div>
+                              <div class="card card-custom p-3">
+                              <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                          <h5>Doanh Thu Tháng</h5>
+                                          <h2 class="fw-bold">0 đ</h2>
+                                    </div>
+                                    <div class="icon-wrapper bg-danger text-white">
+                                          <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                              </div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+
+      </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% else %}
 <h1 class="text-center text-danger">Dang nhap trang ADMIN</h1>
 <form method="post" action="{{ url_for('singin_admin') }}">
