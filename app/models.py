@@ -109,9 +109,13 @@ class StatusRoom(EnumRole):
 
 
 class MaxCustomer(EnumRole):
-    MOT = 1.0
-    HAI = 1.0
-    BA = 1.25
+    MOT = (1, 1.0)
+    HAI = (2, 1.0)
+    BA = (3, 1.25)
+
+    def __init__(self, id, multiplier):
+        self.id = id
+        self.multiplier = multiplier
 
 class Room(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)

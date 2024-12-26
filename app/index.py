@@ -9,8 +9,8 @@ import cloudinary
 import json
 from app import login
 from datetime import datetime, timedelta, date
-
-
+from app.models import User, Customer, UserRole, Employee, Booking, Room,StatusRoom, BookingDetail, RentalReceipt, Payment, RentalDetail
+from sqlalchemy import func,and_
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -258,8 +258,6 @@ def revenueStats_by_time():
         "normal": stats[0],
         "vip": stats[1]
     })
-    
-
 
 @app.route('/api/frequency', methods=['POST'])
 def frequency_by_time():
@@ -294,6 +292,44 @@ def common_response():
         "cart_stats": dao.count_cart(session.get('cart'))
     }
 
+@app.route('/api/overview', methods=['GET', 'POST'])
+def get_overview():
+    try:
+        
+        today = datetime.now().date()
+        current_month = today.month
+        current_year = today.year
+        # Số phòng trống
+        empty_rooms = Room.query.filter_by(status=StatusRoom.EMPTY).count()
+        # Số phòng đã đặt
+        booked_rooms = Room.query.filter_by(status=StatusRoom.BOOK).count()
+        # Số khách hiện tại đang ở
+        current_guests = db.session.query(func.count(RentalDetail.id)).filter(
+            and_(
+                RentalDetail.date_in <= datetime.now(),
+                RentalDetail.date_out >= datetime.now(),
+            )
+        ).scalar() or 0
+        
+        booking_today = Booking.query.filter(func.date(Booking.created_date.__eq__(today))).count()
+    
+        current_month_revenue = db.session.query(func.sum(Payment.amount)).filter(
+            and_(
+                func.extract('month', Payment.created_date) == current_month,
+                func.extract('year', Payment.created_date) == current_year
+            )
+        ).scalar() or 0
+        
+        return jsonify({
+            'empty_rooms': empty_rooms,
+            'booked_rooms': booked_rooms,
+            'current_guests': current_guests,
+            'booking_today': booking_today,
+            'month_revenue': float(current_month_revenue)
+        })
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/sign-out')
 def logout():

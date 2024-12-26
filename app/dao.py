@@ -201,7 +201,7 @@ def count_room(name_room=None, date_in=None, date_out=None, type_room=None):
             )
         )
     if type_room:
-        query = query.filter(Room.type_room == type_room)
+        query = query.filter(Room.type_room.__eq__(type_room))
 
     return query.count()
 
@@ -233,7 +233,7 @@ def revenue_stats_Room(month=None,  year=datetime.now().year):
         func.sum(
             Room.price * 
             RentalDetail.discount * 
-            func.IF(Room.max_customer == MaxCustomer.MOT or Room.max_customer == MaxCustomer.HAI, MaxCustomer.MOT.value and MaxCustomer.HAI.value, MaxCustomer.BA.value) *
+            func.IF(Room.max_customer == MaxCustomer.MOT or Room.max_customer == MaxCustomer.HAI, MaxCustomer.MOT.value[1] and MaxCustomer.HAI.value[1], MaxCustomer.BA.value[1]) *
             func.IF(Customer.type_customer == CustomerType.FOREIGN, CustomerType.FOREIGN.value, CustomerType.DOMESTIC.value)
         ).label('total_revenue'),
         func.count(RentalDetail.id).label('rental_count')
@@ -252,7 +252,7 @@ def revenue_stats_Room(month=None,  year=datetime.now().year):
             Room.price * 
             RentalDetail.discount * 
             RentalDetail.number_customer * 
-            func.IF(Room.max_customer == MaxCustomer.MOT or Room.max_customer == MaxCustomer.HAI, MaxCustomer.MOT.value and MaxCustomer.HAI.value, MaxCustomer.BA.value) *
+            func.IF(Room.max_customer == MaxCustomer.MOT or Room.max_customer == MaxCustomer.HAI, MaxCustomer.MOT.value[1] and MaxCustomer.HAI.value[1], MaxCustomer.BA.value[1]) *
             func.IF(Customer.type_customer == CustomerType.FOREIGN, CustomerType.FOREIGN.value, CustomerType.DOMESTIC.value)
         ).label('total_revenue'),
         func.count(RentalDetail.id).label('rental_count')
