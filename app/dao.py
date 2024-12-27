@@ -1,4 +1,4 @@
-from app.models import User, UserRole, Room,MaxCustomer,Payment,StatusBooking, StatusRoom,BookingDetail,Employee, RentalReceipt,RentalDetail, TypeRoom, Customer, CustomerType, OrderType, Booking
+from app.models import User, UserRole, Room,MaxCustomer,Comment,Payment,StatusBooking, StatusRoom,BookingDetail,Employee, RentalReceipt,RentalDetail, TypeRoom, Customer, CustomerType, OrderType, Booking
 from sqlalchemy import and_, or_, func,extract
 from app import app, db, login
 import hashlib
@@ -64,7 +64,7 @@ def count_cart(cart):
     if cart: 
         for c in cart.values():
             total_quantity += 1
-            total_amount += c['price'] * int(c['day'])
+            total_amount += c['price'] * int(c['day']) * 0.9
 
     return {
         'total_quantity': total_quantity,
@@ -93,10 +93,34 @@ def add_booking(total_amount, total_customer, customer, employee_id = None, orde
                 total_amount = total_amount,
                 order_type_id = order_type_id,
                 employee_id = employee_id,
-                user = current_user)
+                user = current_user, 
+                )
     db.session.add(b)
     db.session.commit()
     return b
+
+
+
+def add_payment(rental_id, customer_id,amount):
+    p = Payment(rental_receipt_id = rental_id, customer_id = customer_id, amount = amount)
+    db.session.add(p)
+    db.session.commit()
+
+    return p
+
+def add_comment (comment, room_id, title, star):
+    c = Comment(comment = comment,
+                title=title,
+                star=star, 
+                room_id = room_id, 
+                user = current_user)
+    db.session.add(c)
+    db.session.commit()
+    return c
+
+def get_comment(id):
+    return Comment.query.filter(Comment.room_id.__eq__(id)).order_by(-Comment.id).all()
+
 
 def get_booking_rental(id):
     b = db.session.query(Room.id, Room.price, BookingDetail.id, BookingDetail.date_in, 

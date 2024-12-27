@@ -107,6 +107,7 @@ class RentalRoom(BaseView):
                         check_out_date = booking[7]
                         customer_id = booking[8]
                         customer_name = booking[9]
+                        
                         discount = booking[10]
 
                         if not grouped_data[customer_id]['customer_id']:

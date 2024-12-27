@@ -59,7 +59,8 @@ def reservation():
                                             date_in=r['date_in'],
                                             date_out=r['date_out'],
                                             booking = booking,
-                                            customer = c)
+                                            customer = c,
+                                            discount = 0.9)
             session.pop('cart', None)
             return redirect('/reservation')
     
@@ -451,21 +452,49 @@ def booking():
                             has_next=has_next,
                             has_prev=has_prev)
 
+@app.route('/api/comment', methods=['POST'])
+@login_required
+def add_comment():
+    data = request.json
+    title = data.get('title')
+    comment = data.get('comment')
+    room_id = data.get('room_id')
+    star = data.get('star')
+    
+    try:
+        c = dao.add_comment(star=star,
+                            comment = comment, 
+                            room_id = room_id, 
+                            title=title)
+        return jsonify({'status': 201, 'comment': {
+            'id': c.id,
+            'title': c.title,
+            'comment': c.comment,
+            'created_date': c.created_date,
+            'star': c.star,
+            'avatar': current_user.avatar,
+            'name': current_user.username
+        }})
+    except:
+        return jsonify({'status': 404, 'err_msg': "lỗi"})
 
-# // http://127.0.0.1:5000/booking-detail=1
+
 @app.route('/booking-detail/<int:hotel_id>', methods=['get', 'post'])
 def booking_detail(hotel_id):
     room = None
     if hotel_id:
         try:
+            comment = dao.get_comment(hotel_id)
             room = dao.get_room_id(hotel_id)
             with open(f'app/data/hotel1.json', 'r', encoding='utf-8') as file:
                 hotel_data = json.load(file)
+                print(comment)
         except Exception as ex:
             return f"Không tìm thấy phòng có ID là {{ hotel_id }}" + hotel_id
     else:
         hotel_data = {} 
-    return render_template('bookingDetail.html', hotel=hotel_data, room=room)
+    return render_template('bookingDetail.html', hotel=hotel_data, 
+                           room=room, comment=comment)
 
 if __name__ == '__main__':
     from app.admin import *

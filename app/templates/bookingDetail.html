@@ -8,8 +8,8 @@
 
 {% block js %}
 <script src="../static/js/likeComment.js"></script>
-<script src="{{ url_for('static', filename='js/loadRoomPrice.js') }}"></script>
-<script>loadRoomPrice(1);</script>
+<script src="../static/js/addComment.js"></script>
+
 {% endblock %}
 
 {% block content %}
@@ -242,7 +242,7 @@
                             <h5>Giá phòng:  </h5>
                         </div>
                         <div>
-                            <h4 class="text-danger">{{ '{:,.0f}'.format(room['price']) }} VND</h4>    
+                            <h4 class="text-danger">{{ '{:,.0f}'.format(room['price'] * 0.9) }} VND</h4>    
                         </div>
                     </div>
                 </div>
@@ -476,102 +476,161 @@
 
     <!-- bình luận của khách hàng  -->
 
-    <div class="container row">
-        <div class="col-md-3 col-xs-12 d-flex align-items-center">
-            <div>
-                {% if current_user.avatar %}
-                <img class="rounded-circle" src="{{ current_user.avatar }}" width="150px" alt="{{ current_user.username }}"/>
-                {% else %}
-                <img src="{{ current_user.avatar }}" width="50px" alt="{{ current_user.username }}"/>
-                {% endif %}
-            </div>
-            <div class="ms-3">
-                <h6>{{ current_user.username }}</h6>
-            </div>
-        </div>
-        <div class="col-md-9 col-xs-12">
-            <div class="form-group">
-                <label for="exampleInputEmail1">Nhập title của bình luận: </label>
-                <input type="email" class="form-control" id="title-new" aria-describedby="emailHelp" placeholder="Nhập title...">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Nội dung bình luận</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Đánh giá sao 5 <i class="fa-solid fa-star" style="color: #FFD43B;"></i></label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option selected value="5">5</option>
-                </select>
-            </div>
-            <div class="d-flex justify-content-between mt-2">
-                <div></div>
+    <div >
+        <div class="container row">
+            {% if current_user.is_authenticated %}
+            <div class="col-md-3 col-xs-12 d-flex align-items-center">
                 <div>
-                    <input type="button" value="Bình luận" class="btn btn-danger" />
+                    {% if current_user.avatar %}
+                    <img class="rounded-circle" src="{{ current_user.avatar }}" width="150px" alt="{{ current_user.username }}"/>
+                    {% else %}
+                    <img src="{{ current_user.avatar }}" width="50px" alt="{{ current_user.username }}"/>
+                    {% endif %}
+                </div>
+                <div class="ms-3">
+                    <h6>{{ current_user.username }}</h6>
                 </div>
             </div>
+            <div class="col-md-9 col-xs-12">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nhập title của bình luận: </label>
+                    <input type="email" class="form-control" id="title-new" aria-describedby="emailHelp" placeholder="Nhập title...">
+                </div>
+                <div class="form-group">
+                    <label for="commentId">Nội dung bình luận</label>
+                    <textarea class="form-control" id="commentId" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Đánh giá sao 5 <i class="fa-solid fa-star" style="color: #FFD43B;"></i></label>
+                    <select class="form-control" id="star">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option selected value="5">5</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-between mt-2">
+                    <div></div>
+                    <div >
+                        <input type="button" onclick="addComment('{{room.id}}')" value="Bình luận" class="btn btn-danger" />
+                    </div>
+                </div>
+                
+            </div>
+            {% else  %}
+                <div class="d-flex justify-content-between mt-4">
+                    <div></div>
+                    <div class="alert alert-warning">Vui lòng <a href="{{url_for('login') }}">đăng nhập</a> để bình luận</div>
+                </div>
+            {% endif %}
         </div>
     </div>
+
     <div class="container">
         
         
-
-
-
-        {% for i in range(6) %}
-        <div class="row d-flex align-items-center mt-3 p-3"
-            style="border-bottom: 1px solid #cfd8e8;">
-            <div class="col-md-3">
-                <div class="row">
-                    <div class="col-md-4 image-container">
-                        <img
-                            src="{{hotel['comments']['comment' + i|string]['img']}}"
-                            alt="image user">
-                    </div>
-                    <div class="col-md-8">
-                        <div
-                            class="name">{{hotel['comments']['comment' +
-                            i|string]['name']}}</div>
-                        <div
-                            class="date">{{hotel['comments']['comment' +
-                            i|string]['birthday']}}</div>
-                        <div class="details">
-                            <span>🛏
-                                {{hotel['comments']['comment' +
-                                i|string]['info1']}}</span>
-                            <span>📅
-                                {{hotel['comments']['comment' +
-                                i|string]['info2']}}</span>
-                            <span><i class="fa-solid fa-person"
-                                    style="color: #FFD43B;"></i> <i
-                                    class="fa-solid fa-person"
-                                    style="color: #74C0FC;"></i>
-                                {{hotel['comments']['comment' +
-                                i|string]['Room-type']}}</span>
+        <div id="commentArea">
+        {% if comment %}
+        {% for c in comment %}
+            <div class="row d-flex align-items-center mt-3 p-3"
+                style="border-bottom: 1px solid #cfd8e8;">
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-4 image-container">
+                            <img
+                                src="{{ current_user.avatar }}"
+                                alt="image user">
+                        </div>
+                        <div class="col-md-8">
+                            <div
+                                class="name">{{ current_user.username }}</div>
+                            <div
+                                class="date">{{ c.created_date }}</div>
+                            <div class="details">
+                                <span>🛏
+                                    Phòng có ban công hướng núi...</span>
+                             <span>📅 2 đêm · tháng 8, 2024   gia đình</span>
+                             <span><i class="fa-solid fa-person"
+                                         style="color: #FFD43B;"></i> <i
+                                         class="fa-solid fa-person"
+                                         style="color: #74C0FC;"></i>
+                                      gia đình</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-9">
-                <h4>{{hotel['comments']['comment' +
-                    i|string]['title']}}</h4>
-                <div class="rating">
-                    <span class="rating-score">{{hotel['comments']['comment' +
-                        i|string]['Evaluate1']}}</span>
-                    <span class="rating-text">{{hotel['comments']['comment' +
-                        i|string]['Evaluate2']}}</span>
+                <div class="col-md-9">
+                    <h4>{{ c.title }}</h4>
+                    <div class="rating">
+                        <span class="rating-score">{{ c.star}}</span>
+                              <span class="rating-text">Xuất sắc</span>
+                    </div>
+                    <p>
+                        {{ c.comment }}
+                    </p>
+                    <div class="feedback useful-information">
+                        <i class="fa-solid fa-thumbs-up like-comment"></i> Thích
+                        Đánh giá này có hữu
+                        ích với bạn không?
+                    </div>
                 </div>
-                <p>
-                    {{hotel['comments']['comment' + i|string]['comment']}}
-                </p>
-                <div class="feedback useful-information">
-                    <i class="fa-solid fa-thumbs-up like-comment"></i> Thích
-                    Đánh giá này có hữu
-                    ích với bạn không?
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% for i in range(6) %}
+        <div>
+            <div class="row d-flex align-items-center mt-3 p-3"
+                style="border-bottom: 1px solid #cfd8e8;">
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-4 image-container">
+                            <img
+                                src="{{hotel['comments']['comment' + i|string]['img']}}"
+                                alt="image user">
+                        </div>
+                        <div class="col-md-8">
+                            <div
+                                class="name">{{hotel['comments']['comment' +
+                                i|string]['name']}}</div>
+                            <div
+                                class="date">{{hotel['comments']['comment' +
+                                i|string]['birthday']}}</div>
+                            <div class="details">
+                                <span>🛏
+                                    {{hotel['comments']['comment' +
+                                    i|string]['info1']}}</span>
+                                <span>📅
+                                    {{hotel['comments']['comment' +
+                                    i|string]['info2']}}</span>
+                                <span><i class="fa-solid fa-person"
+                                        style="color: #FFD43B;"></i> <i
+                                        class="fa-solid fa-person"
+                                        style="color: #74C0FC;"></i>
+                                    {{hotel['comments']['comment' +
+                                    i|string]['Room-type']}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <h4>{{hotel['comments']['comment' +
+                        i|string]['title']}}</h4>
+                    <div class="rating">
+                        <span class="rating-score">{{hotel['comments']['comment' +
+                            i|string]['Evaluate1']}}</span>
+                        <span class="rating-text">{{hotel['comments']['comment' +
+                            i|string]['Evaluate2']}}</span>
+                    </div>
+                    <p>
+                        {{hotel['comments']['comment' + i|string]['comment']}}
+                    </p>
+                    <div class="feedback useful-information">
+                        <i class="fa-solid fa-thumbs-up like-comment"></i> Thích
+                        Đánh giá này có hữu
+                        ích với bạn không?
+                    </div>
                 </div>
             </div>
         </div>

@@ -166,7 +166,7 @@ function addRentalData() {
         const price = selectedRoom ? selectedRoom.price : 0;
         const days = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24))
         const numberCustomer = document.getElementById('number-cus' + String(id)).value
-        let totalAmount = price * days
+        let totalAmount = price * days 
         if (numberCustomer == 3){
             totalAmount *= 1.25
         }
