@@ -1,4 +1,4 @@
-from app.models import User, UserRole, Room,MaxCustomer, StatusRoom,BookingDetail,Employee, RentalReceipt,RentalDetail, TypeRoom, Customer, CustomerType, OrderType, Booking
+from app.models import User, UserRole, Room,MaxCustomer,Payment, StatusRoom,BookingDetail,Employee, RentalReceipt,RentalDetail, TypeRoom, Customer, CustomerType, OrderType, Booking
 from sqlalchemy import and_, or_, func,extract
 from app import app, db, login
 import hashlib
@@ -18,7 +18,6 @@ def check_user(username, password, role=UserRole.USER):
 @login.user_loader
 def user_load(user_id):
     return User.query.get(user_id)
-
 
 def get_user_by_username(username):
     return User.query.filter(User.username.__eq__(username)).first()
@@ -51,7 +50,6 @@ def get_room_search(name_room=None, date_in=None, date_out=None, type_room=None)
     
     return room.all()
 
-
 def count_cart(cart):
     total_quantity, total_amount = 0, 0
 
@@ -81,7 +79,6 @@ def add_customer(name, email, cccd, phone = None, address=None , type_customer =
     db.session.commit()
     return c
 
-
 def add_booking(total_amount, total_customer, customer, employee_id = None, order_type_id = OrderType.ONLINE ):
     b = Booking(total_customer = total_customer,
                 customer = customer,
@@ -93,7 +90,6 @@ def add_booking(total_amount, total_customer, customer, employee_id = None, orde
     db.session.commit()
     return b
 
-
 def get_booking_rental(id):
     b = db.session.query(Room.id, Room.price, BookingDetail.id, BookingDetail.date_in, 
                          BookingDetail.date_out, BookingDetail.discount, Customer.id, Customer.full_name)\
@@ -103,7 +99,6 @@ def get_booking_rental(id):
     
     return b.all()
 
-
 def get_employee(user_id):
     return Employee.query.filter(Employee.user_id.__eq__(user_id)).first()
 
@@ -112,7 +107,6 @@ def add_rental_receipt(employee_id, total_amount = None, note = None):
     db.session.add(r)
     db.session.commit()
     return r
-
 
 def add_rental_detail(date_in, date_out, total_amount, number_customer, room_id, rental_receipt_id):
     r = RentalDetail(date_in=date_in,
@@ -144,17 +138,8 @@ def get_booking_name(name):
                           .filter(Customer.full_name.contains(name), BookingDetail.delete.__eq__(0))
     return b.all()
 
-
-# def get_name_booking(name):
-#     b = db.session.query(Booking.id, Booking.created_date, Booking.total_amount, Customer.id, Customer.full_name)\
-#                         .join(Customer, Booking.customer_id.__eq__(Customer.id))\
-#                         .filter(Customer.full_name.contains(name))
-#     return b.all()
-
-
 def get_booking_detail(id):
     return BookingDetail.query.get(id)
-
 
 def delete_booking_detail(id):
     book = get_booking_detail(id)
@@ -162,7 +147,6 @@ def delete_booking_detail(id):
     book.delete = True
     db.session.commit()
     return book
-
 
 def add_bookingdetail(date_in, date_out, room_id, booking, customer, discount = 1):
     bd = BookingDetail(date_in = date_in,
@@ -205,7 +189,6 @@ def count_room(name_room=None, date_in=None, date_out=None, type_room=None):
 
     return query.count()
 
-
 def add_user(username, password, avatar, role, email):
     password = str(hashlib.md5(password.strip().encode('utf-8')).hexdigest())
     u = User(username = username,
@@ -226,7 +209,6 @@ def load_hotel_data(file_name):
     file_path = os.path.join("data", file_name)
     with open(file_path, "r", encoding="utf-8") as file:
         return json.load(file)
-
 
 def revenue_stats_Room(month=None,  year=datetime.now().year):
     normal_stats = db.session.query(
@@ -325,6 +307,15 @@ def frequency_stats_Room(month=None, year=datetime.now().year):
     
     return result_with_stt
     
+def revenue_by_month(time='month', year=datetime.now().year):
+    return db.session.query(
+        func.extract(time, Payment.created_date),
+        func.sum(Payment.amount).label('total_amount')
+    )\
+    .filter(func.extract('year', Payment.created_date) == year)\
+    .group_by(func.extract(time, Payment.created_date))\
+    .order_by(func.extract(time, Payment.created_date)).all()
+
 if __name__ == '__main__':
     with app.app_context():
         # u = check_user(username='dat', password=str(123), role=UserRole.USER)
@@ -332,7 +323,7 @@ if __name__ == '__main__':
         # b = get_booking()
         # print(b)
         # print(revenue_stats_Room(month=2, year=2024))
-        stats = frequency_stats_Room(month=12, year=2024)
-        for item in stats:
-            print(item)
-
+        # stats = frequency_stats_Room(month=12, year=2024)
+        # for item in stats:
+        #     print(item)
+        print(revenue_by_month())

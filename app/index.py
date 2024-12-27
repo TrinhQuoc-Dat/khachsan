@@ -55,7 +55,6 @@ def reservation():
     print(booking)
     return render_template('reservation.html', booking=booking)
 
-
 @app.route('/login-admin', methods=['post'])
 def singin_admin():
     username = request.form.get("username")
@@ -97,7 +96,6 @@ def search_room():
             'error' : str(ex)
         })
 
-
 @app.route('/api/add-room-cart', methods=['post'])
 @login_required
 def add_room_cart():
@@ -137,7 +135,6 @@ def add_room_cart():
     session['cart'] = cart
     return jsonify({'code': 300, 'mess': dao.count_cart(cart)})
 
-
 @app.route('/api/delete-room', methods=["post"])
 def delete_room_cart():
     id = request.json.get('id')
@@ -147,7 +144,6 @@ def delete_room_cart():
         session['cart'] = cart
         print(cart)
     return jsonify({'mess': dao.count_cart(cart)})
-
 
 @app.route('/api/delete-booking-detail/<int:id>', methods=['delete'])
 @login_required
@@ -174,8 +170,6 @@ def search_customer():
     except Exception as ex:
         return jsonify({'code ': 500, 'error': str(ex)})
     
-
-
 @app.route('/api/lap-phieu-thue-phong', methods=['post'])
 @login_required
 def rental_room():
@@ -189,8 +183,6 @@ def rental_room():
     print(rental)
 
     return jsonify({'code' : 200})
-
-
 
 @app.route('/login', methods=['post', 'get'])
 def login():
@@ -286,50 +278,56 @@ def frequency_by_time():
 def frequencyStats():
     return render_template('admin/frequencyStats.html')
 
+@app.route('/api/overview', methods=['GET']) 
+def overView():
+    stats = dao.revenue_by_month()
+    data = [{'month': int(s[0]), 'revenue': float(s[1])} for s in stats]
+    return jsonify(data)
+
 @app.context_processor
 def common_response():
     return {
         "cart_stats": dao.count_cart(session.get('cart'))
     }
 
-@app.route('/api/overview', methods=['GET', 'POST'])
-def get_overview():
-    try:
+# @app.route('/api/overview', methods=['GET'])
+# def get_overview():
+#     try:
         
-        today = datetime.now().date()
-        current_month = today.month
-        current_year = today.year
-        # Số phòng trống
-        empty_rooms = Room.query.filter_by(status=StatusRoom.EMPTY).count()
-        # Số phòng đã đặt
-        booked_rooms = Room.query.filter_by(status=StatusRoom.BOOK).count()
-        # Số khách hiện tại đang ở
-        current_guests = db.session.query(func.count(RentalDetail.id)).filter(
-            and_(
-                RentalDetail.date_in <= datetime.now(),
-                RentalDetail.date_out >= datetime.now(),
-            )
-        ).scalar() or 0
+#         today = datetime.now().date()
+#         current_month = today.month
+#         current_year = today.year
+#         # Số phòng trống
+#         empty_rooms = Room.query.filter_by(status=StatusRoom.EMPTY).count()
+#         # Số phòng đã đặt
+#         booked_rooms = Room.query.filter_by(status=StatusRoom.BOOK).count()
+#         # Số khách hiện tại đang ở
+#         current_guests = db.session.query(func.count(RentalDetail.id)).filter(
+#             and_(
+#                 RentalDetail.date_in <= datetime.now(),
+#                 RentalDetail.date_out >= datetime.now(),
+#             )
+#         ).scalar() or 0
         
-        booking_today = Booking.query.filter(func.date(Booking.created_date.__eq__(today))).count()
+#         booking_today = Booking.query.filter(func.date(Booking.created_date.__eq__(today))).count()
     
-        current_month_revenue = db.session.query(func.sum(Payment.amount)).filter(
-            and_(
-                func.extract('month', Payment.created_date) == current_month,
-                func.extract('year', Payment.created_date) == current_year
-            )
-        ).scalar() or 0
+#         current_month_revenue = db.session.query(func.sum(Payment.amount)).filter(
+#             and_(
+#                 func.extract('month', Payment.created_date) == current_month,
+#                 func.extract('year', Payment.created_date) == current_year
+#             )
+#         ).scalar() or 0
         
-        return jsonify({
-            'empty_rooms': empty_rooms,
-            'booked_rooms': booked_rooms,
-            'current_guests': current_guests,
-            'booking_today': booking_today,
-            'month_revenue': float(current_month_revenue)
-        })
+#         return jsonify({
+#             'empty_rooms': empty_rooms,
+#             'booked_rooms': booked_rooms,
+#             'current_guests': current_guests,
+#             'booking_today': booking_today,
+#             'month_revenue': float(current_month_revenue)
+#         })
     
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+#     except Exception as e:
+#         return jsonify({'error': str(e)}), 500
 
 @app.route('/sign-out')
 def logout():
@@ -350,7 +348,6 @@ def booking():
                             page=page,
                             has_next=has_next,
                             has_prev=has_prev)
-
 
 # // http://127.0.0.1:5000/booking-detail=1
 @app.route('/booking-detail=<int:hotel_id>', methods=['get', 'post'])

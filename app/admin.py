@@ -37,11 +37,16 @@ class RevenueStatsView(AuthenticatedView):
 
             return self.render('/admin/revenueStats.html', statsRevenue=dao.revenue_stats_Room(month=3, year=2024))
 
-
 class FrequencyStatsView(AuthenticatedView):
       @expose('/')
       def index(self):
             return self.render('/admin/frequencyStats.html')
+
+class OverviewStatsView(AuthenticatecModelView):
+      @expose('/')
+      def index(self):
+            return self.render('admin/index.html')
+      
 
 class PaymentConfirmation(BaseView):
       @expose('/')

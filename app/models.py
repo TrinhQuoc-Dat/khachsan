@@ -12,7 +12,6 @@ class UserRole(EnumRole):
     ADMIN = 2
     EMPLOYEE = 3
 
-
 class User(db.Model, UserMixin):
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String(50), nullable=False, unique=True)
@@ -75,14 +74,11 @@ class Customer(db.Model):
             'address': self.address,
         }
 
-
 class OrderType(EnumRole):
     ONLINE = 1
     OFFLINE = 2
     PHONE = 3
 
-
-        
 class Booking(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     created_date = Column(DateTime, default=datetime.now())
@@ -98,15 +94,11 @@ class TypeRoom(EnumRole):
     NORMAL = 1
     VIP = 2
     
-    
-
 class StatusRoom(EnumRole):
     EMPTY = 1
     BOOK = 2
     RENT = 3
     PROBLEM = 4
-
-
 
 class MaxCustomer(EnumRole):
     MOT = (1, 1.0)
@@ -157,7 +149,6 @@ class BookingDetail(db.Model):
             'delete': str(self.delete)
         }
 
-
 class RentalReceipt(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     created_date = Column(DateTime, default=datetime.now())
@@ -168,12 +159,10 @@ class RentalReceipt(db.Model):
     payments = relationship('Payment', backref='rental_receipt', lazy=True)
     rental_details = relationship('RentalDetail', backref='rental_receipt', lazy=True)
 
-
 class TypePayment(EnumRole):
     BANKING = 1
     MONEY = 2
     CART = 3
-
 
 class Payment(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -198,9 +187,6 @@ class RentalDetail(db.Model):
     rental_receipt_id = Column(Integer, ForeignKey(RentalReceipt.id), nullable=False)
     customer_id = Column(Integer, ForeignKey(Customer.id, ondelete='CASCADE'), nullable=False)
 
-
-
-
 class Comment(db.Model):
     id = Column(Integer, primary_key= True, autoincrement=True)
     title = Column(String(255), nullable=False)
@@ -210,7 +196,6 @@ class Comment(db.Model):
     
     user_id = Column(Integer, ForeignKey(User.id), nullable=False)
     room_id = Column(Integer, ForeignKey(Room.id), nullable=False)
-
 
 def seed_database2():
     # Tạo dữ liệu mẫu cho bảng User
@@ -356,6 +341,7 @@ def seed_database2():
     db.session.commit()
 
     print("Dữ liệu mẫu đã được thêm thành công!")
+
 if __name__ == '__main__':
     with app.app_context():
         pass
