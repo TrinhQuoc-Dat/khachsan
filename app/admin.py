@@ -50,8 +50,30 @@ class OverviewStatsView(AuthenticatecModelView):
 
 class PaymentConfirmation(BaseView):
       @expose('/')
-      def index(self):
-            return self.render('/admin/payment.html')
+      def index(self, **kwargs):
+            payment = dao.get_rental_payment()
+            payment_dict = {}
+            for p in payment:
+                  rental_id, total_amount, created_date, customer_id = p[0], p[1], p[2], p[9]
+                  detail = {
+                        "room_id": p[3],
+                        "customer_name": p[4],
+                        "room_name": p[5],
+                        "check_in_date": p[6],
+                        "check_out_date": p[7],
+                        "amount": p[8],
+                        }
+                  if rental_id not in payment_dict:
+                    payment_dict[rental_id] = {
+                        'rental_id': rental_id,
+                        'total_amount': total_amount,
+                        'created_date': created_date,
+                        'customer_id': customer_id,
+                        'details' : []
+                  }
+                    
+                  payment_dict[rental_id]['details'].append(detail)
+            return self.render('/admin/payment.html', payment_confirm = payment_dict)
       
       def is_accessible(self):
             return (current_user.is_authenticated and
@@ -60,6 +82,8 @@ class PaymentConfirmation(BaseView):
 class RentalRoom(BaseView):
     @expose('/')
     def index(self, **kwargs):
+            if request.method.__eq__("post"):
+                 pass
             name = request.args.get('name')
             bookings = None
             grouped_data = defaultdict(lambda: {
@@ -77,12 +101,13 @@ class RentalRoom(BaseView):
                         room_name = booking[1]
                         booking_id = booking[2]
                         booking_date = booking[3]
-                        total_amount = booking[4]
+                        price = booking[4]
                         booking_detail_id = booking[5]
                         check_in_date = booking[6]
                         check_out_date = booking[7]
                         customer_id = booking[8]
                         customer_name = booking[9]
+                        discount = booking[10]
 
                         if not grouped_data[customer_id]['customer_id']:
                               grouped_data[customer_id]['customer_id'] = customer_id
@@ -96,7 +121,7 @@ class RentalRoom(BaseView):
                               'booking_detail_id': booking_detail_id,
                               'check_in_date': check_in_date,
                               'check_out_date': check_out_date,
-                              'total_amount': total_amount
+                              'total_amount': price * discount * (check_out_date - check_in_date).days
                         }
 
             return self.render('/admin/RentalRoom.html', bookings=grouped_data)

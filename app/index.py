@@ -3,7 +3,7 @@ import math
 import cloudinary.uploader
 from app import app, db, dao, utils
 from flask import render_template, request, redirect, jsonify, url_for, session
-from app.models import UserRole
+from app.models import UserRole, StatusBooking, CustomerType
 from flask_login import login_user, logout_user, current_user, login_required
 import cloudinary
 import json
@@ -162,7 +162,6 @@ def search_customer():
     try:
         c = dao.search_customer(id)
         c = c.to_dict() if c else None
-        print(c)
         if c:
             return jsonify({'code': 200, 'customer': c })
         else:
@@ -173,16 +172,153 @@ def search_customer():
 @app.route('/api/lap-phieu-thue-phong', methods=['post'])
 @login_required
 def rental_room():
-    booking_id = request.json.get('bookind_id')
+    if request.method.__eq__('POST'):
+        try:
+            booking_id = request.json.get('booking_id')
+            customer_id = request.json.get('customer-id')
+            rooms = request.json.get('rooms', [])
+            booking = dao.get_booking_id(booking_id=booking_id)
+            books = dao.get_booking_rental(booking_id)
+            employee = dao.get_employee(current_user.id)
+            rental = dao.add_rental_receipt(employee_id=employee, customer_id= customer_id)
+            total = 0
+            for book in books:
+                number_customer = next(
+                    (room['number_customer'] for room in rooms if room['room_id'] == str(book[0])), 1)
+                
+                days = (book[4] - book[3]).days
+                total += book[1] * book[5] * days
+                dao.add_rental_detail(
+                    date_in=book[3],
+                    date_out=book[4],
+                    number_customer=number_customer,
+                    total_amount=book[1] * book[5] * days,
+                    room_id=book[0],
+                    rental_receipt_id=rental,
+                    customer_id=book[6]
+                )
+            rental.total_amount = total
+            booking.status = StatusBooking.RENTAL
+            db.session.commit()
+            return jsonify({'code': 200})
+        except Exception as ex:
+            print("Error occurred:", ex)
+            return jsonify({'code': 500, 'error': 'Lỗi Server!!!'})
+       
 
-    e_id = current_user.id
 
-    rd = dao.add_rental_receipt(e_id)
-    rental = dao.get_booking_rental(booking_id)
+@app.route('/api/search-rental', methods=['post'])
+def search_rental():
+    try:
+        name = request.json.get('name')
+        rental = dao.get_rental_payment(name)
+        rental_dict = {}
+        if rental:
+            for rental_detail, customer, room, rental_receipt in rental:
+                receipt_id = rental_receipt.id
+                if receipt_id not in rental_dict:
+                    rental_dict[receipt_id] = {
+                        'rental_receipt': rental_receipt.to_dict(),
+                        'details' : []
+                    }
 
-    print(rental)
+                rental_dict[receipt_id]['details'].append({
+                    'customer': customer.to_dict(),
+                    'room': room.to_dict(),
+                    'receipt_detail': rental_detail.to_dict()
+                })
+            return jsonify({'code': 200, 'rental': rental_dict})
+        else:
+            return jsonify({'code': 400, 'error': 'Không tìm thấy phiếu Thuê phòng!!!'})
+    except Exception as ex:
+        return jsonify({'code': 500, 'error': "Lỗi server!!!"})
 
-    return jsonify({'code' : 200})
+
+@app.route('/api/payment', methods=['post'])
+def payment():
+    if request.method.__eq__('POST'):
+        try:
+            rr_id = request.json.get('rental-receipt-id')
+            c_id = request.json.get('customer-id')
+            amount = request.json.get('amount')
+
+            pay = dao.add_payment(rental_id = rr_id,
+                                customer_id = c_id,
+                                amount = amount)
+            if pay:
+                return jsonify({'code': 200})
+        except Exception as ex:
+            return jsonify({'code': 500, 'error': "Lỗi Server!!!"})
+
+
+
+@app.route('/api/search-room-rental', methods=['post'])
+@login_required
+def search_room_rental():
+    if request.method.__eq__("POST"):
+        type = request.json.get('type')
+        date_in = request.json.get('date-in')
+        date_out = request.json.get('date-out')
+
+        print(type, date_in, date_out)
+        try:
+
+            rooms = dao.get_room_search(type_room=type, date_in=date_in, date_out=date_out)
+            if rooms:
+                rooms = [room.to_dict() for room in rooms]
+                return jsonify({'code': 200, 'rooms': rooms})
+            else:
+                return jsonify({'code': 400, 'mess': 'Hết phòng!!!'})
+        except Exception as ex:
+            return jsonify({'code': 500, 'mess': 'Lỗi server!!!'})
+            
+
+@app.route('/api/add-rental-receipt', methods=['post'])
+@login_required
+def add_rental_receipts():
+    if request.method.__eq__('POST'):
+        try:
+            data = request.json.get('data')
+            receipt = None
+            for d in data:
+                customer = d['customer']
+                room = d['room']
+                print(room['check_in_date'])
+                c = dao.search_customer(customer['cccd'])
+                if c is None:
+                    type = None
+                    if customer['typeCustomer'] == 'DOMESTIC':
+                        type = CustomerType.DOMESTIC
+                    else:
+                        type = CustomerType.FOREIGN
+                    c = dao.add_customer(name=customer['name'],
+                                         email=customer['email'],
+                                         cccd=customer['cccd'],
+                                         phone=customer['phone'],
+                                         type_customer=type)
+                print(c)
+                
+                employee = dao.get_employee(current_user.id)
+                print(employee)
+                if receipt is None:
+                    tong = 0
+                    for d in data:
+                        tong += d['room']['total_amount']
+                    receipt = dao.add_rental_receipt(employee_id=employee,
+                                                 customer_id=c.id, total_amount = tong)
+                print(receipt)
+                r_detail = dao.add_rental_detail(date_in=datetime.fromisoformat(room['check_in_date'].replace("Z", "")).date(),
+                                    date_out=datetime.fromisoformat(room['check_out_date'].replace("Z", "")).date(),
+                                    total_amount=room['total_amount'],
+                                    number_customer=room['number_customer'],
+                                    room_id=room['room_id'],
+                                    rental_receipt_id = receipt,
+                                    customer_id = c.id)
+                print(r_detail)
+
+            return jsonify({'code': 200})
+        except Exception as ex:
+            return jsonify({'code': 500, 'mess': 'Lỗi server!!!'})
 
 @app.route('/login', methods=['post', 'get'])
 def login():
@@ -190,12 +326,11 @@ def login():
     if request.method.__eq__('POST'):
         username = request.form.get('username')
         password = request.form.get('password')
-        user_role = utils.get_user_role(request.form.get('user-role'))
+        user_role = dao.get_user_role(request.form.get('user-role'))
         
         try:
             u = dao.check_user(username=username, password=password,
                 role=user_role)
-            print(u)
             if u:
                 login_user(user=u)
                 if (user_role == UserRole.ADMIN):
@@ -290,44 +425,6 @@ def common_response():
         "cart_stats": dao.count_cart(session.get('cart'))
     }
 
-# @app.route('/api/overview', methods=['GET'])
-# def get_overview():
-#     try:
-        
-#         today = datetime.now().date()
-#         current_month = today.month
-#         current_year = today.year
-#         # Số phòng trống
-#         empty_rooms = Room.query.filter_by(status=StatusRoom.EMPTY).count()
-#         # Số phòng đã đặt
-#         booked_rooms = Room.query.filter_by(status=StatusRoom.BOOK).count()
-#         # Số khách hiện tại đang ở
-#         current_guests = db.session.query(func.count(RentalDetail.id)).filter(
-#             and_(
-#                 RentalDetail.date_in <= datetime.now(),
-#                 RentalDetail.date_out >= datetime.now(),
-#             )
-#         ).scalar() or 0
-        
-#         booking_today = Booking.query.filter(func.date(Booking.created_date.__eq__(today))).count()
-    
-#         current_month_revenue = db.session.query(func.sum(Payment.amount)).filter(
-#             and_(
-#                 func.extract('month', Payment.created_date) == current_month,
-#                 func.extract('year', Payment.created_date) == current_year
-#             )
-#         ).scalar() or 0
-        
-#         return jsonify({
-#             'empty_rooms': empty_rooms,
-#             'booked_rooms': booked_rooms,
-#             'current_guests': current_guests,
-#             'booking_today': booking_today,
-#             'month_revenue': float(current_month_revenue)
-#         })
-    
-#     except Exception as e:
-#         return jsonify({'error': str(e)}), 500
 
 @app.route('/sign-out')
 def logout():

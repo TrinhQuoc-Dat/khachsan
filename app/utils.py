@@ -1,15 +1,12 @@
-from app.models import UserRole
 from collections import defaultdict
-
-def get_user_role(key):
-    if key.__eq__('USER'):
-        return UserRole.USER
-    elif key.__eq__('ADMIN'):
-        return UserRole.ADMIN
-    return UserRole.EMPLOYEE
+from datetime import datetime
 
 def count_customer(cart):
     return sum(int(c['number_customer']) for c in cart.values())
 
+
+def year_month_day(time_string):
+    dt = datetime.strptime(time_string, "%a, %d %b %Y %H:%M:%S %Z")
+    return dt.strftime("%Y-%m-%d")
 
 

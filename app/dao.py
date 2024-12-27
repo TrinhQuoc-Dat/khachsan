@@ -1,4 +1,4 @@
-from app.models import User, UserRole, Room,MaxCustomer,Payment, StatusRoom,BookingDetail,Employee, RentalReceipt,RentalDetail, TypeRoom, Customer, CustomerType, OrderType, Booking
+from app.models import User, UserRole, Room,MaxCustomer,Payment,StatusBooking, StatusRoom,BookingDetail,Employee, RentalReceipt,RentalDetail, TypeRoom, Customer, CustomerType, OrderType, Booking
 from sqlalchemy import and_, or_, func,extract
 from app import app, db, login
 import hashlib
@@ -23,10 +23,9 @@ def get_user_by_username(username):
     return User.query.filter(User.username.__eq__(username)).first()
 
 def get_room_search(name_room=None, date_in=None, date_out=None, type_room=None):
-    room = Room.query.filter(Room.status.__eq__(StatusRoom.EMPTY))
 
     page_size = app.config['PAGE_SIZE']
-
+    room = Room.query
     if name_room:
         room = room.filter(Room.name.contains(name_room))
     
@@ -35,9 +34,8 @@ def get_room_search(name_room=None, date_in=None, date_out=None, type_room=None)
     else:
         room = room.filter(Room.type_room.__eq__(TypeRoom.VIP))
 
-    
     if date_in and date_out:
-        room = room.filter(
+         room = room.filter(
             ~Room.id.in_(
                 db.session.query(BookingDetail.room_id).filter(
                     or_(
@@ -46,7 +44,17 @@ def get_room_search(name_room=None, date_in=None, date_out=None, type_room=None)
                         and_(BookingDetail.date_in >= date_in, BookingDetail.date_out <= date_out)
                     )
                 )
-            ))
+            ),
+            ~Room.id.in_(
+                db.session.query(RentalDetail.room_id).filter(
+                    or_(
+                        and_(RentalDetail.date_in <= date_in, RentalDetail.date_out > date_in),
+                        and_(RentalDetail.date_in < date_out, RentalDetail.date_out >= date_out),
+                        and_(RentalDetail.date_in >= date_in, RentalDetail.date_out <= date_out)
+                    )
+                )
+            )
+        )
     
     return room.all()
 
@@ -102,51 +110,91 @@ def get_booking_rental(id):
 def get_employee(user_id):
     return Employee.query.filter(Employee.user_id.__eq__(user_id)).first()
 
-def add_rental_receipt(employee_id, total_amount = None, note = None):
-    r = RentalReceipt(employee_id=employee_id, total_amount = total_amount, note=note)
+def add_rental_receipt(employee_id, customer_id, total_amount = None, note = None):
+    r = RentalReceipt(employee = employee_id,
+                    customer_id = customer_id,
+                    total_amount = total_amount, 
+                    note=note)
     db.session.add(r)
     db.session.commit()
     return r
 
-def add_rental_detail(date_in, date_out, total_amount, number_customer, room_id, rental_receipt_id):
+
+def add_rental_detail(date_in, date_out, total_amount, number_customer, room_id, rental_receipt_id, customer_id):
     r = RentalDetail(date_in=date_in,
                      date_out=date_out,
                      total_amount= total_amount,
                      number_customer = number_customer,
                      room_id=room_id,
-                     rental_receipt=rental_receipt_id)
+                     rental_receipt = rental_receipt_id,
+                     customer_id = customer_id)
+    db.session.add(r)
+    db.session.commit()
+    return r
 
 def get_booking(user_id):
     b = db.session.query(Room.id, Room.name, Room.image, 
                             Booking.created_date, Booking.total_amount, BookingDetail.date_in, 
-                            BookingDetail.date_out, Booking.id, func.sum(Room.price * func.datediff(BookingDetail.date_out, BookingDetail.date_in) * BookingDetail.discount), BookingDetail.id,BookingDetail.delete)\
+                            BookingDetail.date_out, Booking.id, func.sum(Room.price * func.datediff(BookingDetail.date_out, BookingDetail.date_in) * BookingDetail.discount), BookingDetail.id)\
                             .join(Room, BookingDetail.room_id.__eq__(Room.id))\
                             .join(Booking, BookingDetail.booking_id.__eq__(Booking.id))\
                             .filter(Booking.user_id.__eq__(user_id))\
                             .group_by(Room.id, Room.name, Room.image, 
                             Booking.created_date, Booking.total_amount, BookingDetail.date_in, 
-                            BookingDetail.date_out, Booking.id, BookingDetail.id, BookingDetail.delete)\
+                            BookingDetail.date_out, Booking.id, BookingDetail.id)\
                             .order_by(-BookingDetail.id)
     return b.all()
 
 def get_booking_name(name):
-    b = db.session.query(Room.id, Room.name, Booking.id, Booking.created_date, Booking.total_amount, 
-                          BookingDetail.id, BookingDetail.date_in, BookingDetail.date_out, Customer.id, Customer.full_name)\
+    b = db.session.query(Room.id, Room.name, Booking.id, Booking.created_date, Room.price, 
+                          BookingDetail.id, BookingDetail.date_in, BookingDetail.date_out, Customer.id, Customer.full_name, BookingDetail.discount)\
                           .join(Room, BookingDetail.room_id.__eq__(Room.id))\
                           .join(Booking, BookingDetail.booking_id.__eq__(Booking.id))\
                           .join(Customer, Booking.customer_id.__eq__(Customer.id))\
-                          .filter(Customer.full_name.contains(name), BookingDetail.delete.__eq__(0))
+                          .filter(Customer.full_name.contains(name), Booking.status.__eq__(StatusBooking.BOOK))
     return b.all()
 
+def get_rental_payment(name = None):
+    if name:
+        r = db.session.query(RentalDetail, Customer, Room, RentalReceipt)\
+                                .join(Customer, RentalDetail.customer_id.__eq__(Customer.id))\
+                                .join(Room, RentalDetail.room_id.__eq__(Room.id))\
+                                .join(RentalReceipt, RentalDetail.rental_receipt_id.__eq__(RentalReceipt.id))\
+                                .filter(or_(Customer.full_name.contains(name), RentalReceipt.id == name)) \
+                                .outerjoin(Payment, RentalReceipt.id == Payment.rental_receipt_id) \
+                                .filter(Payment.id == None)
+    else:
+        r = db.session.query(RentalReceipt.id, RentalReceipt.total_amount, RentalReceipt.created_date,
+                             RentalDetail.id, Customer.full_name, Room.name, RentalDetail.date_in,
+                             RentalDetail.date_out, RentalDetail.total_amount, Customer.id)\
+                                .join(Customer, RentalDetail.customer_id.__eq__(Customer.id))\
+                                .join(Room, RentalDetail.room_id.__eq__(Room.id))\
+                                .join(RentalReceipt, RentalDetail.rental_receipt_id.__eq__(RentalReceipt.id))\
+                                .outerjoin(Payment, RentalReceipt.id.__eq__(Payment.rental_receipt_id))\
+                                .filter(Payment.id == None)
+    return r.all()
+
+
+def get_booking_id(booking_id):
+    return Booking.query.get(booking_id)
+
+
+def get_user_role(key):
+    if key.__eq__('USER'):
+        return UserRole.USER
+    elif key.__eq__('ADMIN'):
+        return UserRole.ADMIN
+    return UserRole.EMPLOYEE
+
+  
 def get_booking_detail(id):
     return BookingDetail.query.get(id)
 
 def delete_booking_detail(id):
-    book = get_booking_detail(id)
-
-    book.delete = True
+    book_detail = get_booking_detail(id)
+    db.session.delete(book_detail)
     db.session.commit()
-    return book
+    return book_detail
 
 def add_bookingdetail(date_in, date_out, room_id, booking, customer, discount = 1):
     bd = BookingDetail(date_in = date_in,
@@ -204,11 +252,12 @@ def add_user(username, password, avatar, role, email):
     db.session.commit()
     return u
 
-# load dữ liệu khách sạn từ file json 
+
 def load_hotel_data(file_name):
     file_path = os.path.join("data", file_name)
     with open(file_path, "r", encoding="utf-8") as file:
         return json.load(file)
+
 
 def revenue_stats_Room(month=None,  year=datetime.now().year):
     normal_stats = db.session.query(
@@ -316,8 +365,10 @@ def revenue_by_month(time='month', year=datetime.now().year):
     .group_by(func.extract(time, Payment.created_date))\
     .order_by(func.extract(time, Payment.created_date)).all()
 
+
 if __name__ == '__main__':
     with app.app_context():
+        pass
         # u = check_user(username='dat', password=str(123), role=UserRole.USER)
         # print(u)
         # b = get_booking()
@@ -327,3 +378,7 @@ if __name__ == '__main__':
         # for item in stats:
         #     print(item)
         print(revenue_by_month())
+
+        # print(revenue_stats_Room())
+
+

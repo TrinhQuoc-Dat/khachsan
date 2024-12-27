@@ -16,7 +16,7 @@
         <h3>Khách sạn Oasia</h3>
     </div>
     {% for b in booking %}
-    <div class="border-booking mt-2">
+    <div class="border-booking mt-2" id="booking-detail{{ b[9] }}">
         <div class="p-3">
             <div class="d-flex justify-content-between space">
                 <div class="item-1 ">
@@ -31,15 +31,11 @@
                         <span> - </span>
                         <span class="date">{{ b[6] }}</span>
                     </div>
-                    {% if b[10] == 0 %}
+                    
                     <div>
-                        <span id="booking-detail{{ b[9] }}" class="success">Đã đặt thành công</span>
+                        <span class="success">Đã đặt thành công</span>
                     </div>
-                    {% else %}
-                    <div>
-                        <span id="booking-detail{{ b[9] }}" class="danger">Đã hủy đặt phòng</span>
-                    </div>
-                    {% endif %}
+                    
                     <div>
                         <span class="my-date">{{ b[3] }}</span>
                     </div>
@@ -54,11 +50,9 @@
                     <div>
                         <p class="m-0">Mã phòng: <span>{{ b[0] }}</span></p>
                     </div>
-                    {% if b[10] == 0 %}
                     <div>
                         <input type="button" onclick="deleteBookingDetail('{{ b[9] }}')" value="Hủy đặt phòng" class="btn btn-danger mt-2"/>
                     </div>
-                    {% endif %}
                 </div>
             </div>
         </div>
