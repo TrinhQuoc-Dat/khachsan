@@ -241,27 +241,27 @@
     <div class="row mt-3 container flask-room">
         <div class="card col-md-3 col-6 p-0" style="width:300px">
             <img class="card-img-top"
-                src="https://res.cloudinary.com/devtqlbho/image/upload/v1733131040/4_av2wxh.jpg"
+                src="{{ data['flash-sale']['room']['room1']['img'] }}"
                 alt="Card image">
             <div class="card-body">
-                <h4 class="card-title">Khách sạn </h4>
+                <h4 class="card-title">{{ data['flash-sale']['room']['room1']['title'] }}</h4>
                 <p class="mb-1">
-                    {% for i in range(1, 4) %}
+                    {% for i in range(1, 6) %}
                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                     {% endfor %}
                 </p>
-                <p class="card-text mb-0">Loại phòng: VIP</p>
+                <p class="card-text mb-0">Loại phòng: {{ data['flash-sale']['room']['room1']['type'] }}</p>
                 <div>
                     <span class="flask-rate"><i
                             class="fa-solid fa-umbrella"
-                            style="color: #09d396;"></i> 9.2</span>
-                    <span>Tuyệt vời</span>
-                    <span>(255 đánh giá)</span>
+                            style="color: #09d396;"></i> {{ data['flash-sale']['room']['room1']['Evaluate'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room1']['title'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room1']['rating-level'] }}</span>
                 </div>
                 <div class="flask-price">
-                    <span class="flask-price-old" class="flask-price-old">1,000,000
-                        đ</span>
-                    <span class="flask-price-sale">700,000
+                    <span class="flask-price-old" class="flask-price-old">{{ data['flash-sale']['room']['room1']['original-price'] }}
+                        VNĐ</span>
+                    <span class="flask-price-sale">{{ data['flash-sale']['room']['room1']['new-price'] }}
                         đ</span>
                 </div>
             </div>
@@ -269,84 +269,78 @@
 
         <div class="card col-md-3 col-6 p-0" style="width:300px">
             <img class="card-img-top"
-                src="https://res.cloudinary.com/devtqlbho/image/upload/v1733131040/4_av2wxh.jpg"
+                src="{{ data['flash-sale']['room']['room2']['img'] }}"
                 alt="Card image">
             <div class="card-body">
-                <h4 class="card-title">Khách sạn </h4>
+                <h4 class="card-title">{{ data['flash-sale']['room']['room2']['title'] }} </h4>
                 <p class="mb-1">
-                    {% for i in range(1, 4) %}
+                    {% for i in range(1, 6) %}
                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                     {% endfor %}
                 </p>
-                <p class="card-text mb-0">Loại phòng: VIP</p>
+                <p class="card-text mb-0">Loại phòng: {{ data['flash-sale']['room']['room2']['type'] }}</p>
                 <div>
                     <span  class="flask-rate"><i
                             class="fa-solid fa-umbrella"
-                            style="color: #09d396;"></i> 9.2</span>
-                    <span>Tuyệt vời</span>
-                    <span>(255 đánh giá)</span>
+                            style="color: #09d396;"></i> {{ data['flash-sale']['room']['room2']['Evaluate'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room2']['rating-level'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room2']['Number-reviews'] }}</span>
                 </div>
                 <div class="flask-price">
-                    <span class="flask-price-old">1,000,000
-                        đ</span>
-                    <span class="flask-price-sale">700,000
-                        đ</span>
+                    <span class="flask-price-old">{{ data['flash-sale']['room']['room2']['original-price'] }} VNĐ</span>
+                    <span class="flask-price-sale">{{ data['flash-sale']['room']['room2']['new-price'] }}VNĐ</span>
                 </div>
             </div>
         </div>
 
         <div class="card col-md-3 col-6 p-0" style="width:300px">
             <img class="card-img-top"
-                src="https://res.cloudinary.com/devtqlbho/image/upload/v1733131040/4_av2wxh.jpg"
+                src="{{ data['flash-sale']['room']['room3']['img'] }}"
                 alt="Card image">
             <div class="card-body">
-                <h4 class="card-title">Khách sạn </h4>
+                <h4 class="card-title">{{ data['flash-sale']['room']['room3']['title'] }}</h4>
                 <p class="mb-1">
-                    {% for i in range(1, 4) %}
+                    {% for i in range(1, 5) %}
                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                     {% endfor %}
                 </p>
-                <p class="card-text mb-0">Loại phòng: VIP</p>
+                <p class="card-text mb-0">Loại phòng: {{ data['flash-sale']['room']['room3']['type'] }}</p>
                 <div>
                     <span class="flask-rate"><i
                             class="fa-solid fa-umbrella"
-                            style="color: #09d396;"></i> 9.2</span>
-                    <span>Tuyệt vời</span>
-                    <span>(255 đánh giá)</span>
+                            style="color: #09d396;"></i> {{ data['flash-sale']['room']['room3']['Evaluate'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room3']['rating-level'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room3']['Number-reviews'] }}</span>
                 </div>
                 <div class="flask-price">
-                    <span class="flask-price-old">1,000,000
-                        đ</span>
-                    <span class="flask-price-sale">700,000
-                        đ</span>
+                    <span class="flask-price-old">{{ data['flash-sale']['room']['room3']['original-price'] }}VNĐ</span>
+                    <span class="flask-price-sale">{{ data['flash-sale']['room']['room3']['new-price'] }}VNĐ</span>
                 </div>
             </div>
         </div>
 
         <div class="card col-md-3 col-6 p-0" style="width:300px">
             <img class="card-img-top"
-                src="https://res.cloudinary.com/devtqlbho/image/upload/v1733131040/4_av2wxh.jpg"
+                src="{{ data['flash-sale']['room']['room4']['img'] }}"
                 alt="Card image">
             <div class="card-body">
-                <h4 class="card-title">Khách sạn </h4>
+                <h4 class="card-title">{{ data['flash-sale']['room']['room4']['title'] }}</h4>
                 <p class="mb-1">
-                    {% for i in range(1, 4) %}
+                    {% for i in range(1, 6) %}
                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                     {% endfor %}
                 </p>
-                <p class="card-text mb-0">Loại phòng: VIP</p>
+                <p class="card-text mb-0">Loại phòng: {{ data['flash-sale']['room']['room4']['type'] }}</p>
                 <div>
                     <span class="flask-rate"><i
                             class="fa-solid fa-umbrella"
-                            style="color: #09d396;"></i> 9.2</span>
-                    <span>Tuyệt vời</span>
-                    <span>(255 đánh giá)</span>
+                            style="color: #09d396;"></i>{{ data['flash-sale']['room']['room4']['Evaluate'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room4']['rating-level'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room4']['Number-reviews'] }}</span>
                 </div>
                 <div class="flask-price">
-                    <span class="flask-price-old">1,000,000
-                        đ</span>
-                    <span class="flask-price-sale">700,000
-                        đ</span>
+                    <span class="flask-price-old">{{ data['flash-sale']['room']['room4']['original-price'] }}VNĐ</span>
+                    <span class="flask-price-sale">{{ data['flash-sale']['room']['room4']['new-price'] }}VNĐ</span>
                 </div>
             </div>
         </div>

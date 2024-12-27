@@ -11,9 +11,12 @@ from app import login
 from datetime import datetime, timedelta, date
 from app.models import User, Customer, UserRole, Employee, Booking, Room,StatusRoom, BookingDetail, RentalReceipt, Payment, RentalDetail
 from sqlalchemy import func,and_
+
 @app.route('/')
 def home():
-    return render_template('index.html')
+    with open(f'app/data/home.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    return render_template('index.html', data = data)
 
 @app.route('/cart')
 @login_required
@@ -30,7 +33,7 @@ def reservation():
         phone = request.form.get('phone')
 
         cart = session.get('cart')
-       
+
         if cart:
             stast = dao.count_cart(cart)
             customer = dao.add_customer(name=name, email=email, cccd=cccd, phone=phone )
@@ -44,10 +47,10 @@ def reservation():
                                     address=request.form.get('address' + r['id']),
                                     type_customer=request.form.get('type-customer' + r['id']))
                 bd = dao.add_bookingdetail(room_id=r['id'],
-                                           date_in=r['date_in'],
-                                           date_out=r['date_out'],
-                                           booking = booking,
-                                           customer = c)
+                                            date_in=r['date_in'],
+                                            date_out=r['date_out'],
+                                            booking = booking,
+                                            customer = c)
             session.pop('cart', None)
             return redirect('/reservation')
     
@@ -80,16 +83,16 @@ def search_room():
     date_in = date_obj.strftime('%Y-%m-%d')
 
     try:
-         rooms = dao.get_room_search(name_room=name,
+        rooms = dao.get_room_search(name_room=name,
                                 date_in=date_in,
                                 date_out=date_out,
                                 type_room=type_room)
     
-         rooms = [room.to_dict() for room in rooms]
-         if rooms:
-             return jsonify({'code': 200, 'rooms': rooms})
-         else:
-             return jsonify({'code': 404, 'error': 'No rooms found'})
+        rooms = [room.to_dict() for room in rooms]
+        if rooms:
+            return jsonify({'code': 200, 'rooms': rooms})
+        else:
+            return jsonify({'code': 404, 'error': 'No rooms found'})
     except Exception as ex:
         return jsonify({
             'code': 500, 
@@ -204,8 +207,6 @@ def rental_room():
         except Exception as ex:
             print("Error occurred:", ex)
             return jsonify({'code': 500, 'error': 'Lỗi Server!!!'})
-       
-
 
 @app.route('/api/search-rental', methods=['post'])
 def search_rental():
@@ -233,7 +234,6 @@ def search_rental():
     except Exception as ex:
         return jsonify({'code': 500, 'error': "Lỗi server!!!"})
 
-
 @app.route('/api/payment', methods=['post'])
 def payment():
     if request.method.__eq__('POST'):
@@ -249,8 +249,6 @@ def payment():
                 return jsonify({'code': 200})
         except Exception as ex:
             return jsonify({'code': 500, 'error': "Lỗi Server!!!"})
-
-
 
 @app.route('/api/search-room-rental', methods=['post'])
 @login_required
@@ -271,7 +269,6 @@ def search_room_rental():
                 return jsonify({'code': 400, 'mess': 'Hết phòng!!!'})
         except Exception as ex:
             return jsonify({'code': 500, 'mess': 'Lỗi server!!!'})
-            
 
 @app.route('/api/add-rental-receipt', methods=['post'])
 @login_required
@@ -425,7 +422,6 @@ def common_response():
         "cart_stats": dao.count_cart(session.get('cart'))
     }
 
-
 @app.route('/sign-out')
 def logout():
     logout_user()
@@ -446,8 +442,7 @@ def booking():
                             has_next=has_next,
                             has_prev=has_prev)
 
-# // http://127.0.0.1:5000/booking-detail=1
-@app.route('/booking-detail=<int:hotel_id>', methods=['get', 'post'])
+@app.route('/booking-detail=<int:hotel_id>', methods=['GET', 'POST'])
 def booking_detail(hotel_id=None):
     if hotel_id:
         try:
