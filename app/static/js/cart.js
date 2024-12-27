@@ -37,6 +37,33 @@ function deleteRoom(idRoom){
 }
 
 
+function searchCustomer(obj, idRoom){
+    fetch('/api/search-customer', {
+        method: 'post',
+        body: JSON.stringify({
+            'id': obj.value
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => res.json())
+    .then(data => {
+        if(data.code == 200 ){
+            console.log(data.customer)
+            if (idRoom == 0){
+                idRoom = ''
+            }else {
+                document.getElementById('type-customer' + String(idRoom)).value = data.customer.type_customer
+            }
+            document.getElementById('name' + String(idRoom)).value = data.customer.full_name
+            document.getElementById('email' + String(idRoom)).value = data.customer.email
+            document.getElementById('phone' + String(idRoom)).value = data.customer.phone
+            document.getElementById('cccd' + String(idRoom)).value = data.customer.cccd
+        }
+    })
+    .catch(err => console.log(err))
+}
+
 function checkEmail(input) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(input);

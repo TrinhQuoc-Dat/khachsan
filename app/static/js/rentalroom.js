@@ -86,7 +86,9 @@ function updateRoomPrice(obj) {
     const selectedRoom = dataRoom.rooms.find(room => room.id == selectedRoomId);
 
     if (selectedRoom) {
-        const roomPriceElement = document.getElementById('room-price');
+        id = ''
+        if (rentalCounter > 0) id = rentalCounter
+        const roomPriceElement = document.getElementById('room-price' + String(id));
         roomPriceElement.textContent = `${selectedRoom.price.toLocaleString()} VND`;
     } else {
         document.getElementById('room-price').textContent = '0 VND';
@@ -128,7 +130,9 @@ function LapPhieuThue(id, customerId){
 function addRentalForm() {
     const rentalTemplate = document.querySelector('#add-rental').cloneNode(true);
     const inputs = rentalTemplate.querySelectorAll('input, select');
+    const roomPrice = rentalTemplate.querySelector('#room-price')
     rentalCounter++;
+    roomPrice.id = `${roomPrice.id}${rentalCounter}`
     inputs.forEach(input => {
         input.id = `${input.id}${rentalCounter}`;
         input.name = `${input.name}${rentalCounter}`;

@@ -225,6 +225,10 @@ def add_bookingdetail(date_in, date_out, room_id, booking, customer, discount = 
     db.session.commit()
     return bd
 
+def get_room_id(id):
+    return Room.query.get(id)
+
+
 def get_rooms(page):
     room = Room.query.filter(Room.status.__eq__(StatusRoom.EMPTY))
     page_size = app.config['PAGE_SIZE']

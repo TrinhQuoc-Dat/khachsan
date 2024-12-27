@@ -56,7 +56,9 @@ function get_room(){
                 <div class="border-booking">
                     <div class="d-flex p-3">
                         <div class="item-2 p-1 me-3 container-image">
-                            <img src="${r.image }" alt="Khach san" class="mr-2">
+                            <a href="/booking-detail/${r.id}">
+                                <img src="${r.image }" alt="Khach san" class="mr-2">
+                            </a>
                         </div>
                         <div class="d-flex flex-column item-7">
                             <div class="d-flex  header-title">

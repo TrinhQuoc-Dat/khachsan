@@ -29,20 +29,29 @@ def reservation():
         email = request.form.get('email')
         phone = request.form.get('phone')
 
+        customer = dao.search_customer(cccd)
         cart = session.get('cart')
        
         if cart:
             stast = dao.count_cart(cart)
-            customer = dao.add_customer(name=name, email=email, cccd=cccd, phone=phone )
+            if customer is None:
+                customer = dao.add_customer(name=name, email=email, cccd=cccd, phone=phone )
             booking = dao.add_booking(total_amount=stast['total_amount'],
                                     total_customer=utils.count_customer(cart=cart),
                                     customer = customer)
             for r in cart.values():
-                c = dao.add_customer(name=request.form.get('name' + r['id']), 
-                                    email=request.form.get('email' + r['id']), 
-                                    cccd=request.form.get('cccd' + r['id']),
-                                    address=request.form.get('address' + r['id']),
-                                    type_customer=request.form.get('type-customer' + r['id']))
+                cm = request.form.get('cccd' + r['id'])
+                c = dao.search_customer(cm)
+                if c is None:
+                    c = dao.add_customer(name=request.form.get('name' + r['id']), 
+                                        email=request.form.get('email' + r['id']), 
+                                        cccd=cm,
+                                        address=request.form.get('address' + r['id']),
+                                        type_customer=request.form.get('type-customer' + r['id']))
+                if c.address is None:
+                    c.address = request.form.get('address' + r['id'])
+                    db.session.add(c)
+                    db.session.commit()
                 bd = dao.add_bookingdetail(room_id=r['id'],
                                            date_in=r['date_in'],
                                            date_out=r['date_out'],
@@ -425,18 +434,19 @@ def booking():
 
 
 # // http://127.0.0.1:5000/booking-detail=1
-@app.route('/booking-detail=<int:hotel_id>', methods=['get', 'post'])
-def booking_detail(hotel_id=None):
+@app.route('/booking-detail/<int:hotel_id>', methods=['get', 'post'])
+def booking_detail(hotel_id):
+    room = None
     if hotel_id:
         try:
-            # Đọc file JSON dựa vào hotel_id    
-            with open(f'app/data/hotel{hotel_id}.json', 'r', encoding='utf-8') as file:
+            room = dao.get_room_id(hotel_id)
+            with open(f'app/data/hotel1.json', 'r', encoding='utf-8') as file:
                 hotel_data = json.load(file)
         except FileNotFoundError:
             return f"Không tìm thấy dữ liệu cho khách sạn có ID {hotel_id}", 404
     else:
         hotel_data = {} 
-    return render_template('bookingDetail.html', hotel=hotel_data)
+    return render_template('bookingDetail.html', hotel=hotel_data, room=room)
 
 
 if __name__ == '__main__':

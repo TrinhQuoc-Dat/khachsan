@@ -76,6 +76,7 @@ class Customer(db.Model):
             'email': self.email,
             'cccd': self.cccd,
             'address': self.address,
+            'type_customer': self.type_customer.name
         }
 
 
@@ -110,8 +111,6 @@ class StatusRoom(EnumRole):
     BOOK = 2
     RENT = 3
     PROBLEM = 4
-
-
 
 class MaxCustomer(EnumRole):
     MOT = (1, 1.0)
@@ -201,7 +200,7 @@ class Payment(db.Model):
 
 class RentalDetail(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
-    number_customer = Column(Integer)
+    number_customer = Column(Integer, nullable=False)
     date_in = Column(DateTime, default=datetime.now)
     date_out = Column(DateTime, default=datetime.now)
     total_amount = Column(Float)
