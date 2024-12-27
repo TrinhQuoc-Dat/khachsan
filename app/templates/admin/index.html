@@ -191,7 +191,6 @@
       </script>
 {% else %}
 <h1 class="text-center text-danger">Dang nhap trang ADMIN</h1>
-<div id="stats-data" style="display: none;">{{ stats | tojson | safe }}</div>
 <form method="post" action="{{ url_for('singin_admin') }}">
       <div class="form-group">
             <label for="username">Username:</label>

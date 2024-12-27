@@ -295,14 +295,13 @@ class BookingDetailView(AuthenticatecModelView):
 
 class RentalReceiptView(AuthenticatecModelView):
       column_display_pk = True
-      form_column = ['id', 'created_date', 'total_customer', 'note', 'total_amount','payments', 'employee_id', 'rental_details']
-      column_searchable_list = ['created_date', 'total_customer','total_amount', 'employee_id']
+      form_column = ['id', 'created_date', 'note', 'total_amount','payments', 'employee_id', 'rental_details']
+      column_searchable_list = ['created_date','total_amount', 'employee_id']
       page_size = 8
-      column_filters = ['created_date', 'total_customer', 'employee_id']
+      column_filters = ['created_date', 'employee_id']
       column_labels = {
             'id': 'ID',
             'created_date': 'Ngày tạo',
-            'total_customer': 'Tổng số lượng khách',
             'note': 'Ghi chú',
             'total_amount': 'Tổng số lượng',
             'payments': "Giá",
