@@ -1,7 +1,8 @@
-.format-button {
-      margin-top: 50px;
-      
+.format-chart canvas {
+      width: 400px; 
+      height: 400px;    
 }
+
 .format-button button {
       margin-left: 20px;
 }
@@ -11,4 +12,9 @@
 }
 .format-button button a:hover{
       text-decoration: none;
+}
+
+.report-table{
+      border: 1px solid black;
+      border-radius: 5px;
 }
