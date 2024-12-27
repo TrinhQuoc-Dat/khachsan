@@ -8,6 +8,8 @@
 
 {% block js %}
 <script src="../static/js/likeComment.js"></script>
+<script src="{{ url_for('static', filename='js/loadRoomPrice.js') }}"></script>
+<script>loadRoomPrice(1);</script>
 {% endblock %}
 
 {% block content %}
@@ -234,9 +236,9 @@
                     </button>
                 </div>
                 <hr>
-                <div class="d-flex justify-content-around">
-                    <p>Vị trí tuyệt vời</p>
-                    <span>9,0</span>
+                <div class="d-flex justify-content-around ">
+                    <div id="rooms-container">Giá phòng
+                    </div>
                 </div>
                 <hr class="m-2">
 

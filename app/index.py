@@ -445,16 +445,12 @@ def booking():
 @app.route('/booking-detail/<int:hotel_id>', methods=['GET', 'POST'])
 def booking_detail(hotel_id=None):
     if hotel_id:
-        try:
             # Đọc file JSON dựa vào hotel_id    
             with open(f'app/data/hotel{hotel_id}.json', 'r', encoding='utf-8') as file:
                 hotel_data = json.load(file)
-        except FileNotFoundError:
-            return f"Không tìm thấy dữ liệu cho khách sạn có ID {hotel_id}", 404
     else:
         hotel_data = {} 
     return render_template('bookingDetail.html', hotel=hotel_data)
-
 
 if __name__ == '__main__':
     from app.admin import *
