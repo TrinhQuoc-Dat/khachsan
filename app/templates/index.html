@@ -68,82 +68,6 @@
 <!--w3school end Carousel -->
 <!-- end thanh tìm kiếm -->
 
-<div class="">
-    <div class="container mt-3 mb-3 bg-light ">
-        <div class="container border border-3 rounded mx-auto">
-            <form class="m-4" action="/booking/search-room" method="get">
-                <div class="mb-2 ">
-                    <label for="location" class="form-label title-color"><i class="fa-solid fa-city"
-                            style="color: #63E6BE;"></i>
-                        Tên Phòng: </label>
-                    <input id="location" type="text" class="form-control dropdown-toggle"
-                        placeholder="Tên Phòng" aria-expanded="false" name="name-room" />
-                </div>
-
-                <!-- ngày nhận - ngày trả phòng -->
-                <div class="row justify-content-center align-items-center text-center">
-                    <div class="col-md-3 ">
-                        <label for="checkin-date" class="form-label title-color"><i class="fa-solid fa-calendar"
-                                style="color: #23e7d9;"></i> Check-in date:
-                        </label>
-                        <input type="date" id="checkin-date" class="form-control" name="date-in" />
-                    </div>
-
-                    <div class="col-md-3">
-                        <label class="mb-2 title-color"><i class="fa-solid fa-moon "
-                                style="color: #FFD43B;"></i> Số đêm</label>
-                        <select class=" form-select" id="overnight" name="overnight">
-                            {% for i in range(1, 5) %}
-                            <option value="{{ i }}">{{ i }} đêm</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="check-out-date" class="mb-3 title-color">
-                            <i class="fa-solid fa-right-to-bracket" style="color: #B197FC;"></i> Check out
-                        </label>
-                        <div>
-                            <label for="checkout-date" id="current-date"></label>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3 justify-content-center p-0">
-                        <div class="col-md-3 text-center">
-                            <p class="title-color"> <i class="fa-solid fa-person" style="color: #f5600f;"></i>
-                                Số lượng khách</p>
-                            <select class="form-select" id="number-customer" name="number-customer">
-                                <option value="2">2</option>
-                                <option value="1">1</option>
-                                <option value="3">3</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-3 ">
-                            <p class="title-color"> <i class="fa-solid fa-bed" style="color: #e665d5;"></i> Loại
-                                phòng</p>
-                            <select class="form-select" id="type-room" name="type-room">
-                                <option value="Normal">
-                                    Normal</option>
-                                <option value="VIP">VIP
-                                </option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-6 text-center">
-                            <p class="mb-0"><br></p>
-                            <button type="button" id="search" class="btn col-md-6"
-                                style="background-color:#ff5e1e; color:antiquewhite">
-                                <i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i>
-                                Tìm phòng
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 <!-- Phần khuyến mãi -->
 <div class="container mt-5">
@@ -317,27 +241,27 @@
     <div class="row mt-3 container flask-room">
         <div class="card col-md-3 col-6 p-0" style="width:300px">
             <img class="card-img-top"
-                src="https://res.cloudinary.com/devtqlbho/image/upload/v1733131040/4_av2wxh.jpg"
+                src="{{ data['flash-sale']['room']['room1']['img'] }}"
                 alt="Card image">
             <div class="card-body">
-                <h4 class="card-title">Khách sạn </h4>
+                <h4 class="card-title">{{ data['flash-sale']['room']['room1']['title'] }}</h4>
                 <p class="mb-1">
-                    {% for i in range(1, 4) %}
+                    {% for i in range(1, 6) %}
                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                     {% endfor %}
                 </p>
-                <p class="card-text mb-0">Loại phòng: VIP</p>
+                <p class="card-text mb-0">Loại phòng: {{ data['flash-sale']['room']['room1']['type'] }}</p>
                 <div>
                     <span class="flask-rate"><i
                             class="fa-solid fa-umbrella"
-                            style="color: #09d396;"></i> 9.2</span>
-                    <span>Tuyệt vời</span>
-                    <span>(255 đánh giá)</span>
+                            style="color: #09d396;"></i> {{ data['flash-sale']['room']['room1']['Evaluate'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room1']['title'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room1']['rating-level'] }}</span>
                 </div>
                 <div class="flask-price">
-                    <span class="flask-price-old" class="flask-price-old">1,000,000
-                        đ</span>
-                    <span class="flask-price-sale">700,000
+                    <span class="flask-price-old" class="flask-price-old">{{ data['flash-sale']['room']['room1']['original-price'] }}
+                        VNĐ</span>
+                    <span class="flask-price-sale">{{ data['flash-sale']['room']['room1']['new-price'] }}
                         đ</span>
                 </div>
             </div>
@@ -345,84 +269,78 @@
 
         <div class="card col-md-3 col-6 p-0" style="width:300px">
             <img class="card-img-top"
-                src="https://res.cloudinary.com/devtqlbho/image/upload/v1733131040/4_av2wxh.jpg"
+                src="{{ data['flash-sale']['room']['room2']['img'] }}"
                 alt="Card image">
             <div class="card-body">
-                <h4 class="card-title">Khách sạn </h4>
+                <h4 class="card-title">{{ data['flash-sale']['room']['room2']['title'] }} </h4>
                 <p class="mb-1">
-                    {% for i in range(1, 4) %}
+                    {% for i in range(1, 6) %}
                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                     {% endfor %}
                 </p>
-                <p class="card-text mb-0">Loại phòng: VIP</p>
+                <p class="card-text mb-0">Loại phòng: {{ data['flash-sale']['room']['room2']['type'] }}</p>
                 <div>
                     <span  class="flask-rate"><i
                             class="fa-solid fa-umbrella"
-                            style="color: #09d396;"></i> 9.2</span>
-                    <span>Tuyệt vời</span>
-                    <span>(255 đánh giá)</span>
+                            style="color: #09d396;"></i> {{ data['flash-sale']['room']['room2']['Evaluate'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room2']['rating-level'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room2']['Number-reviews'] }}</span>
                 </div>
                 <div class="flask-price">
-                    <span class="flask-price-old">1,000,000
-                        đ</span>
-                    <span class="flask-price-sale">700,000
-                        đ</span>
+                    <span class="flask-price-old">{{ data['flash-sale']['room']['room2']['original-price'] }} VNĐ</span>
+                    <span class="flask-price-sale">{{ data['flash-sale']['room']['room2']['new-price'] }}VNĐ</span>
                 </div>
             </div>
         </div>
 
         <div class="card col-md-3 col-6 p-0" style="width:300px">
             <img class="card-img-top"
-                src="https://res.cloudinary.com/devtqlbho/image/upload/v1733131040/4_av2wxh.jpg"
+                src="{{ data['flash-sale']['room']['room3']['img'] }}"
                 alt="Card image">
             <div class="card-body">
-                <h4 class="card-title">Khách sạn </h4>
+                <h4 class="card-title">{{ data['flash-sale']['room']['room3']['title'] }}</h4>
                 <p class="mb-1">
-                    {% for i in range(1, 4) %}
+                    {% for i in range(1, 5) %}
                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                     {% endfor %}
                 </p>
-                <p class="card-text mb-0">Loại phòng: VIP</p>
+                <p class="card-text mb-0">Loại phòng: {{ data['flash-sale']['room']['room3']['type'] }}</p>
                 <div>
                     <span class="flask-rate"><i
                             class="fa-solid fa-umbrella"
-                            style="color: #09d396;"></i> 9.2</span>
-                    <span>Tuyệt vời</span>
-                    <span>(255 đánh giá)</span>
+                            style="color: #09d396;"></i> {{ data['flash-sale']['room']['room3']['Evaluate'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room3']['rating-level'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room3']['Number-reviews'] }}</span>
                 </div>
                 <div class="flask-price">
-                    <span class="flask-price-old">1,000,000
-                        đ</span>
-                    <span class="flask-price-sale">700,000
-                        đ</span>
+                    <span class="flask-price-old">{{ data['flash-sale']['room']['room3']['original-price'] }}VNĐ</span>
+                    <span class="flask-price-sale">{{ data['flash-sale']['room']['room3']['new-price'] }}VNĐ</span>
                 </div>
             </div>
         </div>
 
         <div class="card col-md-3 col-6 p-0" style="width:300px">
             <img class="card-img-top"
-                src="https://res.cloudinary.com/devtqlbho/image/upload/v1733131040/4_av2wxh.jpg"
+                src="{{ data['flash-sale']['room']['room4']['img'] }}"
                 alt="Card image">
             <div class="card-body">
-                <h4 class="card-title">Khách sạn </h4>
+                <h4 class="card-title">{{ data['flash-sale']['room']['room4']['title'] }}</h4>
                 <p class="mb-1">
-                    {% for i in range(1, 4) %}
+                    {% for i in range(1, 6) %}
                     <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                     {% endfor %}
                 </p>
-                <p class="card-text mb-0">Loại phòng: VIP</p>
+                <p class="card-text mb-0">Loại phòng: {{ data['flash-sale']['room']['room4']['type'] }}</p>
                 <div>
                     <span class="flask-rate"><i
                             class="fa-solid fa-umbrella"
-                            style="color: #09d396;"></i> 9.2</span>
-                    <span>Tuyệt vời</span>
-                    <span>(255 đánh giá)</span>
+                            style="color: #09d396;"></i>{{ data['flash-sale']['room']['room4']['Evaluate'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room4']['rating-level'] }}</span>
+                    <span>{{ data['flash-sale']['room']['room4']['Number-reviews'] }}</span>
                 </div>
                 <div class="flask-price">
-                    <span class="flask-price-old">1,000,000
-                        đ</span>
-                    <span class="flask-price-sale">700,000
-                        đ</span>
+                    <span class="flask-price-old">{{ data['flash-sale']['room']['room4']['original-price'] }}VNĐ</span>
+                    <span class="flask-price-sale">{{ data['flash-sale']['room']['room4']['new-price'] }}VNĐ</span>
                 </div>
             </div>
         </div>

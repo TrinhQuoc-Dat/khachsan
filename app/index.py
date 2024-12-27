@@ -9,11 +9,14 @@ import cloudinary
 import json
 from app import login
 from datetime import datetime, timedelta, date
-
+from app.models import User, Customer, UserRole, Employee, Booking, Room,StatusRoom, BookingDetail, RentalReceipt, Payment, RentalDetail
+from sqlalchemy import func,and_
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    with open(f'app/data/home.json', 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    return render_template('index.html', data = data)
 
 @app.route('/cart')
 @login_required
@@ -31,7 +34,7 @@ def reservation():
 
         customer = dao.search_customer(cccd)
         cart = session.get('cart')
-       
+
         if cart:
             stast = dao.count_cart(cart)
             if customer is None:
@@ -53,17 +56,16 @@ def reservation():
                     db.session.add(c)
                     db.session.commit()
                 bd = dao.add_bookingdetail(room_id=r['id'],
-                                           date_in=r['date_in'],
-                                           date_out=r['date_out'],
-                                           booking = booking,
-                                           customer = c)
+                                            date_in=r['date_in'],
+                                            date_out=r['date_out'],
+                                            booking = booking,
+                                            customer = c)
             session.pop('cart', None)
             return redirect('/reservation')
     
     booking = dao.get_booking(current_user.id)
     print(booking)
     return render_template('reservation.html', booking=booking)
-
 
 @app.route('/login-admin', methods=['post'])
 def singin_admin():
@@ -90,22 +92,21 @@ def search_room():
     date_in = date_obj.strftime('%Y-%m-%d')
 
     try:
-         rooms = dao.get_room_search(name_room=name,
+        rooms = dao.get_room_search(name_room=name,
                                 date_in=date_in,
                                 date_out=date_out,
                                 type_room=type_room)
     
-         rooms = [room.to_dict() for room in rooms]
-         if rooms:
-             return jsonify({'code': 200, 'rooms': rooms})
-         else:
-             return jsonify({'code': 404, 'error': 'No rooms found'})
+        rooms = [room.to_dict() for room in rooms]
+        if rooms:
+            return jsonify({'code': 200, 'rooms': rooms})
+        else:
+            return jsonify({'code': 404, 'error': 'No rooms found'})
     except Exception as ex:
         return jsonify({
             'code': 500, 
             'error' : str(ex)
         })
-
 
 @app.route('/api/add-room-cart', methods=['post'])
 @login_required
@@ -146,7 +147,6 @@ def add_room_cart():
     session['cart'] = cart
     return jsonify({'code': 300, 'mess': dao.count_cart(cart)})
 
-
 @app.route('/api/delete-room', methods=["post"])
 def delete_room_cart():
     id = request.json.get('id')
@@ -156,7 +156,6 @@ def delete_room_cart():
         session['cart'] = cart
         print(cart)
     return jsonify({'mess': dao.count_cart(cart)})
-
 
 @app.route('/api/delete-booking-detail/<int:id>', methods=['delete'])
 @login_required
@@ -182,8 +181,6 @@ def search_customer():
     except Exception as ex:
         return jsonify({'code ': 500, 'error': str(ex)})
     
-
-
 @app.route('/api/lap-phieu-thue-phong', methods=['post'])
 @login_required
 def rental_room():
@@ -219,8 +216,6 @@ def rental_room():
         except Exception as ex:
             print("Error occurred:", ex)
             return jsonify({'code': 500, 'error': 'Lỗi Server!!!'})
-       
-
 
 @app.route('/api/search-rental', methods=['post'])
 def search_rental():
@@ -248,7 +243,6 @@ def search_rental():
     except Exception as ex:
         return jsonify({'code': 500, 'error': "Lỗi server!!!"})
 
-
 @app.route('/api/payment', methods=['post'])
 def payment():
     if request.method.__eq__('POST'):
@@ -264,7 +258,6 @@ def payment():
                 return jsonify({'code': 200})
         except Exception as ex:
             return jsonify({'code': 500, 'error': "Lỗi Server!!!"})
-
 
 @app.route('/api/search-room-rental', methods=['post'])
 @login_required
@@ -285,7 +278,6 @@ def search_room_rental():
                 return jsonify({'code': 400, 'mess': 'Hết phòng!!!'})
         except Exception as ex:
             return jsonify({'code': 500, 'mess': 'Lỗi server!!!'})
-            
 
 @app.route('/api/add-rental-receipt', methods=['post'])
 @login_required
@@ -333,7 +325,6 @@ def add_rental_receipts():
             return jsonify({'code': 200})
         except Exception as ex:
             return jsonify({'code': 500, 'mess': 'Lỗi server!!!'})
-
 
 @app.route('/login', methods=['post', 'get'])
 def login():
@@ -392,24 +383,52 @@ def check_username():
     else:
         return jsonify({'code': 200})
 
-@app.route('/admin/revenueReport', methods=['GET'])
-def revenue_report():
-    return render_template('admin/revenueReport.html')
+@app.route('/api/revenue', methods=['POST'])
+def revenueStats_by_time():
+    data = request.get_json()
+    stats = dao.revenue_stats_Room(month=data.get('month'), year=data.get('year'))
+    return jsonify({
+        "normal": stats[0],
+        "vip": stats[1]
+    })
 
-@app.route('/admin/densityReport', methods=['GET'])
-def density_report():
-    return render_template('admin/densityReport.html')
+@app.route('/api/frequency', methods=['POST'])
+def frequency_by_time():
+    # Lấy dữ liệu từ request
+    data = request.get_json()
 
+    month = data.get('month', datetime.now().month)  # Nếu không có tháng, sử dụng tháng hiện tại
+    year = data.get('year', datetime.now().year)  # Nếu không có năm, sử dụng năm hiện tại
 
-@app.route('/admin/thong_ke', methods=['GET'])
-def statistics():
-    return render_template('admin/statistics.html')
+    # Gọi hàm thống kê
+    stats = dao.frequency_stats_Room(month=month, year=year)
+
+    result = [
+        {
+            'stt': index + 1,
+            'room_id': row["room_id"],
+            'room_name': row["room_name"],
+            'days_rented': row["days_rented"],
+            'usage_rate': row["usage_rate"]
+        }
+        for index, row in enumerate(stats)
+    ]
+    return jsonify(result)
+
+@app.route('/admin/frequencyStats', methods=['GET'])
+def frequencyStats():
+    return render_template('admin/frequencyStats.html')
+
+@app.route('/api/overview', methods=['GET']) 
+def overView():
+    stats = dao.revenue_by_month()
+    data = [{'month': int(s[0]), 'revenue': float(s[1])} for s in stats]
+    return jsonify(data)
 
 @app.context_processor
 def common_response():
     return {
         "cart_stats": dao.count_cart(session.get('cart'))
-
     }
 
 @app.route('/sign-out')
@@ -426,11 +445,11 @@ def booking():
     has_next = page < end
 
     return render_template('booking.html', 
-                           rooms = dao.get_rooms(page=page), 
-                           pages=end,
-                           page=page,
-                           has_next=has_next,
-                           has_prev=has_prev)
+                            rooms = dao.get_rooms(page=page), 
+                            pages=end,
+                            page=page,
+                            has_next=has_next,
+                            has_prev=has_prev)
 
 
 # // http://127.0.0.1:5000/booking-detail=1
@@ -442,12 +461,11 @@ def booking_detail(hotel_id):
             room = dao.get_room_id(hotel_id)
             with open(f'app/data/hotel1.json', 'r', encoding='utf-8') as file:
                 hotel_data = json.load(file)
-        except FileNotFoundError:
-            return f"Không tìm thấy dữ liệu cho khách sạn có ID {hotel_id}", 404
+        except Exception as ex:
+            return f"Không tìm thấy phòng có ID là {{ hotel_id }}" + hotel_id
     else:
         hotel_data = {} 
     return render_template('bookingDetail.html', hotel=hotel_data, room=room)
-
 
 if __name__ == '__main__':
     from app.admin import *

@@ -8,6 +8,8 @@
 
 {% block js %}
 <script src="../static/js/likeComment.js"></script>
+<script src="{{ url_for('static', filename='js/loadRoomPrice.js') }}"></script>
+<script>loadRoomPrice(1);</script>
 {% endblock %}
 
 {% block content %}
@@ -234,9 +236,15 @@
                     </button>
                 </div>
                 <hr>
-                <div class="d-flex justify-content-around">
-                    <p>Vị trí tuyệt vời</p>
-                    <span>9,0</span>
+                <div class="d-flex justify-content-around ">
+                    <div id="rooms-container " class="d-flex align-items-center">
+                        <div>
+                            <h5>Giá phòng:  </h5>
+                        </div>
+                        <div>
+                            <h4 class="text-danger">{{ '{:,.0f}'.format(room['price']) }} VND</h4>    
+                        </div>
+                    </div>
                 </div>
                 <hr class="m-2">
 
@@ -257,11 +265,9 @@
                 <hr>
 
                 <div class="container text-center ">
-                    <button type="button" class="btn booking-now mt-2">Đặt
-                        Ngay</button>
+                    <button type="button" class="btn booking-now mt-2">Đặt Ngay</button>
                 </div>
             </div>
-
         </div>
         <!-- end thông tin tổng quan phòng -->
     </div>
@@ -469,7 +475,53 @@
     <!-- end tổng quan đánh giá -->
 
     <!-- bình luận của khách hàng  -->
+
+    <div class="container row">
+        <div class="col-md-3 col-xs-12 d-flex align-items-center">
+            <div>
+                {% if current_user.avatar %}
+                <img class="rounded-circle" src="{{ current_user.avatar }}" width="150px" alt="{{ current_user.username }}"/>
+                {% else %}
+                <img src="{{ current_user.avatar }}" width="50px" alt="{{ current_user.username }}"/>
+                {% endif %}
+            </div>
+            <div class="ms-3">
+                <h6>{{ current_user.username }}</h6>
+            </div>
+        </div>
+        <div class="col-md-9 col-xs-12">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Nhập title của bình luận: </label>
+                <input type="email" class="form-control" id="title-new" aria-describedby="emailHelp" placeholder="Nhập title...">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Nội dung bình luận</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Đánh giá sao 5 <i class="fa-solid fa-star" style="color: #FFD43B;"></i></label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option selected value="5">5</option>
+                </select>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <div></div>
+                <div>
+                    <input type="button" value="Bình luận" class="btn btn-danger" />
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
+        
+        
+
+
+
         {% for i in range(6) %}
         <div class="row d-flex align-items-center mt-3 p-3"
             style="border-bottom: 1px solid #cfd8e8;">

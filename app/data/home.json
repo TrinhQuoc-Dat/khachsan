@@ -1,0 +1,47 @@
+{
+      "flash-sale": {
+            "room": {
+                  "room1": {
+                        "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733131040/4_av2wxh.jpg",
+                        "title": "Phòng Ánh Trăng",
+                        "type": "VIP",
+                        "Evaluate": "9.2",
+                        "rating-level": "Tuyệt vời",
+                        "Number-reviews": "(255 đánh giá)",
+                        "original-price": "1,000,000",
+                        "new-price": "700,000"
+                  },
+                  "room2": {
+                        "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733131009/5_kojpoq.jpg",
+                        "title": "Phòng Hoa Đào",
+                        "type": "VIP",
+                        "Evaluate": "9.5",
+                        "rating-level": "Tuyệt vời",
+                        "Number-reviews": "(199 đánh giá)",
+                        "original-price": "1,200,000",
+                        "new-price": "800,000"
+                  },
+                  "room3": {
+                        "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733131039/1_mmwzk4.jpg",
+                        "title": "Phòng Bình Minh",
+                        "type": "NORMAL",
+                        "Evaluate": "8.7",
+                        "rating-level": "Tốt",
+                        "Number-reviews": "(488 đánh giá)",
+                        "original-price": "700,000",
+                        "new-price": "450,000"
+                  },
+                  "room4": {
+                        "img": "https://res.cloudinary.com/devtqlbho/image/upload/v1733131009/1_pbyxs2.jpg",
+                        "title": "Phòng Gió Mát",
+                        "type": "NORMAL",
+                        "Evaluate": "9.3",
+                        "rating-level": "Tuyệt vời",
+                        "Number-reviews": "(490 đánh giá)",
+                        "original-price": "630,000",
+                        "new-price": "380,000"
+                  }
+            
+            }
+      }
+}
