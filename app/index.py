@@ -442,7 +442,7 @@ def booking():
                             has_next=has_next,
                             has_prev=has_prev)
 
-@app.route('/booking-detail=<int:hotel_id>', methods=['GET', 'POST'])
+@app.route('/booking-detail/<int:hotel_id>', methods=['GET', 'POST'])
 def booking_detail(hotel_id=None):
     if hotel_id:
         try:
